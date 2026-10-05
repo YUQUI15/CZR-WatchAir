@@ -72,7 +72,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
     val filter = state.filter
     Scaffold(
         contentWindowInsets = NestedTabInsets,
-        topBar = { NestedTopBar("Filters") },
+        topBar = { NestedTopBar("Filtros") },
     ) { pad ->
         Column(
             Modifier

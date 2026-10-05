@@ -125,31 +125,31 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Night mode", Modifier.weight(1f))
+                Text("Modo nocturno", Modifier.weight(1f))
                 FieldwatchSwitch(settings.nightMode, { on -> vm.updateSettings { it.copy(nightMode = on) } })
             }
             Text(
-                "Off by default. Red-on-black field display so chips, text, and signal marks " +
-                    "do not dump green or blue into a dark sit. Background stays dark. " +
-                    "Phone brightness is unchanged.",
+                "Apagado por defecto. Pantalla en rojo sobre negro para que marcas y textos " +
+                    "no arrojen brillo verde o azul en la oscuridad. El fondo se mantiene oscuro. " +
+                    "El brillo del teléfono no cambia.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Keep screen on", Modifier.weight(1f))
+                Text("Mantener pantalla encendida", Modifier.weight(1f))
                 FieldwatchSwitch(settings.keepScreenOn, { on -> vm.updateSettings { it.copy(keepScreenOn = on) } })
             }
             Text(
-                "On by default. Stops the display from sleeping while Fieldwatch is open so BLE is not parked when the phone blanks. Scanning still runs in the notification if you leave the app. Turn it off when you pocket the phone.",
+                "Encendido por defecto. Evita que la pantalla se apague mientras CZR WatchAir está abierto para no detener BLE. El escaneo sigue en segundo plano. Apáguelo al guardarlo en el bolsillo.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Privacy mode", Modifier.weight(1f))
+                Text("Modo privacidad", Modifier.weight(1f))
                 FieldwatchSwitch(settings.demoMode, { on -> vm.updateSettings { it.copy(demoMode = on) } })
             }
             Text(
-                "Hides the last three octets of every MAC on Live, radar, timeline, detail, Hunt, Named radios, and watchlist cards as **:**:** so the screen and sit reports do not show full addresses. GPS last-fix and Debrief / AI Export / detail Share coordinates become “masked”; street names are omitted from those sit reports. The first three octets (OUI / vendor prefix) stay. Off by default. The map on Reports → Path still loads when Online place names and maps is on. Logs, matching, filters, Hunt math, Moving with you, and saved signatures still use the real MAC and GPS. A TAK / CoT feed, if you turned it on, is paused while this is on so full MACs and coordinates are not sent onto the LAN. Turn this off when you need the full address or coordinates on screen.",
+                "Oculta los últimos tres octetos de cada MAC en reportes y listas como **:**:**. Las coordenadas exportadas en informes se 'enmascaran'. Los registros, la búsqueda y la trilateración siguen usando la MAC real internamente. Apagado por defecto.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -157,9 +157,9 @@ fun SettingsScreen(
 
             SectionCard("Escaneando") {
             val label = when (settings.intensity) {
-                ScanIntensity.SAVER -> "Battery saver"
+                ScanIntensity.SAVER -> "Ahorro de batería"
                 ScanIntensity.BALANCED -> "Balanced"
-                ScanIntensity.PERFORMANCE -> "High performance"
+                ScanIntensity.PERFORMANCE -> "Alto rendimiento"
             }
             Text("Intensidad de escaneo  ·  $label")
             FieldwatchSlider(
@@ -172,15 +172,15 @@ fun SettingsScreen(
                 steps = 1,
             )
             Text(
-                "Wi-Fi is a batch radio: the phone grabs every AP at once, then must wait. High performance asks about every 30s — that is the fastest cadence that stays under the OS limit of four scans per two minutes. BLE still streams in between.",
+                "Wi-Fi se escanea por lotes: Alto rendimiento pide escaneos cada ~30s (el límite de Android es 4 cada 2 minutos). BLE fluye entre medio.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             StableCaption(
                 state.throttleHint.ifBlank { " " },
-                "Wi-Fi waiting on OS",
-                "Wi-Fi scanning",
-                "Wi-Fi next 99s",
+                "Wi-Fi esperando al SO",
+                "Escaneo Wi-Fi",
+                "Wi-Fi próx 99s",
                 " ",
             )
 
@@ -203,7 +203,7 @@ fun SettingsScreen(
             }
             val fastActive = settings.wifiFastScan && !osThrottled
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Faster Wi-Fi AP scans", Modifier.weight(1f))
+                Text("Escaneos Wi-Fi más rápidos", Modifier.weight(1f))
                 FieldwatchSwitch(
                     checked = settings.wifiFastScan,
                     onCheckedChange = { on ->
@@ -220,18 +220,18 @@ fun SettingsScreen(
             StableCaption(
                 when {
                     Build.VERSION.SDK_INT < 30 ->
-                        "Needs Android 11+ so Fieldwatch can read whether the OS is still throttling scans. This phone cannot confirm that, so the switch stays off."
+                        "Necesita Android 11+ para leer la limitación de escaneo Wi-Fi."
                     fastActive ->
                         "On. Fieldwatch asks for a new AP list about every 8 seconds. Uses more battery and heat. If the OS starts refusing scans, it backs off."
                     settings.wifiFastScan && osThrottled ->
-                        "Saved on, but not in effect — Android Wi-Fi scan throttling is still on. Turn that off in Developer options, then return here."
+                        "Guardado pero sin efecto — la limitación Wi-Fi sigue encendida en Desarrollador."
                     else ->
-                        "Stock Android allows about four AP scans per two minutes. Faster scans only run after you turn off Wi-Fi scan throttling in Developer options. Fieldwatch checks that OS switch before turning this on, and cannot change it for you."
+                        "Android de fábrica permite ~4 escaneos Wi-Fi en 2 min. Esto solo funciona tras apagar 'Limitación de escaneo Wi-Fi' en Opciones de Desarrollador. La app solo verifica ese estado, no puede cambiarlo por usted."
                 },
-                "Needs Android 11+ so Fieldwatch can read whether the OS is still throttling scans. This phone cannot confirm that, so the switch stays off.",
+                "Necesita Android 11+ para leer la limitación de escaneo Wi-Fi.",
                 "On. Fieldwatch asks for a new AP list about every 8 seconds. Uses more battery and heat. If the OS starts refusing scans, it backs off.",
-                "Saved on, but not in effect — Android Wi-Fi scan throttling is still on. Turn that off in Developer options, then return here.",
-                "Stock Android allows about four AP scans per two minutes. Faster scans only run after you turn off Wi-Fi scan throttling in Developer options. Fieldwatch checks that OS switch before turning this on, and cannot change it for you.",
+                "Guardado pero sin efecto — la limitación Wi-Fi sigue encendida en Desarrollador.",
+                "Android de fábrica permite ~4 escaneos Wi-Fi en 2 min. Esto solo funciona tras apagar 'Limitación de escaneo Wi-Fi' en Opciones de Desarrollador. La app solo verifica ese estado, no puede cambiarlo por usted.",
             )
             if (needDevOptions) {
                 AlertDialog(
@@ -240,10 +240,10 @@ fun SettingsScreen(
                     text = {
                         Text(
                             if (Build.VERSION.SDK_INT < 30) {
-                                "This phone is older than Android 11, so Fieldwatch cannot read the OS Wi-Fi scan-throttle switch. Faster AP scanning stays off."
+                                "Este teléfono es anterior a Android 11, por lo que CZR WatchAir no puede leer el estado de limitación Wi-Fi."
                             } else {
-                                "Android is still throttling Wi-Fi scans (about four per two minutes). Fieldwatch will not turn Faster Wi-Fi AP scans on until that is off.\n\n" +
-                                    "Enable Developer options (tap Build number seven times in About phone), then Settings → Developer options → Wi-Fi scan throttling → Off. Come back and flip this switch again."
+                                "Android aún está limitando escaneos Wi-Fi. La app no habilitará escaneos rápidos hasta apagar esto.\\n\\n" +
+                                    "Habilite Opciones de Desarrollador, y apague Limitación de Búsqueda Wi-Fi. Vuelva aquí después."
                             },
                         )
                     },
@@ -269,30 +269,30 @@ fun SettingsScreen(
                 )
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Allow background usage", Modifier.weight(1f))
+                Text("Uso en segundo plano", Modifier.weight(1f))
                 FieldwatchSwitch(
                     checked = backgroundAllowed,
                     onCheckedChange = { batteryGate = BatteryAndroidGate.BACKGROUND },
                 )
             }
             Text(
-                "Mirrors Android Allow background usage. Tap to open Fieldwatch’s Battery page and " +
-                    "use that switch. Fieldwatch updates when you return. Off: the OS can kill the scan " +
-                    "as soon as you leave. Not Keep screen on.",
+                "Refleja Permitir uso en segundo plano de Android. " +
+                    "Use el interruptor. Apagado: el SO puede matar la app " +
+                    "tan pronto salga de ella.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Unrestricted battery", Modifier.weight(1f))
+                Text("Batería sin restricciones", Modifier.weight(1f))
                 FieldwatchSwitch(
                     checked = unrestricted,
                     onCheckedChange = { batteryGate = BatteryAndroidGate.UNRESTRICTED },
                 )
             }
             Text(
-                "Mirrors Android Unrestricted (not Optimized). Some phones (Samsung among them) do not " +
-                    "open onto that choice. If you only see Allow background usage, tap that row to " +
-                    "click through and select Unrestricted. Fieldwatch updates when you return.",
+                "Refleja el ajuste Sin restricciones de Android. Algunos teléfonos no " +
+                    "abren esa opción directo. Si ve 'Permitir en segundo plano', toque " +
+                    "y seleccione Sin restricciones. La app se actualiza al regresar.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -301,18 +301,18 @@ fun SettingsScreen(
                 AlertDialog(
                     onDismissRequest = { batteryGate = null },
                     title = {
-                        Text(if (background) "Allow background usage" else "Unrestricted battery")
+                        Text(if (background) "Uso en segundo plano" else "Batería sin restricciones")
                     },
                     text = {
                         Text(
                             if (background) {
-                                "The next screen is Fieldwatch’s Battery page. Use the Allow background usage switch. " +
-                                    "Fieldwatch will match that setting when you return."
+                                "La siguiente es la página de Batería. Active el interruptor de segundo plano. " +
+                                    "La app se actualizará cuando regrese."
                             } else {
-                                "Some phones (Samsung among them) do not open onto Unrestricted / " +
+                                "Algunos teléfonos no abren directo en Sin Restricciones. " +
                                     "Optimized / Restricted. If you only see Allow background usage, " +
-                                    "tap that row (the words, not the blue switch) to click through, " +
-                                    "then select Unrestricted. Fieldwatch will match that when you return."
+                                    "Toque la fila (las palabras, no el interruptor) " +
+                                    "y luego seleccione Sin restricciones."
                             },
                         )
                     },
@@ -337,11 +337,11 @@ fun SettingsScreen(
 
             SectionCard("Lista de vigilancia") {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Watchlist alerts", Modifier.weight(1f))
+                Text("Alertas de vigilancia", Modifier.weight(1f))
                 FieldwatchSwitch(settings.alertsEnabled, { on -> vm.updateSettings { it.copy(alertsEnabled = on) } })
             }
             Text(
-                "On by default. Master switch for bookmarked signatures and devices. Off: no beep, vibration, flash, jump, or shade card. Bookmarking still works — you just will not be told when that radio appears.",
+                "Encendido por defecto. Interruptor maestro para alertas. Apagado: no hay pitido ni flash. Los marcadores seguirán funcionando pero sin notificaciones.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -351,12 +351,12 @@ fun SettingsScreen(
                 modifier = Modifier.fillMaxWidth(),
             ) { Text("Radios nombradas ($radioWatchN)") }
             Text(
-                "Custom names for one MAC. Alert is optional. Filters → Named radios only shows them on Live. Signature watches stay on Signatures.",
+                "Nombres personalizados para una MAC. La alerta es opcional. Filtros → Radios nombradas las muestra.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Beep on watched signature", Modifier.weight(1f))
+                Text("Pitido en firmas vigiladas", Modifier.weight(1f))
                 FieldwatchSwitch(
                     settings.alertBeep,
                     { on -> vm.updateSettings { it.copy(alertBeep = on) } },
@@ -364,12 +364,12 @@ fun SettingsScreen(
                 )
             }
             Text(
-                "The double pip on media volume when a bookmarked signature or device first appears, or returns after leaving. Sitting detections do not beep again. Independent of Voice — use beep, voice, or both. Raise media volume if you hear nothing, then tap Test alert.",
+                "Doble pitido en el volumen multimedia cuando aparece una radio vigilada. Detecciones quietas no vuelven a sonar. Independiente de la voz. Suba el volumen si no escucha.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Voice on watched signature", Modifier.weight(1f))
+                Text("Voz en firmas vigiladas", Modifier.weight(1f))
                 FieldwatchSwitch(
                     settings.alertVoice,
                     { on -> vm.updateSettings { it.copy(alertVoice = on) } },
@@ -377,11 +377,11 @@ fun SettingsScreen(
                 )
             }
             Text(
-                "On by default. Speaks on the same media volume as the pip. Independent of Beep: with Beep on, voice follows the pip; with Beep off, voice only. Not Hunt. If a phrase is already being spoken, a second hit is skipped. Phones with no text-to-speech still beep if Beep is on.",
+                "Encendido por defecto. Habla en el volumen multimedia. Independiente del pitido. Si ya se está hablando, la segunda voz se salta.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            Text("What to say", style = MaterialTheme.typography.labelLarge)
+            Text("Qué decir", style = MaterialTheme.typography.labelLarge)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 AlertVoiceWhat.entries.forEach { item ->
                     FieldwatchFilterChip(
@@ -403,7 +403,7 @@ fun SettingsScreen(
                 enabled = settings.alertsEnabled && (settings.alertBeep || settings.alertVoice),
             ) { Text("Alerta de prueba") }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Jump to new watched detection", Modifier.weight(1f))
+                Text("Saltar a nueva detección", Modifier.weight(1f))
                 FieldwatchSwitch(
                     settings.snapToBeep,
                     { on -> vm.updateSettings { it.copy(snapToBeep = on) } },
@@ -411,12 +411,12 @@ fun SettingsScreen(
                 )
             }
             Text(
-                "When a new watched signature or device appears, Live scrolls to that row so you can see the flash. Works with beep, voice, or both. Weak hits sit at the bottom of a strength-ranked list. Turn this off if you do not want the list to move.",
+                "Cuando aparece una nueva alerta, la vista En vivo se desplaza a ella para que la vea. Funciona con pitido/voz. Apague si no desea que la lista salte sola.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("System notification", Modifier.weight(1f))
+                Text("Notificación del sistema", Modifier.weight(1f))
                 FieldwatchSwitch(
                     settings.alertShade,
                     { on -> vm.updateSettings { it.copy(alertShade = on) } },
@@ -424,7 +424,7 @@ fun SettingsScreen(
                 )
             }
             Text(
-                "Optional. Posts a silent shade card when a watched radio appears. Off by default — the beep and flash are enough, and skipping the card keeps the scan loop lighter.",
+                "Opcional. Muestra una notificación silenciosa cuando aparece una radio vigilada. Apagado por defecto.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -432,28 +432,28 @@ fun SettingsScreen(
 
             SectionCard("Ubicación") {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Tag detections with GPS", Modifier.weight(1f))
+                Text("Etiquetar con GPS", Modifier.weight(1f))
                 FieldwatchSwitch(settings.tagLocation, { on -> vm.updateSettings { it.copy(tagLocation = on) } })
             }
             Text(
-                "On by default. Requests live GPS/network updates and stamps each hear (Live detail, Moving with you, " +
-                    "Debrief, and lat/lon on new log rows). Last-known-only is ignored if older than 30 s. " +
-                    "That is your GPS at hear-time, not an independent fix on the other radio. " +
-                    "Use high-accuracy Location or the path stays 0. Turn off if you do not want operator coordinates on logs. " +
-                    "Heard-here TAK pins also need this; advertised payload coordinates (Remote ID) do not.",
+                "Encendido por defecto. Pide GPS en vivo y sella cada detección (Detalles, Rastreo, " +
+                    "Informes y archivos). Se ignora el último conocido si tiene más de 30s." +
+                    "Ese es su GPS en ese momento, no de la otra radio." +
+                    "Use Ubicación de alta precisión. Apague si no desea registrar coordenadas del operador." +
+                    "Los marcadores TAK necesitan esto; las coordenadas anunciadas (Remote ID) no.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Online place names and maps", Modifier.weight(1f))
+                Text("Nombres y mapas en línea", Modifier.weight(1f))
                 FieldwatchSwitch(settings.onlineLookup, { on -> vm.updateSettings { it.copy(onlineLookup = on) } })
             }
             Text(
-                "On by default. When the phone has internet, Debrief / AI Export reverse-geocode GPS stamps " +
-                    "to street/city, and Reports → Path loads OpenStreetMap tiles under the trace. " +
+                "Encendido por defecto. Con internet, Informe / Exportar IA usa nombres de lugares reales " +
+                    "y muestra mapas en la ruta. " +
                     "No Fieldwatch cloud, no API key. Offline or no geocoder: Debrief uses coordinates only and Path stays the current north-up trace — no error dialog. " +
-                    "Turn off to keep streets and map tiles out of reports and Path. " +
-                    "Debrief, Sit export, Log export, and Reset / clear log are on the Reports tab.",
+                    "Apáguelo para mantener las calles fuera de los reportes." +
+                    "Exportaciones, Informes y Limpiar registro están en la pestaña Reportes.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -461,20 +461,20 @@ fun SettingsScreen(
 
             SectionCard("TAK / CoT") {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("TAK / CoT feed", Modifier.weight(1f))
+                Text("Salida TAK / CoT", Modifier.weight(1f))
                 FieldwatchSwitch(settings.takEnabled, { on -> vm.updateSettings { it.copy(takEnabled = on) } })
             }
             Text(
-                "Off by default. Sends Cursor-on-Target UDP markers to ATAK, WinTAK, or iTAK. " +
+                "Apagado por defecto. Envía CoT UDP a ATAK, WinTAK, o iTAK." +
                     "This phone (${TakDefaults.LOOPBACK}:${TakDefaults.PORT}) is ATAK CIV on this handset. " +
                     "LAN multicast is ${TakDefaults.SA_HOST}:${TakDefaults.SA_PORT}. " +
-                    "Custom is a unicast IPv4 or hostname. UDP only — a TAK server’s TCP 8087 is not this feed. " +
-                    "Heard-here pins sit at this phone’s GPS at the loudest hear (closest approach) and are labeled (here). " +
-                    "Walking away does not drag the pin; a louder hear moves it. Keep-alives refresh the same lat/lon every ~10 s so ATAK does not drop it. " +
-                    "Advertised lat/lon (stock Remote ID) sit on the aircraft; the same Remote ID " +
-                    "keeps one marker that moves (UAS ID, not the rotating BLE MAC). " +
-                    "A decoded pilot location is a second pin. Gone radios are dropped on ATAK instead of sitting 120 s. " +
-                    "Tap a marker in ATAK for remarks (name, MAC, RSSI, signatures). " +
+                    "Personalizado es un IPv4 o dominio (solo UDP)." +
+                    "Puntos de Escuchado-Aquí se sitúan en el GPS del teléfono con el registro más fuerte y la etiqueta (here)." +
+                    "Alejarse no arrastra el marcador; una escucha más fuerte lo mueve." +
+                    "Lat/lon anunciada (Remote ID de fábrica) se ubican en la aeronave." +
+                    "mantiene un marcador que se mueve." +
+                    "Una ubicación decodificada del piloto es un segundo punto." +
+                    "Toque un marcador en ATAK para más observaciones (nombre, RSSI)." +
                     "Not direction-finding. Not a Remote ID plugin. Privacy mode pauses the feed.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -493,20 +493,20 @@ fun SettingsScreen(
 
             SectionCard("Logging") {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Write detections to disk", Modifier.weight(1f))
+                Text("Guardar detecciones en disco", Modifier.weight(1f))
                 FieldwatchSwitch(settings.loggingEnabled, { on -> vm.updateSettings { it.copy(loggingEnabled = on) } })
             }
             StableCaption(
                 if (settings.loggingEnabled) {
-                    "Logging is on. New detections are appended to the rotating file."
+                    "El registro está encendido. Las nuevas detecciones se guardan en el archivo rotativo."
                 } else {
-                    "Logging is off. Scanning still runs; nothing new is written until you turn this back on."
+                    "El registro está apagado. El escaneo sigue, pero no se guarda nada hasta encenderlo."
                 },
-                "Logging is on. New detections are appended to the rotating file.",
-                "Logging is off. Scanning still runs; nothing new is written until you turn this back on.",
+                "El registro está encendido. Las nuevas detecciones se guardan en el archivo rotativo.",
+                "El registro está apagado. El escaneo sigue, pero no se guarda nada hasta encenderlo.",
             )
             Text(
-                "The rotating file is JSON lines (one hear per line). Reports → Log → Format writes CSV, JSON lines, GPX, KML, or WiGLE when you Share or Save.",
+                "El archivo es JSON lines. Reportes → Formato exportará CSV o GPX al Guardar o Compartir.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -549,7 +549,7 @@ fun SettingsScreen(
             StickyHeight("log-stats") {
                 Text(
                     "${state.logLines} lines this session  ·  ${vm.logBytes() / 1024} KB on disk. " +
-                        "Share, Save, and Reset / clear log are on the Reports tab.",
+                        "Compartir, Guardar y Limpiar registro están en Reportes.",
                     style = MaterialTheme.typography.bodySmall,
                 )
             }
@@ -557,7 +557,7 @@ fun SettingsScreen(
 
             SectionCard("Firmas") {
             Text(
-                "Export the catalog (stock plus any you added or edited) to share with another Fieldwatch or as a backup. Import adds new rows and extra rules; it does not delete anything. Same id or the same match rules are skipped so a pack can be imported twice. Update stock catalog from GitHub replaces stock rows (including Extra attention) from the v2 pack on the repo; bookmarks, Settings, and signatures you added stay. Needs internet. Offline: Import signatures from a file. Restore defaults below still wipes customs.",
+                "Exporta el catálogo para respaldar. Importar añade pero no borra. Actualizar catálogo reemplaza las filas de fábrica desde GitHub (requiere internet).",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -588,12 +588,12 @@ fun SettingsScreen(
             }
             }
 
-            SectionCard("Settings backup") {
+            SectionCard("Respaldo de ajustes") {
             Text(
-                "Settings switches, the current filter, filter presets, named radios, and signature watches. " +
-                    "Not the catalog — that is Export signatures. Not logs or GPS. " +
+                "Ajustes, filtros, nombres personalizados y firmas vigiladas. " +
+                    "No el catálogo, eso es Exportar firmas. Tampoco los registros de GPS." +
                     "Import replaces those on this phone; the catalog stays. " +
-                    "Use this after a factory reset or on a new phone.",
+                    "Utilice esto después de reiniciar de fábrica o en un teléfono nuevo.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -618,7 +618,7 @@ fun SettingsScreen(
                 modifier = Modifier.fillMaxWidth(),
             ) { Text("Mostrar tour En vivo") }
             Text(
-                "Chrome overlay on Live: Tune is Display (Radar, list, By class), Pause, Filters, Signatures, Reports, Settings. First-run after the license; this button shows it again.",
+                "Guía en pantalla en vivo: Configuración de vista, Filtros, Firmas, Reportes. Este botón lo muestra de nuevo.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -629,8 +629,8 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Text(
-                "Passive Wi-Fi + BLE only. " +
-                    "Stock Android cannot promiscuously capture Wi-Fi stations; access points and BLE advertisers are what the radios expose.",
+                "Solo Wi-Fi Pasivo + BLE." +
+                    "Android de fábrica no puede capturar estaciones Wi-Fi de forma promiscua; solo APs y BLE.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -645,7 +645,7 @@ fun SettingsScreen(
             }
             Text(
                 if (ipv4.isEmpty()) {
-                    "This phone’s IPv4  ·  none"
+                    "IPv4 del teléfono · ninguno"
                 } else {
                     "This phone’s IPv4  ·  ${ipv4.joinToString("  ·  ")}"
                 },
@@ -663,10 +663,10 @@ fun SettingsScreen(
             title = { Text("¿Restaurar predeterminados?") },
             text = {
                 Text(
-                    "Rewrites the catalog (stock rows, class colors, Decode fields), stock bookmarks, " +
-                        "stock filter chips, and default Settings switches. Custom signatures and chips you " +
-                        "saved are wiped. Export signatures and Export settings first if you want a backup. " +
-                        "This cannot be undone.",
+                    "Reescribe el catálogo, marcadores de fábrica, " +
+                        "filtros, y opciones por defecto. Firmas y filtros personalizados " +
+                        "se borrarán. Exporte primero si desea un respaldo. " +
+                        "Esta acción es irreversible.",
                 )
             },
             confirmButton = {
@@ -696,7 +696,7 @@ private fun CreditFooter() {
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(
-            "Copyright (c) 2026 Off Grid Pete LLC. All rights reserved.",
+            "Copyright (c) 2026 Off Grid Pete LLC. Adaptado para CZR WatchAir.",
             style = MaterialTheme.typography.labelSmall,
             color = muted,
         )
@@ -792,7 +792,7 @@ private fun TakFeedSettings(settings: AppSettings, vm: FieldwatchViewModel, stat
     Text(
         "This phone: ${TakDefaults.LOOPBACK}:${TakDefaults.PORT} (ATAK CIV on this handset). " +
             "LAN multicast: ${TakDefaults.SA_HOST}:${TakDefaults.SA_PORT} (other ATAKs on this Wi-Fi). " +
-            "Custom: type a unicast IPv4 or hostname. UDP only. A TAK server’s TCP 8087 is not this feed. " +
+            "Personalizado es un IPv4 o dominio (solo UDP)." +
             "If This phone does not plot, use Custom with this phone’s Wi-Fi IPv4 from the footer and port ${TakDefaults.PORT}.",
         style = MaterialTheme.typography.bodySmall,
         color = muted,
@@ -828,7 +828,7 @@ private fun TakFeedSettings(settings: AppSettings, vm: FieldwatchViewModel, stat
         enabled = !settings.demoMode,
     )
     Text(takStatusLine(status), style = MaterialTheme.typography.bodySmall, color = muted)
-    Text("What to send", style = MaterialTheme.typography.labelLarge)
+    Text("Qué enviar", style = MaterialTheme.typography.labelLarge)
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         FieldwatchFilterChip(
             selected = settings.takAttention,
@@ -856,32 +856,32 @@ private fun TakFeedSettings(settings: AppSettings, vm: FieldwatchViewModel, stat
         )
     }
     Text(
-        "Independent chips. Extra attention (on): body-cam, glasses, recording wearables, pentest, public-safety APs. " +
-            "Payload location (on): advertised lat/lon from a decode map — required for stock Remote ID, which has no Extra attention mark. " +
-            "Watchlist (off): bookmarked signatures and named radios with Alert on. " +
-            "All signatures (off): every labeled radio — noisy in a plaza. Unmatched radios never go. " +
-            "A pin still needs coordinates: advertised payload, or GPS tagging with a live fix. " +
-            "Heard-here holds the loudest hear, not the last, and callsigns end in (here). " +
-            "Remote ID keeps one aircraft marker (UAS ID) plus a pilot pin when that location decoded.",
+        "Chips independientes. Atención adicional (encendido): cámaras corporales, wearables de grabación, seguridad." +
+            "Ubicación del Payload (encendido): lat/lon de mapa de decodificación." +
+            "Lista de vigilancia (apagado): firmas marcadas y radios nombradas." +
+            "Todas las firmas (apagado): ruidoso en multitudes." +
+            "Un marcador necesita coordenadas: payload anunciado o etiqueta GPS." +
+            "Guarda la escucha más fuerte, no la última, con etiqueta (here)." +
+            "Remote ID mantiene el marcador del dron y el del piloto cuando decodifica.",
         style = MaterialTheme.typography.bodySmall,
         color = muted,
     )
 }
 
 private fun takStatusLine(status: TakFeedStatus): String {
-    if (status.paused) return "Feed status  ·  paused (Privacy mode)"
+    if (status.paused) return "Estado de red · pausado (Modo Privacidad)"
     if (status.error != null) {
         val whenAt = takStatusWhen(status.at)
         return "Feed status  ·  error: ${status.error}" + if (whenAt.isNotEmpty()) "  ·  $whenAt" else ""
     }
     if (status.at <= 0L) {
-        return "Feed status  ·  no send yet this session"
+        return "Estado de red · no ha enviado esta sesión"
     }
     val bits = ArrayList<String>(5)
     bits += "on the feed ${status.onFeed}"
     bits += "sent ${status.sent}"
     if (status.gone > 0) {
-        bits += if (status.gone == 1) "1 gone" else "${status.gone} gone"
+        bits += if (status.gone == 1) "1 ido" else "${status.gone} gone"
     }
     if (status.dest.isNotBlank()) bits += status.dest
     val whenAt = takStatusWhen(status.at)

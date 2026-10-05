@@ -407,7 +407,7 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                                         "FIELDWATCH  ·  SIT  ·  PAUSED"
                                     state.sit.open != null -> "FIELDWATCH  ·  SIT"
                                     state.displayPaused -> "FIELDWATCH  ·  PAUSED"
-                                    else -> "FIELDWATCH"
+                                    else -> "CZR WatchAir"
                                 },
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
@@ -522,7 +522,7 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                             onBounds = { tourTargets = tourTargets.copy(filters = it) },
                             onClick = { nav.navigate("filters") { launchSingleTop = true } },
                             icon = { Icon(Icons.Outlined.FilterAlt, null) },
-                            label = "Filters",
+                            label = "Filtros",
                         )
                         FieldwatchNavTab(
                             weight = 1.45f,
