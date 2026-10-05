@@ -4,8 +4,8 @@
 -dontobfuscate
 -dontoptimize
 
--keep class app.fieldwatch.** { *; }
--keepclassmembers class app.fieldwatch.** { *; }
+-keep class app.czrwatchair.** { *; }
+-keepclassmembers class app.czrwatchair.** { *; }
 
 -keepattributes RuntimeVisibleAnnotations, AnnotationDefault, InnerClasses, Signature, Exception, EnclosingMethod, SourceFile, LineNumberTable
 

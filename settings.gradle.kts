@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Fieldwatch"
+rootProject.name = "CZR-WatchAir"
 include(":app")

@@ -21,7 +21,7 @@ fun localProp(name: String): String? {
 }
 
 android {
-    namespace = "app.fieldwatch"
+    namespace = "app.czrwatchair"
     compileSdk = 35
 
     defaultConfig {
