@@ -115,7 +115,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
                 FieldwatchOutlinedField(
                     presetName,
                     { presetName = it },
-                    "Save current as…",
+                    "Guardar actual como…",
                     modifier = Modifier.weight(1f),
                 )
                 TextButton(onClick = {
@@ -256,7 +256,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
                                 "Already seen is 0."
                         }
                 } else {
-                    "Hide radios already here so only new ones show on Live. " +
+                    "Oculta radios que ya estaban aquí para mostrar solo nuevas." +
                         "Mark seen / Reset seen appear above the tabs on Live while this is on. " +
                         "Brief hold still sets how long a new radio stays after the last packet. " +
                         "Randomized BLE addresses look new."
@@ -295,7 +295,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
             }
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Watched only", Modifier.weight(1f))
+                Text("Solo vigilados", Modifier.weight(1f))
                 FieldwatchSwitch(
                     filter.watchedOnly,
                     { on -> vm.updateFilter { it.copy(watchedOnly = on) } },
@@ -303,14 +303,14 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
             }
             Text(
                 "Only radios that match a bookmarked signature, or a Named radio with Alert on. " +
-                    "Hide these still applies (Watched only + Hide Surveillance drops bookmarked cameras). " +
+                    "Ocultar estos todavía aplica (Solo vigilados + Ocultar Vigilancia descarta cámaras guardadas)." +
                     "Label-only names stay on Named radios only. Bookmark on Signatures; Alert on detail.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Named radios only", Modifier.weight(1f))
+                Text("Solo radios nombradas", Modifier.weight(1f))
                 FieldwatchSwitch(
                     filter.customNamesOnly,
                     { on -> vm.updateFilter { it.copy(customNamesOnly = on) } },
@@ -324,7 +324,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
             )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Hide my radios", Modifier.weight(1f))
+                Text("Ocultar mis radios", Modifier.weight(1f))
                 FieldwatchSwitch(
                     filter.hideMine,
                     { on -> vm.updateFilter { it.copy(hideMine = on) } },
@@ -338,7 +338,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
             )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Hide Fast Pair account-key", Modifier.weight(1f))
+                Text("Ocultar llaves Fast Pair", Modifier.weight(1f))
                 FieldwatchSwitch(
                     filter.hideFastPairAccountKey,
                     { on -> vm.updateFilter { it.copy(hideFastPairAccountKey = on) } },
@@ -440,7 +440,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
                     fleets = state.fleets,
                     selected = filter.includeFleetIds,
                     help = "Tap a class to open its signatures. Only radios matching a signature you turn on below stay on Live. " +
-                        "Empty list = no extra include (Live unchanged). Picks stay if you turn this off and on again.",
+                        "Lista vacía = sin inclusión extra. Las elecciones se guardan si lo apaga y prende.",
                     onToggle = { id, checked ->
                         vm.updateFilter { current ->
                             val next = current.includeFleetIds.toMutableSet()
@@ -452,7 +452,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
             }
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Hide selected signatures", Modifier.weight(1f))
+                Text("Ocultar firmas seleccionadas", Modifier.weight(1f))
                 FieldwatchSwitch(
                     filter.excludeSignatures,
                     { on -> vm.updateFilter { it.copy(excludeSignatures = on) } },
@@ -475,7 +475,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
             }
             }
 
-            SectionCard("Fine filter") {
+            SectionCard("Filtro fino") {
             var rssiDrag by remember { mutableIntStateOf(filter.rssiMin) }
             var rssiDragging by remember { mutableStateOf(false) }
             LaunchedEffect(filter.rssiMin) {
@@ -506,7 +506,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
                 "OUI / vendor contains",
             )
 
-            Text("Extra filter logic", style = MaterialTheme.typography.labelLarge)
+            Text("Filtros adicionales", style = MaterialTheme.typography.labelLarge)
             Text(
                 "AND/OR applies to name, OUI, RSSI, and class include — not to radios, Named radios only, Watched only, Hide my radios, Hide Fast Pair account-key, or hide lists.",
                 style = MaterialTheme.typography.bodySmall,

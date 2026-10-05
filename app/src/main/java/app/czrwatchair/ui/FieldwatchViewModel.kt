@@ -107,7 +107,7 @@ data class ExportUi(
     val spinner: Boolean = false,
     val message: String = "",
     val share: Intent? = null,
-    val shareTitle: String = "Export Fieldwatch logs",
+    val shareTitle: String = "Exportar registros",
     val error: String? = null,
     val errorTitle: String? = null,
     val cleared: Boolean = false,
@@ -879,7 +879,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     shareTitle = "Sit compare",
                 )
             }.onFailure { err ->
-                _export.value = ExportUi(error = err.message ?: "Could not write sit compare")
+                _export.value = ExportUi(error = err.message ?: "No se pudo crear comparación")
             }
         }
     }
@@ -921,14 +921,14 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     shareTitle = "Sit compare PDF",
                 )
             }.onFailure { err ->
-                _export.value = ExportUi(error = err.message ?: "Could not write sit compare PDF")
+                _export.value = ExportUi(error = err.message ?: "No se pudo crear PDF de comparación")
             }
         }
     }
 
     private fun compareSubject(doc: DebriefDoc): String =
         if (doc.windowLine.isNotBlank()) "Fieldwatch sit compare — ${doc.windowLine}"
-        else "Fieldwatch sit compare"
+        else "Comparación de sesión"
 
     fun startSitCompareAiExport() {
         if (_export.value.active) return
@@ -956,7 +956,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     shareTitle = "Sit compare AI Export",
                 )
             }.onFailure { err ->
-                _export.value = ExportUi(error = err.message ?: "Could not write compare AI export")
+                _export.value = ExportUi(error = err.message ?: "No se pudo guardar exportación de comparación")
             }
         }
     }
@@ -977,7 +977,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
         val sit = app.sits.ui.value
         val otherId = sit.compareId ?: error("Pick a second sit.")
         val otherFile = withContext(Dispatchers.IO) { app.sits.sitFile(otherId) }
-            ?: error("Could not read that sit.")
+            ?: error("No se pudo leer esa sesión.")
         val fleets = app.config.fleets
         val customNames = RadioBookmarks.labels(app.config.watchlist)
         val observerNotes = RadioBookmarks.notes(app.config.watchlist)
@@ -1020,7 +1020,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
         val selected = sit.closed.firstOrNull { it.id == sit.selectedId }
         if (selected != null) {
             val file = withContext(Dispatchers.IO) { app.sits.sitFile(selected.id) }
-                ?: error("Could not read this sit.")
+                ?: error("No se pudo leer esta sesión.")
             return SitDiff.Side(
                 name = selected.name,
                 ram = false,
@@ -1160,7 +1160,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
             }.onSuccess { report ->
                 _candidates.value = CandidatesUi(report = report)
             }.onFailure { err ->
-                _candidates.value = CandidatesUi(error = err.message ?: "Could not read the log")
+                _candidates.value = CandidatesUi(error = err.message ?: "No se pudo leer el registro")
             }
         }
     }
@@ -1375,15 +1375,15 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     type = "application/json"
                     clipData = ClipData.newRawUri("signatures", uri)
                     putExtra(Intent.EXTRA_STREAM, uri)
-                    putExtra(Intent.EXTRA_SUBJECT, "Fieldwatch signatures")
+                    putExtra(Intent.EXTRA_SUBJECT, "Firmas de CZR WatchAir")
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 }
             }.onSuccess { intent ->
-                _export.value = ExportUi(share = intent, shareTitle = "Fieldwatch signatures")
+                _export.value = ExportUi(share = intent, shareTitle = "Firmas de CZR WatchAir")
             }.onFailure { err ->
                 _export.value = ExportUi(
-                    error = err.message ?: "Could not export signatures",
-                    errorTitle = "Could not export signatures",
+                    error = err.message ?: "No se pudo exportar firmas",
+                    errorTitle = "No se pudo exportar firmas",
                 )
             }
         }
@@ -1396,7 +1396,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                 withContext(Dispatchers.IO) {
                     app.contentResolver.openOutputStream(uri)?.use { out ->
                         out.write(json.toByteArray(Charsets.UTF_8))
-                    } ?: error("Could not write to the location you picked.")
+                    } ?: error("No se pudo escribir en la ubicación elegida.")
                 }
             }.onSuccess {
                 _export.value = ExportUi(
@@ -1405,8 +1405,8 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                 )
             }.onFailure { err ->
                 _export.value = ExportUi(
-                    error = err.message ?: "Could not save signatures",
-                    errorTitle = "Could not save signatures",
+                    error = err.message ?: "No se pudo guardar firmas",
+                    errorTitle = "No se pudo guardar firmas",
                 )
             }
         }
@@ -1481,13 +1481,13 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     msg.contains("GitHub", ignoreCase = true)
                 _export.value = if (access) {
                     ExportUi(
-                        errorTitle = "Could not reach GitHub",
-                        error = "Could not reach the catalog on GitHub. Try again later, or use Import signatures from a file.",
+                        errorTitle = "No se pudo contactar a GitHub",
+                        error = "No se pudo contactar el catálogo en GitHub. Intente luego o importe desde archivo.",
                     )
                 } else {
                     ExportUi(
-                        errorTitle = "Could not import catalog",
-                        error = err.message ?: "Could not import catalog.",
+                        errorTitle = "No se pudo importar catálogo",
+                        error = err.message ?: "No se pudo importar catálogo.",
                     )
                 }
             }
@@ -1500,7 +1500,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                 val text = withContext(Dispatchers.IO) {
                     app.contentResolver.openInputStream(uri)?.use {
                         it.readBytes().toString(Charsets.UTF_8)
-                    } ?: error("Could not read that file.")
+                    } ?: error("No se pudo leer ese archivo.")
                 }
                 val pack = SignatureExchange.parse(text)
                 val result = app.config.importFleets(pack.fleets)
@@ -1519,8 +1519,8 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                 )
             }.onFailure { err ->
                 _export.value = ExportUi(
-                    error = err.message ?: "Could not import signatures",
-                    errorTitle = "Could not import signatures",
+                    error = err.message ?: "No se pudo importar firmas",
+                    errorTitle = "No se pudo importar firmas",
                 )
             }
         }
@@ -1559,15 +1559,15 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     type = "application/json"
                     clipData = ClipData.newRawUri("settings", uri)
                     putExtra(Intent.EXTRA_STREAM, uri)
-                    putExtra(Intent.EXTRA_SUBJECT, "Fieldwatch settings")
+                    putExtra(Intent.EXTRA_SUBJECT, "Ajustes de CZR WatchAir")
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 }
             }.onSuccess { intent ->
-                _export.value = ExportUi(share = intent, shareTitle = "Fieldwatch settings")
+                _export.value = ExportUi(share = intent, shareTitle = "Ajustes de CZR WatchAir")
             }.onFailure { err ->
                 _export.value = ExportUi(
-                    error = err.message ?: "Could not export settings",
-                    errorTitle = "Could not export settings",
+                    error = err.message ?: "No se pudo exportar ajustes",
+                    errorTitle = "No se pudo exportar ajustes",
                 )
             }
         }
@@ -1580,7 +1580,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                 withContext(Dispatchers.IO) {
                     app.contentResolver.openOutputStream(uri)?.use { out ->
                         out.write(json.toByteArray(Charsets.UTF_8))
-                    } ?: error("Could not write to the location you picked.")
+                    } ?: error("No se pudo escribir en la ubicación elegida.")
                 }
             }.onSuccess {
                 _export.value = ExportUi(
@@ -1589,8 +1589,8 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                 )
             }.onFailure { err ->
                 _export.value = ExportUi(
-                    error = err.message ?: "Could not save settings",
-                    errorTitle = "Could not save settings",
+                    error = err.message ?: "No se pudo guardar ajustes",
+                    errorTitle = "No se pudo guardar ajustes",
                 )
             }
         }
@@ -1602,7 +1602,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                 val text = withContext(Dispatchers.IO) {
                     app.contentResolver.openInputStream(uri)?.use {
                         it.readBytes().toString(Charsets.UTF_8)
-                    } ?: error("Could not read that file.")
+                    } ?: error("No se pudo leer ese archivo.")
                 }
                 val pack = SettingsExchange.parse(text)
                 val prev = app.config.settings
@@ -1629,8 +1629,8 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                 )
             }.onFailure { err ->
                 _export.value = ExportUi(
-                    error = err.message ?: "Could not import settings",
-                    errorTitle = "Could not import settings",
+                    error = err.message ?: "No se pudo importar ajustes",
+                    errorTitle = "No se pudo importar ajustes",
                 )
             }
         }
@@ -1853,10 +1853,10 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     active = false,
                     progress = 1f,
                     share = intent,
-                    shareTitle = "Debrief PDF",
+                    shareTitle = "PDF de Informe",
                 )
             }.onFailure { err ->
-                _export.value = ExportUi(error = err.message ?: "Could not write debrief PDF")
+                _export.value = ExportUi(error = err.message ?: "No se pudo crear PDF")
             }
         }
     }
@@ -1878,19 +1878,19 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     active = false,
                     progress = 1f,
                     share = intent,
-                    shareTitle = "Debrief",
+                    shareTitle = "Informe de campo",
                 )
             }.onFailure { err ->
-                _export.value = ExportUi(error = err.message ?: "Could not write debrief")
+                _export.value = ExportUi(error = err.message ?: "No se pudo crear informe")
             }
         }
     }
 
     private fun debriefSubject(doc: DebriefDoc): String =
-        if (doc.heading.startsWith("FIELDWATCH SIT")) doc.heading else "Fieldwatch field debrief — last 15 minutes"
+        if (doc.heading.startsWith("FIELDWATCH SIT")) doc.heading else "Informe de campo — últimos 15 min"
 
     private suspend fun fieldDebriefDoc(): DebriefDoc {
-        publishExport(0.08f, "Gathering sit…")
+        publishExport(0.08f, "Recopilando sesión...")
         val settings = app.config.settings
         val fleets = app.config.fleets
         val now = System.currentTimeMillis()
@@ -1984,7 +1984,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     putExtra(
                         Intent.EXTRA_SUBJECT,
                         if (window != null) "Fieldwatch AI export — sit ${window.sitName}"
-                        else "Fieldwatch AI export — last 15 minutes",
+                        else "Exportación IA — últimos 15 min",
                     )
                     putExtra(Intent.EXTRA_TEXT, text)
                 }
@@ -1996,7 +1996,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     shareTitle = "Exportar IA",
                 )
             }.onFailure { err ->
-                _export.value = ExportUi(error = err.message ?: "Could not build AI export")
+                _export.value = ExportUi(error = err.message ?: "No se pudo crear exportación IA")
             }
         }
     }
@@ -2043,7 +2043,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                 val title = MacUtil.redactMacIn(device.listTitle(names), device.mac, settings.demoMode)
                 Intent(Intent.ACTION_SEND).apply {
                     type = "text/plain"
-                    putExtra(Intent.EXTRA_SUBJECT, "Fieldwatch AI export — $title")
+                    putExtra(Intent.EXTRA_SUBJECT, "Exportación IA CZR WatchAir — $title")
                     putExtra(Intent.EXTRA_TEXT, text)
                 }
             }.onSuccess { intent ->
@@ -2054,7 +2054,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     shareTitle = "Exportar IA",
                 )
             }.onFailure { err ->
-                _export.value = ExportUi(error = err.message ?: "Could not build AI export")
+                _export.value = ExportUi(error = err.message ?: "No se pudo crear exportación IA")
             }
         }
     }
@@ -2086,13 +2086,13 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                 val title = MacUtil.redactMacIn(device.listTitle(names), device.mac, settings.demoMode)
                 Intent(Intent.ACTION_SEND).apply {
                     type = "text/plain"
-                    putExtra(Intent.EXTRA_SUBJECT, "Fieldwatch device detail — $title")
+                    putExtra(Intent.EXTRA_SUBJECT, "Detalle de dispositivo CZR WatchAir — $title")
                     putExtra(Intent.EXTRA_TEXT, text)
                 }
             }.onSuccess { intent ->
-                _export.value = ExportUi(share = intent, shareTitle = "Device detail")
+                _export.value = ExportUi(share = intent, shareTitle = "Detalle del dispositivo")
             }.onFailure { err ->
-                _export.value = ExportUi(error = err.message ?: "Could not share device detail")
+                _export.value = ExportUi(error = err.message ?: "No se pudo compartir detalles del dispositivo")
             }
         }
     }
@@ -2120,7 +2120,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 }
             }.onSuccess { intent ->
-                _export.value = ExportUi(active = false, progress = 1f, share = intent, shareTitle = "Sit export")
+                _export.value = ExportUi(active = false, progress = 1f, share = intent, shareTitle = "Exportar sesión")
             }
         }
     }
@@ -2133,7 +2133,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                 val text = sitExportText(kind)
                 withContext(Dispatchers.IO) {
                     app.contentResolver.openOutputStream(uri)?.use { it.write(text.toByteArray()) }
-                        ?: error("Could not open the selected location")
+                        ?: error("No se pudo abrir la ubicación")
                 }
             }.onSuccess {
                 _export.value = ExportUi(active = false, progress = 1f, saved = true)
@@ -2177,7 +2177,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     private suspend fun sitExportText(kind: LogExportKind): String {
-        publishExport(0.08f, "Gathering sit…")
+        publishExport(0.08f, "Recopilando sesión...")
         val win = sitExportWindow()
         val radios = _sitExportRadios.value
         val custom = RadioBookmarks.labels(app.config.watchlist)
@@ -2274,7 +2274,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                         val text = mapExportText(kind, radios)
                         withContext(Dispatchers.IO) {
                             app.contentResolver.openOutputStream(uri)?.use { it.write(text.toByteArray()) }
-                                ?: error("Could not open the selected location")
+                                ?: error("No se pudo abrir la ubicación")
                         }
                     }
                 }
@@ -2285,11 +2285,11 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     private fun exportSubject(kind: LogExportKind): String = when (kind) {
-        LogExportKind.LOG_CSV -> "Fieldwatch log (CSV)"
-        LogExportKind.LOG_JSONL -> "Fieldwatch log (JSON lines)"
-        LogExportKind.GPX -> "Fieldwatch GPX"
-        LogExportKind.KML -> "Fieldwatch KML"
-        LogExportKind.WIGLE -> "Fieldwatch WiGLE CSV"
+        LogExportKind.LOG_CSV -> "Registro (CSV)"
+        LogExportKind.LOG_JSONL -> "Registro (JSON lines)"
+        LogExportKind.GPX -> "CZR WatchAir GPX"
+        LogExportKind.KML -> "CZR WatchAir KML"
+        LogExportKind.WIGLE -> "CZR WatchAir WiGLE CSV"
     }
 
     private suspend fun writeMapExport(kind: LogExportKind, radios: LogExportRadios): File {
@@ -2359,7 +2359,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     _export.value = ExportUi(cleared = true, message = "Registro limpiado")
                 }
                 .onFailure { err ->
-                    _export.value = ExportUi(error = err.message ?: "Could not clear log")
+                    _export.value = ExportUi(error = err.message ?: "No se pudo limpiar el registro")
                 }
         }
     }
@@ -2399,7 +2399,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
     private suspend fun <T> runExport(startMessage: String, block: suspend () -> T): Result<T> {
         _export.value = ExportUi(active = true, progress = 0f, message = startMessage)
         return runCatching { block() }.onFailure { err ->
-            _export.value = ExportUi(active = false, error = err.message ?: "Export failed")
+            _export.value = ExportUi(active = false, error = err.message ?: "Falló exportación")
         }
     }
 

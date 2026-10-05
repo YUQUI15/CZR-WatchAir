@@ -25,7 +25,7 @@ fun DecodeGlyph(
     tint: Color,
     modifier: Modifier = Modifier,
     size: Dp = 12.dp,
-    contentDescription: String = "Decode fields",
+    contentDescription: String = "Decodificar campos",
 ) {
     Canvas(
         modifier

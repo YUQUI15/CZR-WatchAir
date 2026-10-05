@@ -179,10 +179,10 @@ private fun layoutSpots(
 
     val tune = targets.tune!!
     val tabs = listOf(
-        Triple(targets.pause!!, "Pausar", "Freeze the picture. Tap Live again to run."),
+        Triple(targets.pause!!, "Pausar", "Congele la pantalla. Toque En vivo para continuar."),
         Triple(targets.filters!!, "Filtros", "Quién se muestra."),
         Triple(targets.signatures!!, "Firmas", "Pattern catalog."),
-        Triple(targets.reports!!, "Reportes", "Debrief, sits, log."),
+        Triple(targets.reports!!, "Reportes", "Informes, sesiones, registro."),
         Triple(targets.settings!!, "Ajustes", "Scan, GPS, TAK."),
     )
     val heights = floatArrayOf(topH, bodyH, bodyH, bodyH, topH)
@@ -279,7 +279,7 @@ private fun layoutSpots(
     }
     val tuneFromX = tune.center.x.coerceIn(tuneBox.left + inset, tuneBox.right - inset)
     return listOf(
-        Spot(tune, "Tune", "Display — Radar, list, timeline, hybrid, By class.", tuneBox, Offset(tuneFromX, tuneBox.top)),
+        Spot(tune, "Tune", "Vista — Radar, lista, línea de tiempo, híbrido, Por clase.", tuneBox, Offset(tuneFromX, tuneBox.top)),
     ) + tabs.mapIndexed { i, t ->
         Spot(t.first, t.second, t.third, boxes[i], fromOn(boxes[i], t.first, i))
     }

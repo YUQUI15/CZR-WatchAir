@@ -146,7 +146,7 @@ fun LivePane(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
             ) {
                 Text(
-                    "Hide this burst",
+                    "Ocultar esta ráfaga",
                     style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.weight(1f),
                 )
@@ -159,7 +159,7 @@ fun LivePane(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
             ) {
                 Text(
-                    if (floodHide.keys.size == 1) "Hiding 1 flood radio" else "Hiding ${floodHide.keys.size} flood radios",
+                    if (floodHide.keys.size == 1) "Ocultando 1 radio spam" else "Hiding ${floodHide.keys.size} flood radios",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.weight(1f),
@@ -182,7 +182,7 @@ fun LivePane(
         }
         if (state.displayPaused) {
             Text(
-                "Display paused · radios still scanning and logging. Filters still apply when you run again. Tap Live to run the list again.",
+                "Vista pausada · escaneando y registrando. Los filtros aplican al reanudar. Toque En vivo para continuar.",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
@@ -210,7 +210,7 @@ fun LivePane(
         }
         if (state.filter.watchedOnly) {
             Text(
-                "Watched only",
+                "Solo vigilados",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
@@ -218,7 +218,7 @@ fun LivePane(
         }
         if (state.filter.customNamesOnly) {
             Text(
-                "Named radios only",
+                "Solo radios nombradas",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
@@ -262,7 +262,7 @@ fun LivePane(
                     FieldwatchOutlinedField(
                         value = renameDraft,
                         onValueChange = { renameDraft = it.take(Sit.NAME_MAX) },
-                        label = "Name",
+                        label = "Nombre",
                     )
                 },
                 confirmButton = {
@@ -320,7 +320,7 @@ private fun arrivalsEmpty(state: FieldwatchUi): String? {
     }
     if (state.filter.arrivalsOnly) {
         return when {
-            state.arrivalsLearning -> "Hiding sitting access points until the next Wi-Fi scan. New Bluetooth still shows right away."
+            state.arrivalsLearning -> "Ocultando APs estáticos hasta el próximo escaneo Wi-Fi."
             state.hiddenKnown > 0 ->
                 "${state.hiddenKnown} already seen are hidden. A new radio stays while we hear it, then at least as long as Brief hold after the last packet."
             else ->

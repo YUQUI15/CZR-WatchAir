@@ -334,7 +334,7 @@ fun FleetEditor(
         contentWindowInsets = NestedTabInsets,
         topBar = {
             NestedTopBar(
-                title = if (isNew) "New signature" else "Edit signature",
+                title = if (isNew) "New signature" else "Editar firma",
                 navigationIcon = { TextButton(onClick = onCancel) { Text("Cancelar") } },
                 actions = { TextButton(onClick = { onSave(fleet) }) { Text("Guardar") } },
             )
@@ -349,7 +349,7 @@ fun FleetEditor(
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             SectionCard("Identity") {
-            FieldwatchOutlinedField(fleet.name, { fleet = fleet.copy(name = it) }, "Name")
+            FieldwatchOutlinedField(fleet.name, { fleet = fleet.copy(name = it) }, "Nombre")
             FieldwatchOutlinedField(
                 fleet.notes,
                 { fleet = fleet.copy(notes = it) },
@@ -371,7 +371,7 @@ fun FleetEditor(
             SectionCard("Matching") {
             var classMenu by remember { mutableStateOf(false) }
             ExposedDropdownMenuBox(classMenu, { classMenu = it }) {
-                FieldwatchDropdownField("Class", fleet.kind.label(), classMenu)
+                FieldwatchDropdownField("Clase", fleet.kind.label(), classMenu)
                 ExposedDropdownMenu(classMenu, { classMenu = false }) {
                     SignatureClass.visible.sortedBy { it.label().lowercase() }.forEach { kind ->
                         DropdownMenuItem(
@@ -385,7 +385,7 @@ fun FleetEditor(
                 }
             }
             Text(
-                "Filters → Show only / Hide these. Class sits (Finder tags, Cameras, …) are those chips — Save current as… if you want a preset.",
+                "Filtros → Mostrar/Ocultar estos. Las clases (Cámaras, etc) son esos chips — Guardar actual como... si quiere un preset.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -424,7 +424,7 @@ fun FleetEditor(
 
             SectionCard("Rules") {
             Text(
-                "Each rule has its own switch. Off keeps the rule but it does not match. " +
+                "Cada regla tiene su interruptor. Apagado guarda la regla pero no coincide." +
                     "Use that to mute noisy OUIs or names on one signature without deleting them.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -452,7 +452,7 @@ fun FleetEditor(
 
             if (fleet.canHaveBleDecode()) {
                 val decodeCount = fleet.decode?.fields?.size ?: 0
-                SectionCard("Decode fields") {
+                SectionCard("Decodificar campos") {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -460,7 +460,7 @@ fun FleetEditor(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        if (decodeCount == 0) "None" else "$decodeCount fields",
+                        if (decodeCount == 0) "Ninguno" else "$decodeCount fields",
                         Modifier.weight(1f),
                         style = MaterialTheme.typography.bodyLarge,
                     )
@@ -592,7 +592,7 @@ private fun RuleEditor(rule: MatchRule, onChange: (MatchRule) -> Unit, onDelete:
                     }
                 }
             }
-            IconButton(onClick = onDelete) { Icon(Icons.Outlined.Delete, "Delete rule") }
+            IconButton(onClick = onDelete) { Icon(Icons.Outlined.Delete, "Eliminar regla") }
         }
         Column(
             Modifier.padding(top = 12.dp, start = 8.dp),
@@ -628,7 +628,7 @@ private fun RuleEditor(rule: MatchRule, onChange: (MatchRule) -> Unit, onDelete:
                 FieldwatchOutlinedField(
                     rule.dataPrefixHex,
                     { onChange(rule.copy(dataPrefixHex = it)) },
-                    "Data prefix hex",
+                    "Prefijo de datos (hex)",
                 )
             }
             RuleKind.SERVICE_DATA -> {
@@ -640,7 +640,7 @@ private fun RuleEditor(rule: MatchRule, onChange: (MatchRule) -> Unit, onDelete:
                 FieldwatchOutlinedField(
                     rule.dataPrefixHex,
                     { onChange(rule.copy(dataPrefixHex = it)) },
-                    if (rule.text.isBlank()) "Contains hex" else "Data prefix hex",
+                    if (rule.text.isBlank()) "Contains hex" else "Prefijo de datos (hex)",
                 )
             }
             RuleKind.RADIO_KIND -> {
@@ -665,7 +665,7 @@ private fun ruleKindLabel(kind: RuleKind): String = when (kind) {
     RuleKind.MANUFACTURER_ID -> "Manufacturer ID"
     RuleKind.MANUFACTURER_DATA -> "Manufacturer data"
     RuleKind.RADIO_KIND -> "Radio kind"
-    RuleKind.HIDDEN_SSID -> "Hidden SSID"
+    RuleKind.HIDDEN_SSID -> "SSID Oculto"
     RuleKind.VENDOR_IE_OUI -> "Vendor IE OUI"
 }
 

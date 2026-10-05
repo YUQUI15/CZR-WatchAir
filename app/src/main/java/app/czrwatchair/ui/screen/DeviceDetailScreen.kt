@@ -118,7 +118,7 @@ fun DeviceDetailScreen(
                 },
                 actions = {
                     IconButton(onClick = { vm.toggleWatchDevice(device) }) {
-                        Icon(if (watched) Icons.Outlined.Bookmark else Icons.Outlined.BookmarkBorder, "Watch")
+                        Icon(if (watched) Icons.Outlined.Bookmark else Icons.Outlined.BookmarkBorder, "Vigilar")
                     }
                 },
             )
@@ -154,7 +154,7 @@ fun DeviceDetailScreen(
                 Column(Modifier.weight(1f)) {
                     if (lastSaved.isNotBlank()) {
                         Text(
-                            "Custom name",
+                            "Nombre personalizado",
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -172,14 +172,14 @@ fun DeviceDetailScreen(
                         )
                     } else if (device.name.isNotBlank()) {
                         Text(
-                            "Advertised name",
+                            "Nombre anunciado",
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                         Text(device.name, style = MaterialTheme.typography.bodyMedium)
                     } else {
                         Text(
-                            "Name",
+                            "Nombre",
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -194,7 +194,7 @@ fun DeviceDetailScreen(
                     IconButton(onClick = { editingName = !editingName }) {
                         Icon(
                             Icons.Outlined.Edit,
-                            if (editingName) "Hide custom name" else "Custom name",
+                            if (editingName) "Ocultar nombre personalizado" else "Nombre personalizado",
                         )
                     }
                 }
@@ -203,7 +203,7 @@ fun DeviceDetailScreen(
                 FieldwatchOutlinedField(
                     value = nameDraft,
                     onValueChange = { nameDraft = it.take(RadioBookmarks.MAX_NAME) },
-                    label = "Custom name",
+                    label = "Nombre personalizado",
                     supportingText = RadioBookmarks.customNameHint(device),
                 )
                 FieldwatchActionButton(
@@ -339,14 +339,14 @@ fun DeviceDetailScreen(
                 vendorLine(device)?.let { Meta("Who made it", it) }
                     ?: Meta("OUI (vendor prefix)", "${device.oui} — no IEEE match; randomized addresses usually have none")
                 if (device.hiddenSsid) {
-                    Meta("Network name (SSID)", "Hidden — the AP is beaconing but not publishing a name")
+                    Meta("Network name (SSID)", "Oculto — el AP emite pero no publica nombre")
                 }
             }
 
             StickyHeight(device.key to "signal") {
                 Section("Señal")
                 if (device.gone) {
-                    Meta("How loud here (RSSI)", "Not available")
+                    Meta("Intensidad local (RSSI)", "Not available")
                     Meta(
                         "Last heard",
                         buildString {
@@ -357,7 +357,7 @@ fun DeviceDetailScreen(
                         },
                     )
                 } else {
-                    Meta("How loud here (RSSI)", DeviceExplain.rssiExplain(device.rssi))
+                    Meta("Intensidad local (RSSI)", DeviceExplain.rssiExplain(device.rssi))
                     Text(
                         "Closer to 0 dBm is louder here, not a distance.",
                         style = MaterialTheme.typography.bodySmall,
@@ -365,15 +365,15 @@ fun DeviceDetailScreen(
                     )
                 }
                 Meta(
-                    "Heard range this session",
+                    "Rango escuchado esta sesión",
                     Rssi.sessionRange(device.rssiMin, device.rssiMax, device.rssiHistory),
                 )
                 facts.txPowerDbm?.let {
-                    Meta("Claimed transmit power", "$it dBm — how loud it says it transmits, not a distance")
+                    Meta("Potencia de transmisión", "$it dBm — how loud it says it transmits, not a distance")
                 }
                 if (device.channel != 0 || device.frequencyMhz != 0) {
                     Meta(
-                        "Channel / frequency",
+                        "Canal / frecuencia",
                         buildString {
                             if (device.channel != 0) append("channel ${device.channel}")
                             if (device.frequencyMhz != 0) {
@@ -387,7 +387,7 @@ fun DeviceDetailScreen(
                 facts.wifiStandard?.let { Meta("Wi-Fi generation", it) }
                 if (facts.centerFreq0 != null || facts.centerFreq1 != null) {
                     Meta(
-                        "Center frequencies",
+                        "Frecuencias centrales",
                         listOfNotNull(
                             facts.centerFreq0?.let { "$it MHz" },
                             facts.centerFreq1?.let { "$it MHz" },
@@ -412,7 +412,7 @@ fun DeviceDetailScreen(
                 }
                 facts.advertisingIntervalMs?.let {
                     Meta(
-                        "How often it advertises",
+                        "Frecuencia de anuncio",
                         "%.0f ms between bursts (smaller = chattier on the air)".format(it),
                     )
                 }
@@ -421,7 +421,7 @@ fun DeviceDetailScreen(
                 }
                 facts.advFlags?.let { flags ->
                     Meta("Discoverability", DeviceExplain.flagsExplain(flags))
-                    Meta("Flags (raw)", "0x%02X".format(flags), mono = true)
+                    Meta("Banderas (raw)", "0x%02X".format(flags), mono = true)
                 }
                 facts.appearance?.let { value ->
                     val name = RadioDb.appearance(value)
@@ -430,7 +430,7 @@ fun DeviceDetailScreen(
                         name?.let { "$it\nThe device publishes this GAP Appearance code to describe itself." }
                             ?: "Unlisted Appearance 0x%04X".format(value),
                     )
-                    Meta("Appearance code", "0x%04X".format(value), mono = true)
+                    Meta("Código de apariencia", "0x%04X".format(value), mono = true)
                 }
                 CodDecoder.decodeOrNull(facts.deviceClass)?.let { cod ->
                     Meta(
@@ -453,7 +453,7 @@ fun DeviceDetailScreen(
                 StickyHeight(device.key to "wifi") {
                     Section("Wi-Fi access point")
                     facts.security?.let {
-                        Meta("Encryption / login", DeviceExplain.wifiSecurityExplain(it))
+                        Meta("Cifrado / acceso", DeviceExplain.wifiSecurityExplain(it))
                         if (it.isNotBlank()) Meta("Security string", it, mono = true)
                     }
                     facts.supportedRates?.let {
@@ -511,7 +511,7 @@ fun DeviceDetailScreen(
                             size = 16.dp,
                         )
                         Text(
-                            "Decoded fields",
+                            "Campos decodificados",
                             style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.primary,
                         )
@@ -595,8 +595,8 @@ fun DeviceDetailScreen(
 
             StickyHeight(device.key to "session") {
                 Section("Session")
-                Meta("First seen", fmt.format(Date(device.firstSeen)))
-                Meta("Last seen", fmt.format(Date(device.lastSeen)))
+                Meta("Visto por primera vez", fmt.format(Date(device.firstSeen)))
+                Meta("Visto por última vez", fmt.format(Date(device.lastSeen)))
                 Meta("Hits", device.hitCount.toString())
                 Geo.screenCoord(device.latitude, device.longitude, demoMode)?.let { Meta("Last fix", it) }
                 if (device.fleetIds.isNotEmpty()) {
@@ -781,7 +781,7 @@ private fun ObserverNotesCard(
                     IconButton(onClick = onToggleEdit) {
                         Icon(
                             Icons.Outlined.Edit,
-                            if (editing) "Hide observer notes" else "Notas del observador",
+                            if (editing) "Ocultar notas" else "Notas del observador",
                         )
                     }
                 }

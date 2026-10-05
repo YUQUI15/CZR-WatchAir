@@ -163,7 +163,7 @@ private fun DisclaimerGate(onAccept: () -> Unit) {
             .padding(horizontal = 28.dp, vertical = 24.dp),
     ) {
         Text(
-            "Disclaimer and license",
+            "Descargo y licencia",
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.SemiBold,
             color = ink,
@@ -236,7 +236,7 @@ private fun PermissionGate(onRequest: () -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text("Fieldwatch needs the radios", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold)
+        Text("CZR WatchAir requiere radios", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold)
         Text(
             "Location, nearby Wi-Fi, Bluetooth scan, and notifications let Fieldwatch passively watch advertised networks and BLE devices. Nothing is transmitted.",
             style = MaterialTheme.typography.bodyMedium,
@@ -282,8 +282,8 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                         "sit compare" in m && "ai" in m -> "Sit compare AI Export"
                         "sit compare" in m -> "Sit compare"
                         "ai export" in m || "ai export" in m -> "Exportar IA"
-                        "pdf" in m -> "Debrief PDF"
-                        "debrief" in m -> "Debrief"
+                        "pdf" in m -> "PDF de Informe"
+                        "debrief" in m -> "Informe de campo"
                         else -> "Exportar"
                     },
                 )
@@ -318,7 +318,7 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
     if (export.error != null) {
         AlertDialog(
             onDismissRequest = vm::consumeExportNotice,
-            title = { Text(export.errorTitle ?: "Could not export") },
+            title = { Text(export.errorTitle ?: "No se pudo exportar") },
             text = { Text(export.error ?: "") },
             confirmButton = {
                 TextButton(onClick = vm::consumeExportNotice) { Text("OK") }
@@ -404,9 +404,9 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                             Text(
                                 when {
                                     state.sit.open != null && state.displayPaused ->
-                                        "FIELDWATCH  ·  SIT  ·  PAUSED"
-                                    state.sit.open != null -> "FIELDWATCH  ·  SIT"
-                                    state.displayPaused -> "FIELDWATCH  ·  PAUSED"
+                                        "CZR WatchAir  ·  SESIÓN  ·  PAUSADO"
+                                    state.sit.open != null -> "CZR WatchAir  ·  SESIÓN"
+                                    state.displayPaused -> "CZR WatchAir  ·  PAUSADO"
                                     else -> "CZR WatchAir"
                                 },
                                 style = MaterialTheme.typography.titleMedium,
@@ -453,9 +453,9 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                                         Icons.Outlined.Tune
                                     },
                                     if (state.settings.scanControlsExpanded) {
-                                        "Hide scan options"
+                                        "Ocultar opciones de escaneo"
                                     } else {
-                                        "Show scan options"
+                                        "Mostrar opciones de escaneo"
                                     },
                                     modifier = Modifier.onGloballyPositioned {
                                         tourTargets = tourTargets.copy(tune = it.boundsInRoot())
@@ -838,7 +838,7 @@ private fun ViewPicker(
     var openTitle by remember { mutableStateOf(false) }
     var openSubtitle by remember { mutableStateOf(false) }
     val sortLabel = when (listSort) {
-        ListSort.STRENGTH -> if (sort == StrengthSort.AVERAGE) "Strongest · avg ${windowSec}s" else "Strongest"
+        ListSort.STRENGTH -> if (sort == StrengthSort.AVERAGE) "Strongest · avg ${windowSec}s" else "Más fuerte"
         ListSort.NEWEST -> "Visto más reciente"
         ListSort.NEWEST_ALERT -> "Alerta más reciente"
         ListSort.FIRST_SEEN -> "Llegada más reciente"
@@ -869,7 +869,7 @@ private fun ViewPicker(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
-                "Display",
+                "Vista",
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -967,7 +967,7 @@ private fun ViewPicker(
             OptionSwitch("RSSI bars", showBar, onToggleBar)
             OptionSwitch("Signature names", showFleet, onToggleFleet)
             OptionSwitch("Frequency", showFrequency, onToggleFrequency)
-            OptionSwitch("First / last seen", showSeenTimes, onToggleSeenTimes)
+            OptionSwitch("Visto primera/última vez", showSeenTimes, onToggleSeenTimes)
         }
         if (scroll.canScrollForward) {
             Box(
@@ -995,10 +995,10 @@ private fun ViewPicker(
 }
 
 private fun listLineLabel(line: ListLine): String = when (line) {
-    ListLine.ADVERTISED_NAME -> "Advertised name"
+    ListLine.ADVERTISED_NAME -> "Nombre anunciado"
     ListLine.NAME_AND_TYPE -> "Name + type"
     ListLine.MAC -> "MAC address"
-    ListLine.NONE -> "None"
+    ListLine.NONE -> "Ninguno"
 }
 
 @Composable

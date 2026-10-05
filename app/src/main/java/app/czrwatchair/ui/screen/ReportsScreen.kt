@@ -113,7 +113,7 @@ fun ReportsScreen(
 
             SectionCard("Sits") {
                 Text(
-                    "A sit is a named window of radios heard here. The selection below drives Path, Debrief, and Compare’s this-sit side: open sit, a selected saved sit, or last 15 minutes if you never start one.",
+                    "Una sesión es una ventana de tiempo. La selección controla Ruta, Informes y Comparaciones: sesión abierta, guardada o los últimos 15 min.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -181,7 +181,7 @@ fun ReportsScreen(
                     }
                     if (open != null) {
                         Text(
-                            "End sit to pick a saved one for Path and Debrief.",
+                            "Termine la sesión para elegir una guardada para Ruta e Informes.",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -222,7 +222,7 @@ fun ReportsScreen(
                     kotlinx.coroutines.delay(3_000L)
                 }
             }
-            SectionCard("Path") {
+            SectionCard("Ruta") {
                 Text(
                     "North up. The line is this phone. The black dot is the start. The blue dot is you, at the last point. A MAC or signature alert is one class icon. A decoded latitude and longitude uses the last position that radio sent. A count is several in one spot. Thick green is a stay. Time ticks along the path.",
                     style = MaterialTheme.typography.bodySmall,
@@ -454,7 +454,7 @@ fun ReportsScreen(
             )
             }
 
-            SectionCard("Sit export") {
+            SectionCard("Exportar sesión") {
             val sitKind by vm.sitExportKind.collectAsStateWithLifecycle()
             val sitRadios by vm.sitExportRadios.collectAsStateWithLifecycle()
             ExportFormatBlock(
@@ -469,7 +469,7 @@ fun ReportsScreen(
             )
             }
 
-            SectionCard("Compare sits") {
+            SectionCard("Comparar sesiones") {
                 Text(
                     compareThisCaption(state),
                     style = MaterialTheme.typography.bodySmall,
@@ -599,10 +599,10 @@ fun ReportsScreen(
                     FieldwatchOutlinedField(
                         value = sitNameDraft,
                         onValueChange = { sitNameDraft = it.take(Sit.NAME_MAX) },
-                        label = "Name",
+                        label = "Nombre",
                     )
                     Text(
-                        "Debrief and AI Export use this window until you end it. The Live list is unchanged.",
+                        "El Informe y Exportación IA usan esta ventana hasta terminarla. La lista En vivo no cambia.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -635,7 +635,7 @@ fun ReportsScreen(
                 FieldwatchOutlinedField(
                     value = renameDraft,
                     onValueChange = { renameDraft = it.take(Sit.NAME_MAX) },
-                    label = "Name",
+                    label = "Nombre",
                 )
             },
             confirmButton = {

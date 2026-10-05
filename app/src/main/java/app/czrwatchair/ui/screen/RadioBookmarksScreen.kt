@@ -169,7 +169,7 @@ fun RadioBookmarksScreen(
                     FieldwatchOutlinedField(
                         value = draft,
                         onValueChange = { draft = it.take(RadioBookmarks.MAX_NAME) },
-                        label = "Custom name",
+                        label = "Nombre personalizado",
                     )
                     FieldwatchOutlinedField(
                         value = notesDraft,
@@ -230,7 +230,7 @@ private fun BookmarkCard(
                 )
                 CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides Dp.Unspecified) {
                     IconButton(onClick = onRename, modifier = Modifier.size(36.dp)) {
-                        Icon(Icons.Outlined.Edit, "Edit", modifier = Modifier.size(18.dp))
+                        Icon(Icons.Outlined.Edit, "Editar", modifier = Modifier.size(18.dp))
                     }
                     IconButton(onClick = onRemove, modifier = Modifier.size(36.dp)) {
                         Icon(Icons.Outlined.Delete, "Eliminar", modifier = Modifier.size(18.dp))

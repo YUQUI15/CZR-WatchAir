@@ -106,7 +106,7 @@ fun DecodeFieldsScreen(
         contentWindowInsets = NestedTabInsets,
         topBar = {
             NestedTopBar(
-                title = "Decode fields",
+                title = "Decodificar campos",
                 navigationIcon = { TextButton(onClick = onBack) { Text("Atrás") } },
                 actions = { TextButton(onClick = { onSave(currentDecode()) }) { Text("Guardar") } },
             )
@@ -326,7 +326,7 @@ private fun FieldCard(
                     modifier = Modifier.weight(1f),
                 )
                 TypeMenu(field.type, Modifier.width(112.dp)) { onChange(field.copy(type = it)) }
-                IconButton(onClick = onDelete) { Icon(Icons.Outlined.Delete, "Delete field") }
+                IconButton(onClick = onDelete) { Icon(Icons.Outlined.Delete, "Eliminar campo") }
             }
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 CompactField(
@@ -562,7 +562,7 @@ private fun NamedValuesBlock(
                             publish(nextRows, emphasis, notes)
                         }
                     },
-                ) { Icon(Icons.Outlined.Delete, "Delete value") }
+                ) { Icon(Icons.Outlined.Delete, "Eliminar valor") }
             }
             if (field.live && raw.isNotBlank()) {
                 Row(
