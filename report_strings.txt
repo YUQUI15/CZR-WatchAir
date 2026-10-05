@@ -1,0 +1,629 @@
+ 
+  
+    $line
+    $note
+    Marked mine
+    extra attention ($sig): $note
+   Heard here: $aps AP(s), $ble BLE
+   · No GPS-stamped radios tied to this stay (tagging may have started after they were first heard).
+  Extra attention
+  Marked mine
+  RAND
+  ch 
+  decoded value changed: 
+  dwell 
+  extra attention ($name): $note
+  hidden
+  ·  
+  ·  $it wide
+  · $it
+  · None.
+ (
+ ($it)
+ + 
+ / 
+ Advertised position: $bits$more.
+ BLE
+ Retail beacon(s) also with the path (unusual): 
+ This is what the device is advertising, not a visual ID.
+ Wearable(s) with the path (usually own kit): 
+ Wi-Fi, 
+ dBm
+ else 
+ type %d
+ · 
+ — extra AP information element, not the SSID.
+ → 
+## 
+## GPS co-travel
+## Where you were (operator GPS)
+### $title
+$base $decoded
+$base Find My / iPhone addresses rotate; this MAC is this session.
+$counts · $mine marked mine.
+$gps  (operator phone)
+$gps  (operator phone; no street name this export)
+$h h $m min
+$it MHz
+$it Mbps  (* = required basic rate)
+$it dBm
+$it dBm — how loud it says it transmits, not a distance
+$label — faster BLE (Bluetooth 5)
+$label — long-range BLE (slower, farther)
+$label — standard BLE radio
+$m min
+$name  ($gps, operator phone)
+$name — $extra
+$onlyThis only in this sit · $onlySecond only in the second · $both in both.
+$s s
+$text $extra
+$uuid  ·  $it
+$vendor device
+$vendor · $core
+%.0f ms
+%.0f ms between bursts (smaller = chattier on the air)
+%.2f km
+%.5f, %.5f
+%d dBm · %s
+(no Appearance, Class of Device, or well-known service that names a type).
+, 
+, $mineHeard marked mine
+- Following test: insufficient movement (need ~45 m span). Do not infer a tail.
+- None stayed with the path.
+- Online place names: 
+. 
+. Account for a test tag or badge before treating it as a follower.
+. Also offers: 
+.format(java.util.Locale.US, m / 1000)} km
+: 
+; 
+A MAC alert or a signature alert is drawn once. A decoded latitude and longitude is the last advertised position. Anything else is the strongest hear. A number is that place (Path key).
+A radio in two classes counts in each.
+AES encryption
+ASSA ABLOY Opening Solutions
+Account for each MAC. Not a finding and not identity.
+Account for every MAC — Fieldwatch cannot tell yours from a plant. 
+Advertised name
+AirPods, Beats, or AirPlay
+Allegion / Schlage
+Anonymous: the stack hid the address.
+Appearance code
+Apple (not ASSA ABLOY)
+Apple Find My related
+Atención adicional
+August Home lock
+BLE 
+BLE radios
+BLE-only: no classic Bluetooth (headsets/file-send radio).
+Bluetooth LE
+Bluetooth LE advertiser
+Bluetooth Low Energy advertiser
+Bluetooth advertisement
+Bluetooth company 0x%04X
+Bose headphones or a speaker
+Brilliant Labs Frame AR glasses
+Callouts below are only radios that stayed with the path. Radios you passed (store fixtures, house tags) are omitted.
+Capability list includes mesh.
+Capability string
+Center frequencies
+Channel / frequency
+Claimed transmit power
+Class of Device says $shown.
+Classic Bluetooth class
+Co-travel is split by class: finder tags (AirTag / Find My, SmartTag, Tile, Chipolo, Pebblebee, loud pocket Apple), retail beacons (iBeacon, Minew, Estimote, Kontakt.io, Atrius cart tag), and wearables (Garmin, Fitbit, Oura).
+Could be
+Could be 
+Could be yours or planted in the car/bag/on you before you started. Account for each MAC — do not dismiss as yours.
+Decoded fields
+Dense public / retail / street: many APs and phone-like randomized BLE.
+Discoverable: other BLE devices can find it.
+Do not share this file off-device without redaction.
+Dual-mode chip: BLE and classic can run together.
+EXTRA ATTENTION ($name): 
+Enable Tag detections with GPS and walk 50+ m, then run Debrief again for a following test.
+Encryption / login
+Enhanced Open (encrypted, no password)
+Enterprise login (802.1X)
+Even Realities G1 glasses
+Executive summary
+Experimental. Not a legal identity. Stock Android radios — this is what the OS 
+FIELD DEBRIEF
+FIELDWATCH FIELD DEBRIEF
+FIELDWATCH SIT COMPARE
+Fail any one → omit (pass-by), not a tail. 
+Field debrief
+Fieldwatch (app.czrwatchair) · stock Android · receive-only Wi-Fi AP + BLE advertiser
+Fieldwatch cannot tell your own tag or phone from a tracker planted in the car, bag, or on you before you started. 
+Fieldwatch sit $sitName (CSV)
+Fieldwatch sit $sitName (GPX)
+Fieldwatch sit $sitName (JSON lines)
+Fieldwatch sit $sitName (KML)
+Fieldwatch sit $sitName (WiGLE CSV)
+Find My related UUID.
+Finder tags (AirTag / Find My, SmartTag, Tile, Chipolo, Pebblebee) and loud pocket Apple BLE. 
+Finder tags (AirTag / SmartTag / Tile / Chipolo / Pebblebee / Find My / loud pocket Apple) 
+Finder tags that were not heard when this sit started, then stayed with your path. 
+First seen
+Flags (raw)
+GPS tag
+GPS tagging is OFF. Fieldwatch cannot test whether a radio moved with you.
+GPS tagging is OFF. Turn on Settings → Tag detections with GPS to record where you were when radios were heard.
+GPS tagging is off, so a following test was not performed. Enable “Tag detections with GPS” and walk to test. 
+GPS tagging is on, but this window has no fixes yet.
+GPS tagging off — no path
+GPS tagging on, fewer than 2 fixes in this window
+Garmin / Fitbit / Oura radios that stayed with your GPS path. 
+Google Fast Pair (often buds/speakers)
+Google Fast Pair in pairing mode: 
+Google Fast Pair is present (common on buds and speakers).
+HP printer
+Heard range this session
+Heard, but not at two GPS points. Cannot test co-travel.
+Hidden SSIDs still beacon and identify the AP by BSSID. 
+Hidden SSIDs:
+Hidden — the AP is beaconing but not publishing a name
+High randomized BLE ($rand) — typical of phones, not a tracking finding.
+House tags and other radios the operator only passed are omitted — they are not tracking. 
+How loud here (RSSI)
+How often it advertises
+If one did, account for it (a cart you pushed, your own test tag, a badge, or a short path that still overlaps a fixture). 
+In both
+In motion (walk/vehicle) through mixed RF.
+In the last 15 minutes
+Insufficient movement to distinguish a radio that stayed with you from one you passed. Walk or drive farther and re-run.
+It advertises Appearance as $name.
+It is on the air, but it did not advertise a product class 
+It offers Bluetooth LE Audio services.
+It offers Environmental Sensing.
+It offers a classic audio / headset service.
+It offers the Blood Pressure service.
+It offers the HID (human-interface) service.
+It offers the Heart Rate service.
+JBL or Harman audio
+LE Audio
+LE Audio earbuds or a speaker
+LE cycling power/speed
+Last 15 minutes
+Last 15 minutes is the Live RAM set (about 400 radios). 
+Last fix
+Last heard
+Last seen
+Likely a building with standing infrastructure APs plus patrons.
+Likely a dwelling or small office — few sitting APs, limited BLE.
+Limited-discoverable: briefly looking for a nearby connection.
+Locally administered BSSID. Vehicle, mesh, and guest APs often keep this address. Not a rotating phone MAC.
+Locally administered address. The local bit is set, so this is not an IEEE factory assignment.
+Location beacons are usually fixtures in a store or venue — they do not typically move with you. 
+Location beacons do not typically move with you. Account for it (own test tag, badge, or a short overlap with a fixture).
+Loudest APs:
+Loudest first seen:
+MAC tails (**:**:**) and GPS coordinates masked. Logs on the phone are unchanged.
+Maker data inside the ad
+Marked mine
+Marked mine.
+Marked mine. First heard after the sit started and stayed with the path.
+Marked mine. With you the whole sit.
+Matched signature $raw.
+Matched signatures
+May also do classic Bluetooth (BR/EDR) as well as BLE.
+Mixed or under-sampled environment.
+Most likely
+Most likely 
+Named or marked:
+Nest Weave
+Network name (SSID)
+Networks (Wi-Fi access points)
+No $which in this sit.
+No GPS-tagged $which in this sit. Settings → Tag detections with GPS.
+No beep while this is on. Still listed.
+No extra flags. Signature hits, Extra attention, and tracking callouts already cover named pattern matches.
+No finder tag clearly stayed with the GPS path in this window. 
+No finder tag stayed with the path.
+No finder tag, retail beacon, or wearable clearly stayed with your GPS path in this window.
+No finder tag, retail beacon, or wearable stayed with you. House tags and other radios you only passed are not listed.
+No path legs.
+No signature hits and no GPS co-travel of trackers in this 15-minute window.
+No — broadcast-only (you can hear it, not join it from this scan)
+None in this window.
+North-up. Line is this phone. $pinNote
+Not a finding and not identity.
+Not available
+Not identity. Find My MAC rotation will not stitch a tail that changes address. 
+Not in the Bluetooth company list
+Not the same as a Find My tail. Not a finding and not identity.
+Notable BLE:
+Notas del observador
+OPERATOR PATH
+OPERATOR PATHS
+OUI (vendor prefix)
+One stay — you did not move far enough in this window to split locations.
+Only in second sit
+Only in second sit.
+Only in this sit
+Only in this sit.
+Only radios that stayed with the operator path are listed. 
+Open or encryption not parsed
+Operationally sensitive — neighbor SSIDs, MACs, operator GPS
+Operationally sensitive — neighbor SSIDs, MACs, operator GPS, advertised aircraft track
+Pattern match, not identity, not a skimmer detector, not a safety finding.
+Periodic advertising
+Phone GPS at hear-time, not the other radio’s location and not a camera pole. Stays are clusters within about 40 m; hops between them are transit. Coordinates are not repeated on every Wi-Fi/BLE line.
+Possible tail
+Possible tail (finder tags, first heard after this sit started, then stayed)
+Possible tail extra gates (walks): trail covers ≥ half the operator path, 
+Possible trackers with you
+Possible trackers with you (finder tags, whole sit — yours or planted before you started)
+Presence (15 min)
+Probably 
+Public factory address (stable, IEEE-assigned).
+Radio PHY
+Radios this phone heard. Kind + MAC. BLE rotation is a new row. Not a radio fix.
+Radios you marked mine. Heard in either window. Still listed.
+Radios you marked mine. Heard in this window. Still listed. No beep while the mark is on.
+Random / privacy address. The MAC can change, so this is not a lasting identity.
+Raw advertisement
+Recent RSSI (oldest → newest)
+Recommended actions
+Retail beacon(s) also stayed with the path (unusual — fixtures do not typically move with you): 
+Retail beacons with you
+Retail beacons with you (iBeacon / Minew / Estimote / Kontakt.io / Atrius cart tag — fixtures; a pushed cart will co-travel)
+Retail beacons with you (unusual — fixtures do not typically move with you): 
+SIT COMPARE
+SSID is hidden; the radio is still beaconing.
+SSID looks like a phone hotspot.
+SSID starts with DIRECT-.
+Samsung SmartTag
+Second radios
+Second sit
+Security string
+Service IDs
+Services it offers
+Shokz OpenRun or OpenFit headphones
+Signature hits
+Sit compare
+SmartTag service UUID.
+Sonos speaker
+Sony headphones, a TV, or a camera
+Station-side Wi-Fi (probes/clients) still needs a dedicated sniffer — Fieldwatch cannot see them.
+Stock Android only reports beaconing APs.
+Stops: 
+Street names are approximate. Do not treat a street as the location of a matched camera or tag.
+Street names came from the phone’s system geocoder while online. 
+Supported rates
+TKIP (older, weaker cipher)
+TRACKING NOTE. 
+Takeaway: $takeaway
+That can mean someone started following you (their phone or tag), or a device was added during the trip. 
+These radios stayed with your GPS path for this sit. 
+They are not typically planted trackers. Account for each MAC. Not a finding and not identity.
+This debrief includes advertised aircraft positions from radios that broadcast a latitude and longitude. 
+This debrief includes operator GPS samples used for distance and the following test. 
+This radios
+This sit
+Tile service UUID.
+Tile tracker
+Tracking assessment
+Treat as a possible tail until you visually account for it.
+Turn on GPS tagging and walk before you can test whether a tracker is following you.
+Turn on Settings → Tag detections with GPS, walk or drive 50+ m, then run Debrief again.
+Tuya IoT
+Two walks on one north-up frame. Green = this sit. Slate = second sit. $pinNote
+Typical of a watch or ring you or a companion are wearing. Not typically a planted tracker.
+Typical of a watch that joined the sit (you put it on, or someone walking with you). Not typically a planted tracker.
+Universal IEEE address (stable OUI).
+Unknown Fleet
+Unknown IEEE OUI
+Unknown Signature
+Unlisted Appearance 0x%04X
+Unmatched rotating BLE omitted from lists ($omittedRand). Counts include them. Sit export has every radio.
+Unusual for a retail/location beacon — they do not typically move with you. Account for it; not the same as a Find My tail.
+Use Live → Pause to inspect a busy list. Watch tracker signatures if this sit was noisy.
+Very strong unnamed radios (≥ −50 dBm): 
+Vuzix smart glasses
+WEP (old, weak)
+WPA2 password (PSK)
+WPA3 password (SAE handshake)
+WPS setup is enabled
+Walk farther (50+ m) with GPS tagging on, then re-run Debrief.
+Watches and rings usually move with the person wearing them — often your own kit or someone walking with you. 
+Wearable(s) stayed with the path (usually your watch/ring or a companion): 
+Wearables with you
+Wearables with you (Garmin / Fitbit / Oura — usually own kit or a companion)
+Wearables with you (usually own kit or a companion): 
+What it says it is (Appearance)
+What this looks like: 
+Where you were
+Who made it
+Wi-Fi access point
+Wi-Fi access point (beaconing a network)
+Wi-Fi generation
+Wi-Fi password (WPA/PSK)
+Wi-Fi radios
+Wi-Fi vendor tags
+With you the whole sit — yours or planted before you started. Account for it.
+Yes — a phone could open a BLE connection
+Your captions on radios heard in either window. Same KIND+MAC as Named radios. Not catalog Notes.
+Your captions on radios heard in this window. Same KIND+MAC as Named radios. Not catalog Notes.
+a 
+a BLE tire-pressure sensor
+a BLIP Systems BlipTrack roadside travel-time sensor
+a BMW vehicle, phone-as-key, or factory hotspot
+a BYD vehicle or phone-as-key
+a Bee Pioneer wearable recorder
+a Belkin access point
+a Bruce ESP32 pentest board
+a Buffalo AirStation or router
+a Calix fiber gateway
+a Cambium or IgniteNet access point
+a CarPlay in-car hotspot
+a CenturyLink gateway
+a Chamberlain myQ garage hub
+a Chevrolet in-car Wi-Fi hotspot
+a Cisco Aironet, Catalyst, Business, RV, or SPVTG access point
+a Cisco Meraki access point
+a Compex access point (sometimes public-safety / fleet)
+a Cradlepoint vehicle router (often public-safety / fleet)
+a Cudy travel or home router
+a D-Link access point
+a DJI Osmo action camera
+a DJI Power station
+a DJI drone or controller
+a DULT finder tag
+a DWnet access point
+a Dexcom glucose sensor
+a Digital Ally body-worn or in-car camera
+a Fitbit
+a Flock Raven or ShotSpotter acoustic gunshot sensor
+a Ford or Lincoln vehicle or phone-as-key
+a Fortinet FortiAP or FortiWiFi
+a Franklin Technology 5G home-internet gateway (RG3100 class)
+a Friend Pendant necklace
+a GL.iNet travel router
+a GM in-car hotspot (Cadillac / GMC / Buick / Chevrolet)
+a Garmin watch or inReach
+a GhostESP ESP32 audit board
+a GoPro
+a Google Find Hub tag
+a Google Wifi or Nest Wifi point
+a Govee light or sensor
+a Grandstream GWN access point
+a HOVERAir flying camera
+a HUMAX gateway (often T-Mobile Home Internet)
+a Haiku or Mammoth ceiling fan
+a Hanwha Vision / Wisenet camera
+a Hayden AI bus- or vehicle-mounted camera
+a Hitron cable gateway (often Xfinity OEM)
+a Honda or Acura vehicle or phone-as-key
+a Honeywell Home or Lyric thermostat
+a Honeywell Xenon healthcare barcode scanner
+a Hyundai or Genesis vehicle or phone-as-key
+a Jaguar, Land Rover, or Range Rover
+a Juniper Mist access point
+a Kontakt.io beacon
+a Kwikset Kevo or Unikey lock
+a Kwikset lock
+a Limitless Pendant conversation recorder
+a Linksys or Velop access point
+a Lockly smart lock
+a Logitech mouse, keyboard, or webcam
+a Luxul access point
+a Master Lock padlock
+a Mercedes MBUX in-car hotspot
+a MeshCore LoRa companion radio
+a MikroTik router or access point
+a Minew BLE beacon or sensor
+a Miovision intersection traffic camera
+a Mojo Networks / Arista Cognitive Wi-Fi access point
+a Motive / KeepTruckin fleet ELD hotspot
+a NETGEAR or Orbi access point
+a Nespresso coffee machine
+a Nest Protect, camera, or other Weave BLE device
+a Nest thermostat or Nest Labs BLE sensor
+a Nissan or Infiniti vehicle or phone-as-key
+a Nokia Solutions and Networks gateway
+a Novatel Wireless / Inseego vehicle radio
+a Nuki lock or opener
+a Panasonic i-PRO camera or Arbitrator in-car system
+a Parrot ANAFI or Bebop drone
+a Paxton reader or Net2 access point
+a PeopleNet fleet ELD hotspot
+a Peplink or Pepwave router
+a Pixel or other Google radio
+a Porsche vehicle or phone-as-key
+a RAK WisGate LoRaWAN gateway
+a RUCKUS access point
+a RadiaCode radiation detector
+a Reveal Media body-worn camera
+a Rhombus cloud camera
+a Rivian vehicle, phone key, or sensor
+a Roku streaming stick or Roku TV (often a hidden Wi-Fi Direct remote AP)
+a Ruijie or Reyee access point
+a SALTO access reader or lock
+a Sagemcom ISP gateway
+a Samsung SmartTag
+a Samsung fridge, range, oven, or cooktop (setup AP)
+a Schlage or Allegion lock
+a SenseCAP LoRaWAN / Helium gateway
+a Sensi thermostat
+a Sercomm ISP gateway
+a Sierra Wireless AirLink vehicle gateway
+a Skydio drone
+a SnapAV / Control4 / Wattbox access point
+a Sonos speaker
+a Sophos firewall or access point
+a Spectrum gateway or Spectrum Mobile hotspot
+a Starlink router
+a Subaru vehicle or phone-as-key
+a Synology NAS or router access point
+a T-Mobile Home Internet gateway or hotspot
+a TP-Link access point
+a TRENDnet access point
+a Tattile plate reader
+a Tedee smart lock
+a Tenda access point
+a Tesla BLE tire sensor
+a Tesla vehicle (including Cybertruck) or phone-as-key
+a Tile tracker
+a Toyota or Lexus vehicle or phone-as-key
+a Tuya BLE gadget (plug, light, camera, sensor)
+a Ubiquiti UniFi access point
+a Uconnect in-car hotspot
+a UniFi / Ubiquiti name
+a UniFi Protect Instant camera
+a Uniview / UNV camera
+a Utility, Inc vehicle or public-safety radio
+a Vantiva or Technicolor ISP gateway
+a Verizon or Fios gateway
+a Volkswagen vehicle or phone-as-key
+a WAVLINK access point
+a WatchGuard firewall or access point
+a Wi-Fi Direct access point
+a Wi-Fi access point
+a Windows / Surface / Xbox radio
+a Winegard RV or marine Wi-Fi radio
+a Withings scale or blood-pressure monitor
+a Wolfcom body-worn or in-car camera
+a Zyxel gateway or access point
+a blood-pressure monitor
+a camera-module radio (LiteOn or similar)
+a clock
+a computer
+a computer or tablet
+a display or TV stick
+a dormakaba, Saflok, or Oracode lock
+a drone broadcasting ASTM Remote ID
+a finder tag
+a finder tag / tracker
+a game controller
+a goTenna Mesh or Pro radio
+a health sensor
+a heart-rate monitor
+a hidden Wi-Fi access point
+a keyboard
+a keyboard, mouse, or gamepad
+a mesh Wi-Fi node
+a mouse
+a phone
+a phone hotspot
+a phone or TV using Wi-Fi Direct
+a remote control
+a speaker
+a watch
+a watch or wrist wearable
+ad-hoc network
+an 
+an ASSA ABLOY lock, Yale lock, HID reader, or Seos credential
+an ASUS access point
+an AT&T gateway or attwifi hotspot
+an AUMOVIO / Continental vehicle Wi-Fi radio
+an Actiontec FiOS or Frontier gateway
+an Adtran fiber gateway (often CenturyLink / Quantum Fiber OEM)
+an AirTies ISP mesh node
+an Apple AirTag / Find My tag
+an Apple Find My accessory
+an Arcadyan ISP gateway
+an Arlo camera or VMB base station
+an Arris or SURFboard cable gateway
+an Askey ISP / 5G gateway
+an Atrius cart tag
+an Audi MMI in-car hotspot
+an August smart lock
+an Autel drone
+an Echo, Fire, or other Amazon radio
+an EcoWater water softener (setup AP)
+an Edgecore access point
+an Eero mesh node
+an EnGenius access point
+an Epson EcoTank or WorkForce printer
+an Estimote beacon
+an Extreme Networks access point
+an HP printer
+an HPE Aruba Instant or Instant On access point
+an Inseego 5G or MiFi hotspot
+an Insta360 camera
+an Iteris BlueTOAD / Vantage Velocity roadside Bluetooth travel-time reader
+an LG webOS TV
+an LVT / LiveView solar surveillance trailer
+an Omi pendant or OpenGlass camera glasses
+an Omron blood-pressure cuff or scale
+an OpenWrt router
+an Oura ring
+an Xfinity gateway or hotspot
+an audio device
+an ecobee thermostat
+an environmental sensor
+an iBeacon
+an iPhone, iPad, or Mac
+an igloohome lock or keybox
+an input accessory
+an input device (keyboard, mouse, or similar)
+apple audio
+apple device
+are the tracking test. Retail beacons and wearables that co-travel are listed separately — 
+assa abloy
+attribute protocol
+audi mmi
+battery level
+bee pendant
+bee pioneer
+blood pressure
+blood-pressure sensor
+brilliant frame
+car audio
+ch $ch
+chevrolet hotspot
+connection basics
+d MMM HH:mm
+digital ally
+dji power
+earbuds or a headset
+earbuds or a speaker
+earbuds or headphones
+even g1
+find hub
+find my
+friend pendant
+gm hotspot
+google wifi
+haiku fan
+headphones, a headset, or a speaker
+heart-rate sensor
+honeywell home
+honeywell xenon
+iBeacon / Minew / Estimote / Kontakt.io / Atrius cart tag radios that stayed with your GPS path. 
+infrastructure access point
+jaguar land rover
+keyboard, mouse, or gamepad
+last 15 minutes in memory (about 400 radios)
+lg webos tv
+liteon camera radio
+master lock
+mercedes mbux
+mesh node
+model / serial / firmware
+moto tag
+nest thermostat
+nest weave
+not available
+novatel wireless
+off (Settings → Online place names in Debrief). No reverse-geocode this export.
+portable audio
+rak wisgate
+remote id
+reveal media
+samsung appliance
+second sit
+smart glasses
+temperature / humidity style sensor
+tesla tstpms
+they do not typically move with you (beacons) or are usually own kit (wearables).
+this sit
+unifi ap
+unifi protect
+utility inc
+very strong
+very weak
+watchguard ap
+yyyy-MM-dd HH:mm:ss Z
+} (0x%04X).
+≥ 2/3 of GPS stamps at −75 dBm or louder, last stamp not 12 dB below loudest. 

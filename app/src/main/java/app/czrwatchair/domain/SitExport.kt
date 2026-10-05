@@ -174,7 +174,7 @@ object SitExport {
         return if (kind == LogExportKind.LOG_CSV || kind == LogExportKind.LOG_JSONL) {
             "No $which in this sit."
         } else {
-            "No GPS-tagged $which in this sit. Settings → Tag detections with GPS."
+            "Sin $which etiquetado con GPS. Ajustes → Detecciones con GPS."
         }
     }
 

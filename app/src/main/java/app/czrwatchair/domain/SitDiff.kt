@@ -186,7 +186,7 @@ object SitDiff {
                     appendLine(ramNote)
                     appendLine()
                 }
-                append("Radios this phone heard. Kind + MAC. BLE rotation is a new row. Not a radio fix.")
+                append("Radios que escuchó este teléfono. Tipo + MAC. La rotación BLE es una fila nueva. No es una fijación de radio.")
             },
             chart = presenceChart(onlyThis, onlySecond, both, byKey),
         )
@@ -232,7 +232,7 @@ object SitDiff {
             takeaway = compareTakeaway(onlyThis.size, onlySecond.size, both.size, mineCount(thisSit, second)),
             sections = sections,
             extraAttention = extraHits,
-            heading = "FIELDWATCH SIT COMPARE",
+            heading = "COMPARACIÓN DE SESIÓN DE CZR WATCHAIR",
             pdfKicker = "SIT COMPARE",
             pdfTitle = "Sit compare",
             pathFigure = AircraftTrail.applyWalk(
@@ -262,7 +262,7 @@ object SitDiff {
             },
         )
         if (tracks.isEmpty()) return null
-        val pinNote = "A MAC alert or a signature alert is drawn once. A decoded latitude and longitude is the last advertised position. Anything else is the strongest hear. A number is that place (Path key)."
+        val pinNote = "Una alerta MAC o de firma se dibuja una vez. Una lat/lon decodificada es la última posición anunciada. Todo lo demás es la señal más fuerte escuchada. Un número es ese lugar."
         val points = (thisSit.radios + second.radios)
             .filter { it.bookmarked || it.fleetIds.any { id -> id in watchedFleetIds } }
             .distinctBy { it.key }
@@ -308,7 +308,7 @@ object SitDiff {
         val dots = points
         val all = tracks.flatMap { it.samples }
         val cap = if (tracks.size == 2) {
-            "Two walks on one north-up frame. Green = this sit. Slate = second sit. $pinNote"
+            "Dos caminatas en un marco. Verde = esta sesión. Pizarra = segunda sesión. $pinNote"
         } else {
             "North-up. Line is this phone. $pinNote"
         }
@@ -596,7 +596,7 @@ object SitDiff {
         val rows = (thisSit.radios + second.radios).distinctBy { it.key }.filter { it.mine }
         if (rows.isEmpty()) return null
         return buildString {
-            appendLine("Radios you marked mine. Heard in either window. Still listed.")
+            appendLine("Radios marcadas como suyas. Escuchadas en cualquier ventana. Aún listadas.")
             rows.sortedWith(
                 compareBy<Radio> { where(it.key) }.thenBy { it.mac },
             ).forEach { r ->
@@ -624,7 +624,7 @@ object SitDiff {
             }
         if (rows.isEmpty()) return null
         return buildString {
-            appendLine("Your captions on radios heard in either window. Same KIND+MAC as Named radios. Not catalog Notes.")
+            appendLine("Sus leyendas en radios escuchadas en cualquier ventana. Misma TIPO+MAC que Radios nombradas. No notas del catálogo.")
             rows.sortedWith(
                 compareBy<Pair<Radio, String>> { where(it.first.key) }.thenBy { it.first.mac },
             ).forEach { (r, note) ->

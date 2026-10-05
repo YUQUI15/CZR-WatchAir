@@ -33,7 +33,7 @@ object DeviceExplain {
                     "Bluetooth LE advertiser"
                 },
                 because = "It is on the air, but it did not advertise a product class " +
-                    "(no Appearance, Class of Device, or well-known service that names a type).",
+                    "(sin Apariencia, Clase de Dispositivo o servicio conocido que nombre un tipo).",
                 confidence = Confidence.LOW,
             )
         }
@@ -101,13 +101,13 @@ object DeviceExplain {
 
     fun flagsExplain(flags: Int): String = buildList {
         if (flags and 0x01 != 0) {
-            add("Limited-discoverable: briefly looking for a nearby connection.")
+            add("Descubrible limitadamente: buscando brevemente una conexión cercana.")
         }
         if (flags and 0x02 != 0) {
             add("Discoverable: other BLE devices can find it.")
         }
         if (flags and 0x04 != 0) {
-            add("BLE-only: no classic Bluetooth (headsets/file-send radio).")
+            add("Solo BLE: sin Bluetooth clásico (auriculares/radio de envío de archivos).")
         } else {
             add("May also do classic Bluetooth (BR/EDR) as well as BLE.")
         }
@@ -127,13 +127,13 @@ object DeviceExplain {
         val type = device.facts.addressType
         return when {
             device.kind == RadioKind.WIFI && device.randomized ->
-                "Locally administered BSSID. Vehicle, mesh, and guest APs often keep this address. Not a rotating phone MAC."
+                "BSSID administrado localmente. Los vehículos, mallas y APs de invitados a menudo mantienen esta dirección. No es una MAC rotativa de teléfono."
             MacUtil.isLocallyAdministered(device.mac) && !device.randomized ->
-                "Locally administered address. The local bit is set, so this is not an IEEE factory assignment."
+                "Dirección administrada localmente. El bit local está configurado, no es una asignación de fábrica IEEE."
             type.equals("Public", true) && !device.randomized ->
                 "Public factory address (stable, IEEE-assigned)."
             type.equals("Random", true) || device.randomized ->
-                "Random / privacy address. The MAC can change, so this is not a lasting identity."
+                "Dirección aleatoria / de privacidad. La MAC puede cambiar, por lo que no es una identidad duradera."
             type.equals("Anonymous", true) ->
                 "Anonymous: the stack hid the address."
             else ->
@@ -294,7 +294,7 @@ object DeviceExplain {
                 0x180D -> out += Hint("health", "a heart-rate monitor", "It offers the Heart Rate service.", 6)
                 0x1810 -> out += Hint("health", "a blood-pressure monitor", "It offers the Blood Pressure service.", 6)
                 0x181A -> out += Hint("sensor", "an environmental sensor", "It offers Environmental Sensing.", 4)
-                0xFE2C -> out += Hint("audio-personal", "earbuds or a speaker", "Google Fast Pair is present (common on buds and speakers).", 4)
+                0xFE2C -> out += Hint("audio-personal", "earbuds or a speaker", "Google Fast Pair presente (común en auriculares y altavoces).", 4)
                 0xFD5A -> out += Hint("tag", "a Samsung SmartTag", "SmartTag service UUID.", 7)
                 0xFD44 -> out += Hint("tag", "an Apple Find My accessory", "Find My related UUID.", 6)
                 0xFEED, 0xFEDD -> out += Hint("tag", "a Tile tracker", "Tile service UUID.", 7)
@@ -440,13 +440,13 @@ object DeviceExplain {
                 n == "centurylink" ->
                     Hint("ap", "a CenturyLink gateway", "Matched signature $raw.", 6)
                 n == "gm hotspot" ->
-                    Hint("hotspot", "a GM in-car hotspot (Cadillac / GMC / Buick / Chevrolet)", "Matched signature $raw.", 6)
+                    Hint("hotspot", "un punto de acceso de coche GM (Cadillac / GMC / Buick / Chevrolet)", "Matched signature $raw.", 6)
                 n == "audi mmi" ->
                     Hint("hotspot", "an Audi MMI in-car hotspot", "Matched signature $raw.", 6)
                 n == "extreme" ->
                     Hint("ap", "an Extreme Networks access point", "Matched signature $raw.", 7)
                 n == "adtran" ->
-                    Hint("ap", "an Adtran fiber gateway (often CenturyLink / Quantum Fiber OEM)", "Matched signature $raw.", 6)
+                    Hint("ap", "una puerta de enlace de fibra Adtran", "Matched signature $raw.", 6)
                 n == "cambium" ->
                     Hint("ap", "a Cambium or IgniteNet access point", "Matched signature $raw.", 6)
                 n == "trendnet" ->
@@ -478,7 +478,7 @@ object DeviceExplain {
                 n == "inseego" ->
                     Hint("ap", "an Inseego 5G or MiFi hotspot", "Matched signature $raw.", 6)
                 n == "franklin" ->
-                    Hint("ap", "a Franklin Technology 5G home-internet gateway (RG3100 class)", "Matched signature $raw.", 6)
+                    Hint("ap", "una puerta de enlace 5G Franklin Technology", "Matched signature $raw.", 6)
                 n == "synology" ->
                     Hint("ap", "a Synology NAS or router access point", "Matched signature $raw.", 6)
                 n == "aruba" ->
@@ -528,7 +528,7 @@ object DeviceExplain {
                 n == "tuya" ->
                     Hint("iot", "a Tuya BLE gadget (plug, light, camera, sensor)", "Matched signature $raw.", 6)
                 n == "seos" || n == "assa abloy" ->
-                    Hint("access", "an ASSA ABLOY lock, Yale lock, HID reader, or Seos credential", "Matched signature $raw.", 7)
+                    Hint("access", "una cerradura ASSA ABLOY, cerradura Yale, lector HID o credencial Seos", "Matched signature $raw.", 7)
                 n == "august" ->
                     Hint("lock", "an August smart lock", "Matched signature $raw.", 7)
                 n == "schlage" ->
@@ -590,7 +590,7 @@ object DeviceExplain {
                 n == "lg webos tv" ->
                     Hint("tv", "an LG webOS TV", "Matched signature $raw.", 7)
                 n == "roku" ->
-                    Hint("tv", "a Roku streaming stick or Roku TV (often a hidden Wi-Fi Direct remote AP)", "Matched signature $raw.", 7)
+                    Hint("tv", "un Roku streaming stick o Roku TV (a menudo un AP remoto Wi-Fi Direct oculto)", "Matched signature $raw.", 7)
                 n == "samsung appliance" ->
                     Hint("iot", "a Samsung fridge, range, oven, or cooktop (setup AP)", "Matched signature $raw.", 6)
                 n == "ecowater" ->
@@ -612,7 +612,7 @@ object DeviceExplain {
                 n == "carplay" ->
                     Hint("hotspot", "a CarPlay in-car hotspot", "Matched signature $raw.", 6)
                 n == "cradlepoint" ->
-                    Hint("hotspot", "a Cradlepoint vehicle router (often public-safety / fleet)", "Matched signature $raw.", 7)
+                    Hint("hotspot", "un router de vehículo Cradlepoint (a menudo seguridad pública / flotas)", "Matched signature $raw.", 7)
                 n == "airlink" ->
                     Hint("hotspot", "a Sierra Wireless AirLink vehicle gateway", "Matched signature $raw.", 7)
                 n == "compex" ->
@@ -640,7 +640,7 @@ object DeviceExplain {
                 "bluetoad" in n ->
                     Hint(
                         "roadside",
-                        "an Iteris BlueTOAD / Vantage Velocity roadside Bluetooth travel-time reader",
+                        "un lector de tiempo de viaje Bluetooth de carretera Iteris BlueTOAD / Vantage Velocity",
                         "Matched signature $raw.",
                         7,
                     )

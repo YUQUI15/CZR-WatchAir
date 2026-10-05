@@ -1,0 +1,100 @@
+Co-travel is split by class: finder tags (AirTag / Find My, SmartTag, Tile, Chipolo, Pebblebee, loud pocket Apple), retail beacons (iBeacon, Minew, Estimote, Kontakt.io, Atrius cart tag), and wearables (Garmin, Fitbit, Oura).
+Phone GPS at hear-time, not the other radio’s location and not a camera pole. Stays are clusters within about 40 m; hops between them are transit. Coordinates are not repeated on every Wi-Fi/BLE line.
+A MAC alert or a signature alert is drawn once. A decoded latitude and longitude is the last advertised position. Anything else is the strongest hear. A number is that place (Path key).
+Retail beacons with you (iBeacon / Minew / Estimote / Kontakt.io / Atrius cart tag — fixtures; a pushed cart will co-travel)
+Unusual for a retail/location beacon — they do not typically move with you. Account for it; not the same as a Find My tail.
+If one did, account for it (a cart you pushed, your own test tag, a badge, or a short path that still overlaps a fixture).
+Location beacons do not typically move with you. Account for it (own test tag, badge, or a short overlap with a fixture).
+Insufficient movement to distinguish a radio that stayed with you from one you passed. Walk or drive farther and re-run.
+No finder tag, retail beacon, or wearable stayed with you. House tags and other radios you only passed are not listed.
+Callouts below are only radios that stayed with the path. Radios you passed (store fixtures, house tags) are omitted.
+Typical of a watch that joined the sit (you put it on, or someone walking with you). Not typically a planted tracker.
+Could be yours or planted in the car/bag/on you before you started. Account for each MAC — do not dismiss as yours.
+Fieldwatch cannot tell your own tag or phone from a tracker planted in the car, bag, or on you before you started.
+GPS tagging is OFF. Turn on Settings → Tag detections with GPS to record where you were when radios were heard.
+GPS tagging is off, so a following test was not performed. Enable “Tag detections with GPS” and walk to test.
+Watches and rings usually move with the person wearing them — often your own kit or someone walking with you.
+Locally administered BSSID. Vehicle, mesh, and guest APs often keep this address. Not a rotating phone MAC.
+No extra flags. Signature hits, Extra attention, and tracking callouts already cover named pattern matches.
+Unmatched rotating BLE omitted from lists ($omittedRand). Counts include them. Sit export has every radio.
+That can mean someone started following you (their phone or tag), or a device was added during the trip.
+This debrief includes advertised aircraft positions from radios that broadcast a latitude and longitude.
+· No GPS-stamped radios tied to this stay (tagging may have started after they were first heard).
+Station-side Wi-Fi (probes/clients) still needs a dedicated sniffer — Fieldwatch cannot see them.
+Your captions on radios heard in either window. Same KIND+MAC as Named radios. Not catalog Notes.
+Location beacons are usually fixtures in a store or venue — they do not typically move with you.
+iBeacon / Minew / Estimote / Kontakt.io / Atrius cart tag radios that stayed with your GPS path.
+Retail beacon(s) also stayed with the path (unusual — fixtures do not typically move with you):
+Street names are approximate. Do not treat a street as the location of a matched camera or tag.
+Your captions on radios heard in this window. Same KIND+MAC as Named radios. Not catalog Notes.
+Locally administered address. The local bit is set, so this is not an IEEE factory assignment.
+They are not typically planted trackers. Account for each MAC. Not a finding and not identity.
+Finder tags (AirTag / Find My, SmartTag, Tile, Chipolo, Pebblebee) and loud pocket Apple BLE.
+Enable Tag detections with GPS and walk 50+ m, then run Debrief again for a following test.
+No finder tag, retail beacon, or wearable clearly stayed with your GPS path in this window.
+Typical of a watch or ring you or a companion are wearing. Not typically a planted tracker.
+Finder tags (AirTag / SmartTag / Tile / Chipolo / Pebblebee / Find My / loud pocket Apple)
+are the tracking test. Retail beacons and wearables that co-travel are listed separately —
+House tags and other radios the operator only passed are omitted — they are not tracking.
+Possible trackers with you (finder tags, whole sit — yours or planted before you started)
+Radios you marked mine. Heard in this window. Still listed. No beep while the mark is on.
+Turn on Settings → Tag detections with GPS, walk or drive 50+ m, then run Debrief again.
+Use Live → Pause to inspect a busy list. Watch tracker signatures if this sit was noisy.
+Operationally sensitive — neighbor SSIDs, MACs, operator GPS, advertised aircraft track
+Fieldwatch (app.czrwatchair) · stock Android · receive-only Wi-Fi AP + BLE advertiser
+This debrief includes operator GPS samples used for distance and the following test.
+Turn on GPS tagging and walk before you can test whether a tracker is following you.
+Finder tags that were not heard when this sit started, then stayed with your path.
+MAC tails (**:**:**) and GPS coordinates masked. Logs on the phone are unchanged.
+they do not typically move with you (beacons) or are usually own kit (wearables).
+Radios this phone heard. Kind + MAC. BLE rotation is a new row. Not a radio fix.
+Random / privacy address. The MAC can change, so this is not a lasting identity.
+- Following test: insufficient movement (need ~45 m span). Do not infer a tail.
+Not identity. Find My MAC rotation will not stitch a tail that changes address.
+Two walks on one north-up frame. Green = this sit. Slate = second sit. $pinNote
+off (Settings → Online place names in Debrief). No reverse-geocode this export.
+Experimental. Not a legal identity. Stock Android radios — this is what the OS
+With you the whole sit — yours or planted before you started. Account for it.
+≥ 2/3 of GPS stamps at −75 dBm or louder, last stamp not 12 dB below loudest.
+No signature hits and no GPS co-travel of trackers in this 15-minute window.
+Possible tail (finder tags, first heard after this sit started, then stayed)
+Retail beacons with you (unusual — fixtures do not typically move with you):
+Wearables with you (Garmin / Fitbit / Oura — usually own kit or a companion)
+an Iteris BlueTOAD / Vantage Velocity roadside Bluetooth travel-time reader
+(no Appearance, Class of Device, or well-known service that names a type).
+GPS tagging is OFF. Fieldwatch cannot test whether a radio moved with you.
+Pattern match, not identity, not a skimmer detector, not a safety finding.
+Wearable(s) stayed with the path (usually your watch/ring or a companion):
+One stay — you did not move far enough in this window to split locations.
+Possible tail extra gates (walks): trail covers ≥ half the operator path,
+a Roku streaming stick or Roku TV (often a hidden Wi-Fi Direct remote AP)
+High randomized BLE ($rand) — typical of phones, not a tracking finding.
+Marked mine. First heard after the sit started and stayed with the path.
+Dense public / retail / street: many APs and phone-like randomized BLE.
+No GPS-tagged $which in this sit. Settings → Tag detections with GPS.
+. Account for a test tag or badge before treating it as a follower.
+Account for every MAC — Fieldwatch cannot tell yours from a plant.
+Likely a dwelling or small office — few sitting APs, limited BLE.
+No — broadcast-only (you can hear it, not join it from this scan)
+Likely a building with standing infrastructure APs plus patrons.
+Street names came from the phone’s system geocoder while online.
+Not the same as a Find My tail. Not a finding and not identity.
+an Adtran fiber gateway (often CenturyLink / Quantum Fiber OEM)
+Limited-discoverable: briefly looking for a nearby connection.
+No finder tag clearly stayed with the GPS path in this window.
+Walk farther (50+ m) with GPS tagging on, then re-run Debrief.
+a Cisco Aironet, Catalyst, Business, RV, or SPVTG access point
+Garmin / Fitbit / Oura radios that stayed with your GPS path.
+Radios you marked mine. Heard in either window. Still listed.
+a Franklin Technology 5G home-internet gateway (RG3100 class)
+an ASSA ABLOY lock, Yale lock, HID reader, or Seos credential
+Operationally sensitive — neighbor SSIDs, MACs, operator GPS
+Treat as a possible tail until you visually account for it.
+BLE-only: no classic Bluetooth (headsets/file-send radio).
+Google Fast Pair is present (common on buds and speakers).
+It is on the air, but it did not advertise a product class
+Only radios that stayed with the operator path are listed.
+a Cradlepoint vehicle router (often public-safety / fleet)
+This is what the device is advertising, not a visual ID.
+Heard, but not at two GPS points. Cannot test co-travel.
+a GM in-car hotspot (Cadillac / GMC / Buick / Chevrolet)

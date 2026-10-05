@@ -132,7 +132,7 @@ object DeviceDetailText {
                 line(
                     "Connectable",
                     if (it) "Yes — a phone could open a BLE connection"
-                    else "No — broadcast-only (you can hear it, not join it from this scan)",
+                    else "No — solo transmisión (puede escucharlo, no unirse a él desde este escaneo)",
                 )
             }
             facts.advertisingIntervalMs?.let {

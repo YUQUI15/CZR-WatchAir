@@ -96,9 +96,9 @@ data class DebriefDoc(
     val takeaway: String,
     val sections: List<DebriefSection>,
     val extraAttention: List<ExtraAttentionHit> = emptyList(),
-    val heading: String = "FIELDWATCH FIELD DEBRIEF",
-    val pdfKicker: String = "FIELD DEBRIEF",
-    val pdfTitle: String = "Field debrief",
+    val heading: String = "INFORME DE CAMPO DE CZR WATCHAIR",
+    val pdfKicker: String = "INFORME DE CAMPO",
+    val pdfTitle: String = "Informe de campo",
     val pathFigure: SitPathPlot.Figure? = null,
     val extraFigures: List<SitPathPlot.Figure> = emptyList(),
 ) {
@@ -126,7 +126,7 @@ data class DebriefDoc(
     fun withDemoMacs(macs: Collection<String>, demo: Boolean): DebriefDoc {
         if (!demo) return this
         fun t(s: String) = Geo.redactCoordsIn(MacUtil.redactMacsIn(s, macs, true), true)
-        val note = "MAC tails (**:**:**) and GPS coordinates masked. Logs on the phone are unchanged."
+        val note = "Colas MAC (**:**:**) y coordenadas GPS ocultas. Los registros en el teléfono no han cambiado."
         return copy(
             meta = listOf("Privacy" to note) + meta.map { it.first to t(it.second) },
             disclaimer = t(disclaimer),
@@ -288,12 +288,12 @@ object DebriefReport {
         val bleBody = buildString {
             appendLine("Heard ${ble.size} advertiser(s); $randomized with randomized addresses; ${named.count { it.kind == RadioKind.BLE }} signature-matched.")
             if (omittedRand > 0) {
-                appendLine("Unmatched rotating BLE omitted from lists ($omittedRand). Counts include them. Sit export has every radio.")
+                appendLine("BLE rotativos no coincidentes omitidos ($omittedRand). Los totales los incluyen. La exportación tiene cada radio.")
             }
         }.trimEnd()
         val bleAfter = if (showAll && notable.isNotEmpty()) {
             buildString {
-                appendLine("Notable BLE:")
+                appendLine("BLE Destacados:")
                 notable.forEach { d ->
                     val guess = DeviceExplain.guess(d, d.fleetIds.map { names[it] ?: it })
                     appendLine("  · ${bleLine(d, names, windowStart, now, customNames)}  |  ${guess.headline}")
@@ -379,7 +379,7 @@ object DebriefReport {
         }
         val flags = anomalyLines(inWin, customNames, settings, bookmarkedKeys, showAll)
         val anomalyBody = if (flags.isEmpty()) {
-            "No extra flags. Signature hits, Extra attention, and tracking callouts already cover named pattern matches."
+            "Sin banderas adicionales. Los aciertos de firmas, Atención adicional y seguimientos ya cubren patrones nombrados."
         } else flags.joinToString("\n") { "  · $it" }
         val attentionHits = inWin.flatMap { d ->
             d.attentionNotes(fleets).map { (sig, note) -> Triple(d, sig, note) }
@@ -409,7 +409,7 @@ object DebriefReport {
         val sections = buildList {
             add(DebriefSection(
                 next(),
-                "Executive summary",
+                "Resumen ejecutivo",
                 execSummary(wifi, ble, named, hidden, randomized, pathSpan, pathLen, following, withYou, ownLikely, beaconsWithYou, wearablesWithYou, settings, places, win, mineHeard) + craftSentence(pictures),
                 chart = classChart(inWin, fleets),
             ))
@@ -472,7 +472,7 @@ object DebriefReport {
                             "iBeacon / Minew / Estimote / Kontakt.io / Atrius cart tag radios that stayed with your GPS path. " +
                                 "Location beacons are usually fixtures in a store or venue — they do not typically move with you. " +
                                 "If one did, account for it (a cart you pushed, your own test tag, a badge, or a short path that still overlaps a fixture). " +
-                                "Not the same as a Find My tail. Not a finding and not identity.",
+                                "No es lo mismo que un rastreo Find My. No es un hallazgo ni una identidad.",
                             beaconsWithYou,
                             customNames,
                         ),
@@ -488,7 +488,7 @@ object DebriefReport {
                         trackerCallout(
                             "Garmin / Fitbit / Oura radios that stayed with your GPS path. " +
                                 "Watches and rings usually move with the person wearing them — often your own kit or someone walking with you. " +
-                                "They are not typically planted trackers. Account for each MAC. Not a finding and not identity.",
+                                "Normalmente no son rastreadores plantados. Considere cada MAC. No es un hallazgo ni una identidad.",
                             wearablesWithYou,
                             customNames,
                         ),
@@ -513,7 +513,7 @@ object DebriefReport {
                         next(),
                         "Atención adicional",
                         buildString {
-                            appendLine("Pattern match, not identity, not a skimmer detector, not a safety finding.")
+                            appendLine("Coincidencia de patrón, no identidad, ni detector de skimmer, ni hallazgo de seguridad.")
                             attentionHits.forEach { (d, sig, note) ->
                                 append("  · ${d.reportName(customNames)}  ${d.mac}  ${d.rssi} dBm  [$sig]")
                                 if (d.key in mineKeys) append("  Marked mine")
@@ -541,23 +541,23 @@ object DebriefReport {
         val heading = if (win.sitName != null) {
             "FIELDWATCH SIT — ${win.sitName}"
         } else {
-            "FIELDWATCH FIELD DEBRIEF"
+            "INFORME DE CAMPO DE CZR WATCHAIR"
         }
         val meta = buildList {
             add("Generated" to "${utc(now)} UTC")
             if (win.sitName != null) add("Sit" to win.sitName)
             add("Window" to windowLine)
             add("Radios" to "${inWin.size}")
-            add("Tool" to "Fieldwatch (app.czrwatchair) · stock Android · receive-only Wi-Fi AP + BLE advertiser")
+            add("Tool" to "CZR WatchAir (app.czrwatchair) · Android de fábrica · AP Wi-Fi (solo recepción) + BLE")
             add("Escanear" to "${settings.intensity.name.lowercase()} · stale ${settings.staleSec}s · brief hold ${settings.decaySec}s")
             add("GPS tag" to if (settings.tagLocation) "on" else "off")
             add("Distance" to distanceLine)
             add("Places" to lookupLine)
             add(
                 "Classification" to if (pictures.isNotEmpty()) {
-                    "Operationally sensitive — neighbor SSIDs, MACs, operator GPS, advertised aircraft track"
+                    "Operacionalmente sensible — SSIDs vecinos, MACs, GPS del operador, rutas de aeronaves anunciadas"
                 } else {
-                    "Operationally sensitive — neighbor SSIDs, MACs, operator GPS"
+                    "Operacionalmente sensible — SSIDs vecinos, MACs, GPS del operador"
                 },
             )
         }
@@ -580,8 +580,8 @@ object DebriefReport {
                 )
             },
             heading = heading,
-            pdfKicker = if (win.sitName != null) "SIT" else "FIELD DEBRIEF",
-            pdfTitle = if (win.sitName != null) "Sit — ${win.sitName}" else "Field debrief",
+            pdfKicker = if (win.sitName != null) "SIT" else "INFORME DE CAMPO",
+            pdfTitle = if (win.sitName != null) "Sit — ${win.sitName}" else "Informe de campo",
             pathFigure = AircraftTrail.applyWalk(
                 pathFigure(
                     win.sitName ?: "Last 15 minutes", path, inWin, fleets,
@@ -674,13 +674,13 @@ object DebriefReport {
         appendLine(
             "- Online place names: " +
                 if (places.attempted) places.note
-                else "off (Settings → Online place names in Debrief). No reverse-geocode this export.",
+                else "apagado (Ajustes → Nombres de lugares en línea). No hay geocodificación inversa.",
         )
         append(whereYouWere(settings, path, pathLen, pathSpan, inWin, names, places, windowEnd, customNames, bookmarkedKeys).trimEnd())
         appendLine()
         appendLine()
         if (path.size < 2 || pathSpan < MOVE_M) {
-            appendLine("- Following test: insufficient movement (need ~45 m span). Do not infer a tail.")
+            appendLine("- Prueba de seguimiento: movimiento insuficiente (se necesitan ~45 m). No infiera un rastreo.")
             appendLine()
         }
         appendLine("## GPS co-travel")
@@ -693,7 +693,7 @@ object DebriefReport {
                 "Fail any one → omit (pass-by), not a tail. " +
                 "Finder tags (AirTag / SmartTag / Tile / Chipolo / Pebblebee / Find My / loud pocket Apple) " +
                 "are the tracking test. Retail beacons and wearables that co-travel are listed separately — " +
-                "they do not typically move with you (beacons) or are usually own kit (wearables).",
+                "normalmente no se mueven con usted (balizas) o suelen ser equipo propio (wearables).",
         )
         fun List<FollowHit>.open(): List<FollowHit> = filter { it.device.key !in mineKeys }
         val followingMd = follow.filter { it.verdict == Verdict.FOLLOWING }.open()
@@ -719,19 +719,19 @@ object DebriefReport {
                 }
             }
             dump(
-                "Possible trackers with you (finder tags, whole sit — yours or planted before you started)",
+                "Posibles rastreadores con usted (etiquetas, sesión completa — suyas o plantadas antes de comenzar)",
                 wholeSitMd,
             )
             dump(
-                "Possible tail (finder tags, first heard after this sit started, then stayed)",
+                "Posible cola (etiquetas, escuchadas por primera vez después de iniciar esta sesión)",
                 followingMd,
             )
             dump(
-                "Retail beacons with you (iBeacon / Minew / Estimote / Kontakt.io / Atrius cart tag — fixtures; a pushed cart will co-travel)",
+                "Balizas minoristas con usted (iBeacon/Minew/Estimote/Kontakt.io — accesorios fijos; un carrito empujado viajará con usted)",
                 beaconsOpen,
             )
             dump(
-                "Wearables with you (Garmin / Fitbit / Oura — usually own kit or a companion)",
+                "Wearables con usted (Garmin/Fitbit/Oura — usualmente equipo propio o un compañero)",
                 wearablesOpen,
             )
         }
@@ -779,7 +779,7 @@ object DebriefReport {
                 operatorPath.size < 2 || opSpan < MOVE_M ->
                     Verdict.INSUFFICIENT to "Operator GPS path too short (${opSpan.toInt()} m) to test following."
                 trail.size < 2 ->
-                    Verdict.INSUFFICIENT to "Heard, but not at two GPS points. Cannot test co-travel."
+                    Verdict.INSUFFICIENT to "Escuchado, pero no en dos puntos GPS. No se puede probar viaje conjunto."
                 onBody && ownHere ->
                     Verdict.OWN_LIKELY to onBodyLine(kind, d, trail.size)
                 cover && ownHere && d.rssiMax >= ON_BODY_MAX ->
@@ -829,11 +829,11 @@ object DebriefReport {
         val decoded = liveDecodeSentence(device)
         val base = when (kind) {
             TrackerMatch.Kind.FINDER ->
-                "With you the whole sit — yours or planted before you started. Account for it."
+                "Con usted toda la sesión — suyo o plantado antes de comenzar. Considérelo."
             TrackerMatch.Kind.BEACON ->
-                "Location beacons do not typically move with you. Account for it (own test tag, badge, or a short overlap with a fixture)."
+                "Las balizas de ubicación no suelen moverse con usted. Considérenlo (su propia etiqueta de prueba, credencial o un cruce corto)."
             TrackerMatch.Kind.WEARABLE ->
-                "Typical of a watch or ring you or a companion are wearing. Not typically a planted tracker."
+                "Típico de un reloj o anillo que usted o un compañero llevan puesto. Normalmente no es un rastreador plantado."
         }
         return when {
             decoded != null -> "$base $decoded"
@@ -880,11 +880,11 @@ object DebriefReport {
                         "$loudN/${trail.size} GPS stamps ≥ −75 dBm). "
                 val note = when (kind) {
                     TrackerMatch.Kind.FINDER ->
-                        "Treat as a possible tail until you visually account for it."
+                        "Trátelo como una posible cola hasta que lo verifique visualmente."
                     TrackerMatch.Kind.BEACON ->
-                        "Unusual for a retail/location beacon — they do not typically move with you. Account for it; not the same as a Find My tail."
+                        "Inusual para una baliza minorista: no suelen moverse con usted. Considérenlo; no es lo mismo que un rastreo de Find My."
                     TrackerMatch.Kind.WEARABLE ->
-                        "Typical of a watch that joined the sit (you put it on, or someone walking with you). Not typically a planted tracker."
+                        "Típico de un reloj que se unió a la sesión (se lo puso, o alguien camina con usted). Normalmente no es un rastreador plantado."
                 }
                 Verdict.FOLLOWING to stats + note
             }
@@ -976,20 +976,20 @@ object DebriefReport {
         wearablesWithYou: List<FollowHit>,
     ): String = buildString {
         if (!settings.tagLocation) {
-            appendLine("GPS tagging is OFF. Fieldwatch cannot test whether a radio moved with you.")
-            appendLine("Turn on Settings → Tag detections with GPS, walk or drive 50+ m, then run Debrief again.")
+            appendLine("Etiquetado GPS APAGADO. La app no puede probar si una radio se movió con usted.")
+            appendLine("Active Ajustes → Detecciones con GPS, camine o conduzca más de 50m y vuelva a ejecutar Informe.")
             return@buildString
         }
         appendLine("Overall distance traveled: ${fmtDist(pathLen)} along the GPS path (${path.size} samples). Straight-line span ${fmtDist(pathSpan)}.")
-        appendLine("Co-travel is split by class: finder tags (AirTag / Find My, SmartTag, Tile, Chipolo, Pebblebee, loud pocket Apple), retail beacons (iBeacon, Minew, Estimote, Kontakt.io, Atrius cart tag), and wearables (Garmin, Fitbit, Oura).")
+        appendLine("El viaje conjunto se divide por clase: etiquetas de búsqueda (AirTag / Find My, SmartTag, Tile, Chipolo, Pebblebee), balizas minoristas (iBeacon, Minew, Estimote, Kontakt.io, carrito Atrius), y wearables (Garmin, Fitbit, Oura).")
         if (path.size < 2 || pathSpan < MOVE_M) {
-            appendLine("Insufficient movement to distinguish a radio that stayed with you from one you passed. Walk or drive farther and re-run.")
+            appendLine("Movimiento insuficiente para distinguir una radio que se quedó con usted de una que pasó. Camine o conduzca más lejos y vuelva a ejecutar.")
             return@buildString
         }
         if (following.isEmpty() && wholeSit.isEmpty() && beaconsWithYou.isEmpty() && wearablesWithYou.isEmpty()) {
-            appendLine("No finder tag, retail beacon, or wearable stayed with you. House tags and other radios you only passed are not listed.")
+            appendLine("Ninguna etiqueta de búsqueda, baliza minorista o wearable se quedó con usted. Las etiquetas de casa u otras radios que solo pasó no se enumeran.")
         } else {
-            appendLine("Callouts below are only radios that stayed with the path. Radios you passed (store fixtures, house tags) are omitted.")
+            appendLine("Solo se destacan las radios que permanecieron en la ruta. Las radios que pasó (instalaciones, etiquetas de casa) se omiten.")
         }
     }
 
@@ -1002,7 +1002,7 @@ object DebriefReport {
         val hits = devices.filter { it.key in mineKeys }
         if (hits.isEmpty()) return null
         return buildString {
-            appendLine("Radios you marked mine. Heard in this window. Still listed. No beep while the mark is on.")
+            appendLine("Radios marcadas como suyas. Escuchadas en esta ventana. Aún listadas. Sin pitido mientras la marca esté activa.")
             hits.sortedWith(
                 compareByDescending<Sighting> { it.rssi }.thenBy { it.mac },
             ).forEach { d ->
@@ -1011,7 +1011,7 @@ object DebriefReport {
                 val verdict = assessed.firstOrNull { it.device.key == d.key }?.verdict
                 val line = when (verdict) {
                     Verdict.FOLLOWING ->
-                        "Marked mine. First heard after the sit started and stayed with the path."
+                        "Marcado como mío. Escuchado después de que comenzara la sesión y se quedó en la ruta."
                     Verdict.OWN_LIKELY, Verdict.MOVED_WITH_YOU ->
                         "Marked mine. With you the whole sit."
                     else -> "Marked mine."
@@ -1032,7 +1032,7 @@ object DebriefReport {
         }
         if (hits.isEmpty()) return null
         return buildString {
-            appendLine("Your captions on radios heard in this window. Same KIND+MAC as Named radios. Not catalog Notes.")
+            appendLine("Sus leyendas en radios escuchadas en esta ventana. Misma TIPO+MAC que Radios nombradas. No notas de catálogo.")
             hits.sortedWith(
                 compareByDescending<Pair<Sighting, String>> { it.first.rssi }.thenBy { it.first.mac },
             ).forEach { (d, note) ->
@@ -1070,9 +1070,9 @@ object DebriefReport {
         customNames: Map<String, String> = emptyMap(),
         bookmarkedKeys: Set<String> = emptySet(),
     ): String = buildString {
-        appendLine("Phone GPS at hear-time, not the other radio’s location and not a camera pole. Stays are clusters within about 40 m; hops between them are transit. Coordinates are not repeated on every Wi-Fi/BLE line.")
+        appendLine("GPS del teléfono al momento de escuchar, no la ubicación de la otra radio. Las paradas son grupos dentro de unos 40 m; los saltos entre ellos son tránsito. Las coordenadas no se repiten en cada línea.")
         if (!settings.tagLocation) {
-            appendLine("GPS tagging is OFF. Turn on Settings → Tag detections with GPS to record where you were when radios were heard.")
+            appendLine("El etiquetado GPS está APAGADO. Active Ajustes → Detecciones con GPS para registrar dónde estaba.")
             return@buildString
         }
         if (path.isEmpty()) {
@@ -1082,7 +1082,7 @@ object DebriefReport {
         appendLine("Overall: ${fmtDist(pathLen)} along-track, span ${fmtDist(pathSpan)}, ${path.size} fixes.")
         if (places.attempted) {
             appendLine(places.note)
-            appendLine("Street names are approximate. Do not treat a street as the location of a matched camera or tag.")
+            appendLine("Los nombres de las calles son aproximados. No trate una calle como la ubicación exacta de una cámara o etiqueta.")
         }
         val legs = Geo.legs(path, now = now)
         if (legs.isEmpty()) {
@@ -1124,7 +1124,7 @@ object DebriefReport {
         val stays = legs.count { it.stay }
         if (stays == 1 && pathSpan < MOVE_M) {
             appendLine()
-            appendLine("One stay — you did not move far enough in this window to split locations.")
+            appendLine("Una parada — no se movió lo suficiente en esta ventana para dividir ubicaciones.")
         }
     }
 
@@ -1152,9 +1152,9 @@ object DebriefReport {
         val persistAp = persistent.count { it.kind == RadioKind.WIFI }
         val guess = when {
             pathSpan > 200 && ap in 1..25 -> "In motion (walk/vehicle) through mixed RF."
-            ap <= 4 && ble.size < 30 && persistAp >= 1 -> "Likely a dwelling or small office — few sitting APs, limited BLE."
-            ap >= 15 && randomized >= 40 -> "Dense public / retail / street: many APs and phone-like randomized BLE."
-            ap >= 8 && persistAp >= 4 -> "Likely a building with standing infrastructure APs plus patrons."
+            ap <= 4 && ble.size < 30 && persistAp >= 1 -> "Probablemente una vivienda o pequeña oficina — pocos APs estáticos, BLE limitado."
+            ap >= 15 && randomized >= 40 -> "Público denso / minorista / calle: muchos APs y BLE aleatorizados de teléfonos."
+            ap >= 8 && persistAp >= 4 -> "Probablemente un edificio con infraestructura de APs fijos y clientes."
             else -> "Mixed or under-sampled environment."
         }
         return "$guess  (${ap} APs, ${ble.size} BLE, ${persistAp} persistent APs, traveled ${fmtDist(pathLen)}, span ${fmtDist(pathSpan)}.)"
@@ -1325,7 +1325,7 @@ object DebriefReport {
         }
         val rand = devices.count { it.kind == RadioKind.BLE && it.randomized }
         if (rand >= 20) {
-            out += "High randomized BLE ($rand) — typical of phones, not a tracking finding."
+            out += "BLE altamente aleatorizado ($rand) — típico de teléfonos, no es un hallazgo de rastreo."
         }
         return out
     }
@@ -1367,14 +1367,14 @@ object DebriefReport {
         if (ownLikely.isNotEmpty() || withYou.isNotEmpty()) {
             add(
                 "Possible trackers with you: ${(ownLikely + withYou).joinToString { trackId(it) }}. " +
-                    "Could be yours or planted in the car/bag/on you before you started. Account for each MAC — do not dismiss as yours.",
+                    "Podría ser suyo o estar plantado en el coche/bolso/usted antes de empezar. Considere cada MAC — no lo descarte como suyo.",
             )
         }
         if (beaconsWithYou.isNotEmpty()) {
             add(
                 "Retail beacons with you (unusual — fixtures do not typically move with you): " +
                     beaconsWithYou.joinToString { it.label + " " + it.device.mac } +
-                    ". Account for a test tag or badge before treating it as a follower.",
+                    ". Considere una etiqueta de prueba o credencial antes de tratarlo como un seguidor.",
             )
         }
         if (wearablesWithYou.isNotEmpty()) {
@@ -1384,10 +1384,10 @@ object DebriefReport {
                     ".",
             )
         }
-        if (!settings.tagLocation) add("Enable Tag detections with GPS and walk 50+ m, then run Debrief again for a following test.")
-        else if (pathSpan < MOVE_M) add("Walk farther (50+ m) with GPS tagging on, then re-run Debrief.")
-        add("Use Live → Pause to inspect a busy list. Watch tracker signatures if this sit was noisy.")
-        add("Station-side Wi-Fi (probes/clients) still needs a dedicated sniffer — Fieldwatch cannot see them.")
+        if (!settings.tagLocation) add("Habilite las detecciones con GPS, camine más de 50m y vuelva a ejecutar el Informe para una prueba de seguimiento.")
+        else if (pathSpan < MOVE_M) add("Camine más lejos (más de 50 m) con GPS, luego vuelva a ejecutar el Informe.")
+        add("Use En Vivo → Pausa para inspeccionar una lista ocupada. Observe firmas de rastreadores si esta sesión fue ruidosa.")
+        add("El Wi-Fi del lado de la estación (sondas/clientes) aún necesita un rastreador dedicado — la app no puede verlos.")
     }
 
     private fun takeaway(
@@ -1419,7 +1419,7 @@ object DebriefReport {
             following.isNotEmpty() ->
                 "Possible tail (appeared after this sit started): ${following.joinToString { trackId(it) }}. Account for it on the person/vehicle."
             !settings.tagLocation ->
-                "Turn on GPS tagging and walk before you can test whether a tracker is following you."
+                "Active el etiquetado GPS y camine antes de poder probar si un rastreador lo está siguiendo."
             pathSpan < MOVE_M ->
                 "Not enough GPS movement (${pathSpan.toInt()} m) to test following; walk and re-run Debrief."
             ownLikely.isNotEmpty() || withYou.isNotEmpty() ->
@@ -1427,9 +1427,9 @@ object DebriefReport {
             beaconsWithYou.isNotEmpty() || wearablesWithYou.isNotEmpty() ->
                 "No finder tag stayed with the path."
             named.isEmpty() ->
-                "No signature hits and no GPS co-travel of trackers in this 15-minute window."
+                "Sin aciertos de firmas y sin co-viaje GPS de rastreadores en esta ventana de 15 minutos."
             else ->
-                "No finder tag, retail beacon, or wearable clearly stayed with your GPS path in this window."
+                "Ninguna etiqueta, baliza minorista o wearable se mantuvo claramente en su ruta GPS en esta ventana."
         }
         return (core + extra).trim()
     }
