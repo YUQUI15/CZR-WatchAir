@@ -344,7 +344,7 @@ fun DeviceDetailScreen(
             }
 
             StickyHeight(device.key to "signal") {
-                Section("Signal")
+                Section("Señal")
                 if (device.gone) {
                     Meta("How loud here (RSSI)", "Not available")
                     Meta(
@@ -624,7 +624,7 @@ fun DeviceDetailScreen(
                 ) {
                     Icon(Icons.Outlined.NearMe, null)
                     Spacer(Modifier.padding(4.dp))
-                    Text("Hunt")
+                    Text("Rastrear")
                 }
             } else {
                 Text(

@@ -402,7 +402,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
         HuntUi(
             active = true,
             device = device,
-            title = device?.listTitle() ?: "Hunt",
+            title = device?.listTitle() ?: "Rastrear",
             cue = Hunt.cue(samples, now, device?.lastSeen, device == null && started > 0L),
             peakRssi = peak,
             samples = samples,

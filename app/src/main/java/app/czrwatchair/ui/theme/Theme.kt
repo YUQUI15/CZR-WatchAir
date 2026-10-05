@@ -63,7 +63,22 @@ private val NightColors = darkColorScheme(
 )
 
 private val LightColors = lightColorScheme(
-    primary = Color(0xFF0B7A48),
+    primary = Color(0xFF6FCFEB),
+    onPrimary = Color.Black,
+    primaryContainer = Color(0xFF99E6D8),
+    onPrimaryContainer = Color.Black,
+    secondary = Color(0xFFF3EFA1),
+    onSecondary = Color.Black,
+    tertiary = Color(0xFFC19ADE),
+    background = Color(0xFFF9FAFB),
+    onBackground = Color(0xFF12171C),
+    surface = Color.White,
+    onSurface = Color(0xFF12171C),
+    surfaceVariant = Color(0xFFF3B2DB),
+    onSurfaceVariant = Color.Black,
+    outline = Color(0xFFC5CDD4),
+    error = Color(0xFFFEAEBB),
+),
     onPrimary = Color.White,
     secondary = Color(0xFF9A6400),
     tertiary = Color(0xFF0277BD),

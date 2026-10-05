@@ -198,7 +198,7 @@ fun SitPathCanvas(
                 val start = lay.path.first()
                 val end = lay.path.last()
                 drawStartDot(start.x, start.y)
-                val startT = measurer.measure("Start", labelStyle)
+                val startT = measurer.measure("Iniciar", labelStyle)
                 drawText(startT, topLeft = Offset((start.x + 8f).coerceAtMost(size.width - startT.size.width), start.y - 6f))
                 val endLabel = if (model.live) "Now" else "End"
                 val endT = measurer.measure(endLabel, labelStyle)
@@ -341,7 +341,7 @@ private fun pathMarkers(
     if (lay.path.size < 2 || width < 8f) return emptyList()
     val start = lay.path.first()
     val end = lay.path.last()
-    val startText = measurer.measure("Start", labelStyle)
+    val startText = measurer.measure("Iniciar", labelStyle)
     val endText = measurer.measure(if (live) "Now" else "End", labelStyle)
     return listOf(
         hitMarker(start, 12f, startText, width, dx = 8f, dy = -6f),

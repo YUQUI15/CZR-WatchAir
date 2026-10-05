@@ -151,7 +151,7 @@ fun RadioBookmarksScreen(
                         vm.clearRadioBookmarks()
                         clearAll = false
                     },
-                ) { Text("Clear") }
+                ) { Text("Limpiar") }
             },
             dismissButton = {
                 TextButton(onClick = { clearAll = false }) { Text("Cancel") }

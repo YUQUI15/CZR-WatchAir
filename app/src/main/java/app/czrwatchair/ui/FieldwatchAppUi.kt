@@ -276,7 +276,7 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                         "ai export" in m || "ai export" in m -> "AI Export"
                         "pdf" in m -> "Debrief PDF"
                         "debrief" in m -> "Debrief"
-                        else -> "Export"
+                        else -> "Exportar"
                     },
                 )
             },
@@ -503,10 +503,10 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                                         route == "live" && state.displayPaused -> Icons.Outlined.PlayArrow
                                         else -> Icons.Outlined.CellTower
                                     },
-                                    if (route == "live" && !state.displayPaused) "Pause display" else "Live",
+                                    if (route == "live" && !state.displayPaused) "Pause display" else "En vivo",
                                 )
                             },
-                            label = if (route == "live" && !state.displayPaused) "Pause" else "Live",
+                            label = if (route == "live" && !state.displayPaused) "Pause" else "En vivo",
                         )
                         FieldwatchNavTab(
                             weight = 1f,
@@ -522,7 +522,7 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                             onBounds = { tourTargets = tourTargets.copy(signatures = it) },
                             onClick = { nav.navigate("fleets") { launchSingleTop = true } },
                             icon = { Icon(Icons.Outlined.Hub, null) },
-                            label = "Signatures",
+                            label = "Firmas",
                         )
                         FieldwatchNavTab(
                             weight = 1f,
@@ -530,7 +530,7 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                             onBounds = { tourTargets = tourTargets.copy(reports = it) },
                             onClick = { nav.navigate("reports") { launchSingleTop = true } },
                             icon = { Icon(Icons.Outlined.Description, null) },
-                            label = "Reports",
+                            label = "Reportes",
                         )
                         FieldwatchNavTab(
                             weight = 1.05f,
@@ -538,7 +538,7 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                             onBounds = { tourTargets = tourTargets.copy(settings = it) },
                             onClick = { nav.navigate("settings") { launchSingleTop = true } },
                             icon = { Icon(Icons.Outlined.Settings, null) },
-                            label = "Settings",
+                            label = "Ajustes",
                         )
                         }
                     }

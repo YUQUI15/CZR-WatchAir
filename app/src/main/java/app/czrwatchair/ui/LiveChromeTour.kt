@@ -181,9 +181,9 @@ private fun layoutSpots(
     val tabs = listOf(
         Triple(targets.pause!!, "Pause", "Freeze the picture. Tap Live again to run."),
         Triple(targets.filters!!, "Filters", "Who is shown."),
-        Triple(targets.signatures!!, "Signatures", "Pattern catalog."),
-        Triple(targets.reports!!, "Reports", "Debrief, sits, log."),
-        Triple(targets.settings!!, "Settings", "Scan, GPS, TAK."),
+        Triple(targets.signatures!!, "Firmas", "Pattern catalog."),
+        Triple(targets.reports!!, "Reportes", "Debrief, sits, log."),
+        Triple(targets.settings!!, "Ajustes", "Scan, GPS, TAK."),
     )
     val heights = floatArrayOf(topH, bodyH, bodyH, bodyH, topH)
     val tabTop = tabs.minOf { it.first.top }

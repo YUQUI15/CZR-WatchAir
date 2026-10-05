@@ -104,7 +104,7 @@ fun SettingsScreen(
     var confirmRestore by remember { mutableStateOf(false) }
     Scaffold(
         contentWindowInsets = NestedTabInsets,
-        topBar = { NestedTopBar("Settings") },
+        topBar = { NestedTopBar("Ajustes") },
     ) { pad ->
         Column(
             Modifier
@@ -146,7 +146,7 @@ fun SettingsScreen(
             )
             }
 
-            SectionCard("Scanning") {
+            SectionCard("Escaneando") {
             val label = when (settings.intensity) {
                 ScanIntensity.SAVER -> "Battery saver"
                 ScanIntensity.BALANCED -> "Balanced"
@@ -421,7 +421,7 @@ fun SettingsScreen(
             )
             }
 
-            SectionCard("Location") {
+            SectionCard("Ubicación") {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Tag detections with GPS", Modifier.weight(1f))
                 FieldwatchSwitch(settings.tagLocation, { on -> vm.updateSettings { it.copy(tagLocation = on) } })
@@ -546,7 +546,7 @@ fun SettingsScreen(
             }
             }
 
-            SectionCard("Signatures") {
+            SectionCard("Firmas") {
             Text(
                 "Export the catalog (stock plus any you added or edited) to share with another Fieldwatch or as a backup. Import adds new rows and extra rules; it does not delete anything. Same id or the same match rules are skipped so a pack can be imported twice. Update stock catalog from GitHub replaces stock rows (including Extra attention) from the v2 pack on the repo; bookmarks, Settings, and signatures you added stay. Needs internet. Offline: Import signatures from a file. Restore defaults below still wipes customs.",
                 style = MaterialTheme.typography.bodySmall,

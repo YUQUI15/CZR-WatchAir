@@ -112,7 +112,7 @@ fun HuntScreen(
             TopAppBar(
                 title = {
                     val shown = hunt.device?.let { MacUtil.redactMacIn(hunt.title, it.mac, demoMode) } ?: hunt.title
-                    Text(shown.ifBlank { "Hunt" }, maxLines = 1)
+                    Text(shown.ifBlank { "Rastrear" }, maxLines = 1)
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {

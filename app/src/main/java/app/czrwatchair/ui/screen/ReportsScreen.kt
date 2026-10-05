@@ -93,7 +93,7 @@ fun ReportsScreen(
     var confirmDeleteAll by remember { mutableStateOf(false) }
     Scaffold(
         contentWindowInsets = NestedTabInsets,
-        topBar = { NestedTopBar("Reports") },
+        topBar = { NestedTopBar("Reportes") },
     ) { pad ->
         Column(
             Modifier
@@ -619,7 +619,7 @@ fun ReportsScreen(
                 TextButton(onClick = {
                     startSit = false
                     vm.startSit(sitNameDraft)
-                }) { Text("Start") }
+                }) { Text("Iniciar") }
             },
             dismissButton = {
                 TextButton(onClick = { startSit = false }) { Text("Cancel") }
