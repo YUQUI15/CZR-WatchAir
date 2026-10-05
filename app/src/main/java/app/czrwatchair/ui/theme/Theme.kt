@@ -62,22 +62,48 @@ private val NightColors = darkColorScheme(
     error = Color(0xFFFF7A7A),
 )
 
+
+/** Paleta pastel oficial de CZR WatchAir (modo claro). */
+val PastelYellow = Color(0xFFF3EFA1)
+val PastelRose = Color(0xFFFEAEBB)
+val PastelPink = Color(0xFFF3B2DB)
+val PastelPurple = Color(0xFFC19ADE)
+val PastelBlue = Color(0xFF6FCFEB)
+val PastelTeal = Color(0xFF99E6D8)
+
+/** Acento intenso derivado del morado pastel: interruptores, deslizadores y bordes activos con contraste >= 3:1. */
+val PastelActive = Color(0xFF9A7BB2)
+
+/**
+ * Modo claro con la paleta pastel. Los rellenos usan los tonos exactos de la paleta;
+ * los textos y trazos usan tintas oscuras derivadas para mantener el contraste (WCAG AA).
+ */
 private val LightColors = lightColorScheme(
-    primary = Color(0xFF6FCFEB),
-    onPrimary = Color.Black,
-    primaryContainer = Color(0xFF99E6D8),
-    onPrimaryContainer = Color.Black,
-    secondary = Color(0xFFF3EFA1),
-    onSecondary = Color.Black,
-    tertiary = Color(0xFFC19ADE),
-    background = Color(0xFFF9FAFB),
+    primary = PastelBlue,
+    onPrimary = Color(0xFF0B2A33),
+    primaryContainer = PastelTeal,
+    onPrimaryContainer = Color(0xFF06302A),
+    secondary = PastelPurple,
+    onSecondary = Color(0xFF2B1240),
+    secondaryContainer = PastelPink,
+    onSecondaryContainer = Color(0xFF3B0F2D),
+    tertiary = PastelYellow,
+    onTertiary = Color(0xFF3A3600),
+    tertiaryContainer = PastelYellow,
+    onTertiaryContainer = Color(0xFF3A3600),
+    background = Color(0xFFFBFAFF),
     onBackground = Color(0xFF12171C),
     surface = Color.White,
     onSurface = Color(0xFF12171C),
-    surfaceVariant = Color(0xFFF3B2DB),
-    onSurfaceVariant = Color.Black,
-    outline = Color(0xFFC5CDD4),
-    error = Color(0xFFFEAEBB),
+    surfaceVariant = Color(0xFFEEE8F6),
+    onSurfaceVariant = Color(0xFF46404F),
+    surfaceTint = PastelBlue,
+    outline = Color(0xFF9C8DB0),
+    outlineVariant = Color(0xFFDDD3E8),
+    error = Color(0xFFB3263E),
+    onError = Color.White,
+    errorContainer = PastelRose,
+    onErrorContainer = Color(0xFF4A0A16),
 )
 
 val Mono = TextStyle(
@@ -86,6 +112,16 @@ val Mono = TextStyle(
     fontSize = 12.sp,
     letterSpacing = 0.3.sp,
 )
+
+/**
+ * Indica si la tinta de dibujo debe oscurecerse para leerse sobre fondo claro.
+ * Se fija en [CZRWatchAirTheme] antes de componer el contenido; [nightIf] lo consulta
+ * porque se invoca tambien desde lambdas de dibujo que no pueden leer CompositionLocal.
+ */
+object DayInk {
+    @Volatile
+    var light: Boolean = false
+}
 
 @Composable
 fun FieldwatchTheme(
@@ -98,6 +134,7 @@ fun FieldwatchTheme(
         darkTheme -> DarkColors
         else -> LightColors
     }
+    DayInk.light = !nightMode && !darkTheme
     CompositionLocalProvider(LocalNightMode provides nightMode) {
         MaterialTheme(
             colorScheme = scheme,

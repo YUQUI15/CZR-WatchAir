@@ -27,9 +27,9 @@ fun FieldwatchSlider(
         steps = steps,
         onValueChangeFinished = onValueChangeFinished,
         colors = SliderDefaults.colors(
-            thumbColor = PhosphorActive.nightIf(LocalNightMode.current),
-            activeTrackColor = PhosphorActive.nightIf(LocalNightMode.current),
-            activeTickColor = PhosphorActive.nightIf(LocalNightMode.current),
+            thumbColor = spectreActive(),
+            activeTrackColor = spectreActive(),
+            activeTickColor = spectreActive(),
         ),
     )
 }

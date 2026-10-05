@@ -179,7 +179,7 @@ private fun layoutSpots(
 
     val tune = targets.tune!!
     val tabs = listOf(
-        Triple(targets.pause!!, "Pause", "Freeze the picture. Tap Live again to run."),
+        Triple(targets.pause!!, "Pausar", "Freeze the picture. Tap Live again to run."),
         Triple(targets.filters!!, "Filters", "Who is shown."),
         Triple(targets.signatures!!, "Firmas", "Pattern catalog."),
         Triple(targets.reports!!, "Reportes", "Debrief, sits, log."),

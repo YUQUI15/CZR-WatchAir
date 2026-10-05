@@ -129,8 +129,16 @@ import app.czrwatchair.ui.theme.FieldwatchTheme
 @Composable
 fun FieldwatchRoot(vm: FieldwatchViewModel, onRequestPermissions: () -> Unit) {
     val state by vm.ui.collectAsStateWithLifecycle()
+    val rootView = androidx.compose.ui.platform.LocalView.current
+    val lightBars = state.settings.lightTheme && !state.settings.nightMode
+    androidx.compose.runtime.SideEffect {
+        val window = (rootView.context as? android.app.Activity)?.window ?: return@SideEffect
+        val bars = androidx.core.view.WindowCompat.getInsetsController(window, rootView)
+        bars.isAppearanceLightStatusBars = lightBars
+        bars.isAppearanceLightNavigationBars = lightBars
+    }
     FieldwatchTheme(
-        darkTheme = true,
+        darkTheme = !state.settings.lightTheme,
         nightMode = state.settings.nightMode,
     ) {
         if (!state.settings.disclaimerOk()) {
@@ -503,10 +511,10 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                                         route == "live" && state.displayPaused -> Icons.Outlined.PlayArrow
                                         else -> Icons.Outlined.CellTower
                                     },
-                                    if (route == "live" && !state.displayPaused) "Pause display" else "En vivo",
+                                    if (route == "live" && !state.displayPaused) "Pausar pantalla" else "En vivo",
                                 )
                             },
-                            label = if (route == "live" && !state.displayPaused) "Pause" else "En vivo",
+                            label = if (route == "live" && !state.displayPaused) "Pausar" else "En vivo",
                         )
                         FieldwatchNavTab(
                             weight = 1f,
@@ -686,7 +694,7 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                                 title = { Text("Detail") },
                                 navigationIcon = {
                                     IconButton(onClick = onBack) {
-                                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Atrás")
                                     }
                                 },
                             )

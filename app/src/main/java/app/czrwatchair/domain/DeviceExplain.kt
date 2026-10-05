@@ -222,7 +222,7 @@ object DeviceExplain {
     )
 
     private fun appearanceHint(name: String?): Hint? {
-        if (name.isNullOrBlank() || name.equals("Unknown", true)) return null
+        if (name.isNullOrBlank() || name.equals("Desconocido", true)) return null
         val n = name.lowercase()
         val (bucket, label, w) = when {
             "ear" in n || "headphone" in n || "headset" in n || "hearable" in n || "hearing" in n ->

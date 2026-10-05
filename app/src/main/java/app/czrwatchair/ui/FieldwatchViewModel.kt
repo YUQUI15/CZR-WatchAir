@@ -45,7 +45,9 @@ import app.czrwatchair.domain.FamilyVerdict
 import app.czrwatchair.domain.LogRadio
 import app.czrwatchair.domain.RadioBookmarks
 import app.czrwatchair.domain.RadioKind
+import app.czrwatchair.domain.Rssi
 import app.czrwatchair.domain.RssiSample
+import app.czrwatchair.domain.TrilaterationEngine
 import app.czrwatchair.domain.Sighting
 import app.czrwatchair.domain.SignatureCandidate
 import app.czrwatchair.domain.SignatureCandidates
@@ -561,8 +563,96 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
         selectedKey.value = device.key
     }
 
+    private val _tri = MutableStateFlow(TriUi())
+
+    /** Estado de la trilateracion por 3 o mas puntos (pantalla Rastrear). */
+    val tri: StateFlow<TriUi> = _tri
+
+    private fun triMessage(text: String) {
+        _tri.update { it.copy(message = text) }
+    }
+
+    /** Guarda un punto: posicion GPS actual + RSSI mediano de los ultimos segundos. */
+    fun markTriPoint() {
+        app.refreshFix()
+        val fix = app.lastFix
+        val now = System.currentTimeMillis()
+        val recent = huntSamples.value
+            .filter { Rssi.measured(it.rssi) && now - it.at <= TRI_WINDOW_MS }
+            .map { it.rssi }
+            .sorted()
+        val current = _tri.value
+        if (huntKey.value == null) {
+            triMessage("Primero inicia el rastreo de un dispositivo.")
+            return
+        }
+        if (fix == null) {
+            triMessage("Sin posicion GPS. Activa la ubicacion del telefono y, si puedes, sal al exterior.")
+            return
+        }
+        if (recent.size < TRI_MIN_SAMPLES) {
+            triMessage("Faltan lecturas de senal recientes. Espera unos segundos y vuelve a intentarlo.")
+            return
+        }
+        val (lat, lon) = fix
+        val tooClose = current.points.any {
+            val d = TrilaterationEngine.toLocalMeters(it.lat, it.lon, lat, lon)
+            kotlin.math.hypot(d.x, d.y) < TrilaterationEngine.MIN_SEPARATION_M
+        }
+        if (tooClose) {
+            triMessage("Muevete al menos ${TrilaterationEngine.MIN_SEPARATION_M.toInt()} m desde el punto anterior.")
+            return
+        }
+        val mid = recent.size / 2
+        val median = if (recent.size % 2 == 1) recent[mid].toDouble() else (recent[mid - 1] + recent[mid]) / 2.0
+        val points = current.points + TriPoint(lat, lon, median)
+        _tri.value = TriUi(
+            points = points,
+            result = null,
+            message = "Punto ${points.size} guardado (${median.toInt()} dBm).",
+        )
+    }
+
+    /** Calcula la posicion estimada con los puntos guardados (minimo 3). */
+    fun computeTri() {
+        val points = _tri.value.points
+        if (points.size < 3) {
+            triMessage("Marca al menos 3 puntos en lugares distintos.")
+            return
+        }
+        val origin = points.first()
+        val local = points.map { TrilaterationEngine.toLocalMeters(origin.lat, origin.lon, it.lat, it.lon) }
+        val readings = points.mapIndexed { i, p -> TrilaterationEngine.NodeReading(local[i].x, local[i].y, p.rssi) }
+        val est = TrilaterationEngine.locate(readings)
+        if (est == null) {
+            triMessage("Los puntos quedaron casi en linea recta. Marca uno desplazado hacia un lado.")
+            return
+        }
+        val (lat, lon) = TrilaterationEngine.toLatLon(origin.lat, origin.lon, est.position)
+        val me = app.lastFix
+            ?.let { TrilaterationEngine.toLocalMeters(origin.lat, origin.lon, it.first, it.second) }
+            ?: local.last()
+        _tri.update {
+            it.copy(
+                result = TriResult(
+                    lat = lat,
+                    lon = lon,
+                    distanceM = kotlin.math.hypot(est.position.x - me.x, est.position.y - me.y),
+                    bearingDeg = TrilaterationEngine.bearingDegrees(me, est.position),
+                    residualM = est.residualM,
+                ),
+                message = null,
+            )
+        }
+    }
+
+    fun clearTri() {
+        _tri.value = TriUi()
+    }
+
     fun startHunt(device: Sighting) {
         val now = System.currentTimeMillis()
+        if (huntKey.value != device.key) _tri.value = TriUi()
         huntKey.value = device.key
         huntStartedAt.value = now
         huntPeakRssi.value = device.rssi
@@ -576,6 +666,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun stopHunt() {
+        _tri.value = TriUi()
         huntKey.value = null
         huntSamples.value = emptyList()
         huntPeakRssi.value = -127
@@ -2371,3 +2462,7 @@ data class HuntUi(
     val samples: List<RssiSample> = emptyList(),
     val lastSeen: Long = 0L,
 )
+
+/** Ventana de lecturas (ms) y minimo de muestras para fijar el RSSI de un punto de trilateracion. */
+private const val TRI_WINDOW_MS = 5_000L
+private const val TRI_MIN_SAMPLES = 3

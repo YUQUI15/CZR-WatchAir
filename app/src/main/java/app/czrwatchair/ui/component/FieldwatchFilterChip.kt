@@ -31,7 +31,7 @@ fun FieldwatchFilterChip(
     val fill = spectreTileFill()
     val selectedFill = spectreSectionFill()
     val edge = spectreTileEdge()
-    val active = PhosphorActive.nightIf(LocalNightMode.current)
+    val active = spectreActive()
     val labelColor = scheme.onSurface
     FilterChip(
         selected = selected,

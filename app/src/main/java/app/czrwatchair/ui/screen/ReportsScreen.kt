@@ -205,7 +205,7 @@ fun ReportsScreen(
                             onClick = { if (picked != null) deleteSitId = picked.id },
                             enabled = !exporting && picked != null,
                             modifier = Modifier.weight(1f),
-                        ) { Text("Delete") }
+                        ) { Text("Eliminar") }
                     }
                     FieldwatchActionButton(
                         onClick = { confirmDeleteAll = true },
@@ -583,7 +583,7 @@ fun ReportsScreen(
                         }) { Text("Clear log") }
                     },
                     dismissButton = {
-                        TextButton(onClick = { confirmClear = false }) { Text("Cancel") }
+                        TextButton(onClick = { confirmClear = false }) { Text("Cancelar") }
                     },
                 )
             }
@@ -622,7 +622,7 @@ fun ReportsScreen(
                 }) { Text("Iniciar") }
             },
             dismissButton = {
-                TextButton(onClick = { startSit = false }) { Text("Cancel") }
+                TextButton(onClick = { startSit = false }) { Text("Cancelar") }
             },
         )
     }
@@ -642,10 +642,10 @@ fun ReportsScreen(
                 TextButton(onClick = {
                     renameSitId = null
                     vm.renameSit(renaming, renameDraft)
-                }) { Text("Save") }
+                }) { Text("Guardar") }
             },
             dismissButton = {
-                TextButton(onClick = { renameSitId = null }) { Text("Cancel") }
+                TextButton(onClick = { renameSitId = null }) { Text("Cancelar") }
             },
         )
     }
@@ -659,10 +659,10 @@ fun ReportsScreen(
                 TextButton(onClick = {
                     deleteSitId = null
                     vm.deleteSit(deleting)
-                }) { Text("Delete") }
+                }) { Text("Eliminar") }
             },
             dismissButton = {
-                TextButton(onClick = { deleteSitId = null }) { Text("Cancel") }
+                TextButton(onClick = { deleteSitId = null }) { Text("Cancelar") }
             },
         )
     }
@@ -678,7 +678,7 @@ fun ReportsScreen(
                 }) { Text("Delete all") }
             },
             dismissButton = {
-                TextButton(onClick = { confirmDeleteAll = false }) { Text("Cancel") }
+                TextButton(onClick = { confirmDeleteAll = false }) { Text("Cancelar") }
             },
         )
     }
@@ -914,7 +914,7 @@ private fun ExportFormatBlock(
         onClick = onShare,
         enabled = !exporting,
         modifier = Modifier.fillMaxWidth(),
-    ) { Text("Share") }
+    ) { Text("Compartir") }
     FieldwatchActionButton(
         onClick = onSave,
         enabled = !exporting,

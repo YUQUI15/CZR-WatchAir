@@ -549,7 +549,7 @@ object DebriefReport {
             add("Window" to windowLine)
             add("Radios" to "${inWin.size}")
             add("Tool" to "Fieldwatch (app.czrwatchair) · stock Android · receive-only Wi-Fi AP + BLE advertiser")
-            add("Scan" to "${settings.intensity.name.lowercase()} · stale ${settings.staleSec}s · brief hold ${settings.decaySec}s")
+            add("Escanear" to "${settings.intensity.name.lowercase()} · stale ${settings.staleSec}s · brief hold ${settings.decaySec}s")
             add("GPS tag" to if (settings.tagLocation) "on" else "off")
             add("Distance" to distanceLine)
             add("Places" to lookupLine)

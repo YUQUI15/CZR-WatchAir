@@ -72,7 +72,7 @@ enum class SignatureClass {
         HACKING -> "Pentest"
         BODYWORN -> "Body-worn"
         LAW_ENFORCEMENT -> "Public safety"
-        VEHICLE -> "Vehicle"
+        VEHICLE -> "Vehículo"
         GLASSES -> "Glasses"
         AUDIO -> "Audio"
         CAMERA -> "Cameras"
@@ -552,8 +552,10 @@ data class WatchTarget(
 
 @Serializable
 data class AppSettings(
-    /** Kept in settings packs. The UI is always dark; Night mode is the red overlay. */
+    /** Kept in settings packs. Superseded by [lightTheme]; the UI no longer reads it. */
     val darkTheme: Boolean = true,
+    /** Modo claro con la paleta pastel de CZR WatchAir. Night mode (rojo sobre negro) siempre tiene prioridad. */
+    val lightTheme: Boolean = true,
     val keepScreenOn: Boolean = true,
     val intensity: ScanIntensity = ScanIntensity.PERFORMANCE,
     val loggingEnabled: Boolean = true,

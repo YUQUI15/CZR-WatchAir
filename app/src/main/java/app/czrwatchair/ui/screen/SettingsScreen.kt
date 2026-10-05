@@ -114,7 +114,16 @@ fun SettingsScreen(
                 .padding(horizontal = 12.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            SectionCard("Appearance") {
+            SectionCard("Apariencia") {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Modo claro (paleta pastel)", Modifier.weight(1f))
+                FieldwatchSwitch(settings.lightTheme, { on -> vm.updateSettings { it.copy(lightTheme = on) } })
+            }
+            Text(
+                "Activado por defecto. Fondo claro con la paleta pastel de CZR WatchAir. Si lo apagas, la app vuelve a la pantalla oscura de campo. El modo nocturno siempre tiene prioridad.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Night mode", Modifier.weight(1f))
                 FieldwatchSwitch(settings.nightMode, { on -> vm.updateSettings { it.copy(nightMode = on) } })
@@ -669,7 +678,7 @@ fun SettingsScreen(
                 ) { Text("Restore") }
             },
             dismissButton = {
-                TextButton(onClick = { confirmRestore = false }) { Text("Cancel") }
+                TextButton(onClick = { confirmRestore = false }) { Text("Cancelar") }
             },
         )
     }

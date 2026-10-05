@@ -38,8 +38,8 @@ object CodDecoder {
 
     private fun majorName(major: Int): String = when (major) {
         0x00 -> "Miscellaneous"
-        0x01 -> "Computer"
-        0x02 -> "Phone"
+        0x01 -> "Computadora"
+        0x02 -> "Teléfono"
         0x03 -> "LAN / Network AP"
         0x04 -> "Audio / Video"
         0x05 -> "Peripheral"
@@ -142,7 +142,7 @@ object CodDecoder {
         }
         0x08 -> when (minor) {
             0x01 -> "Robot"
-            0x02 -> "Vehicle"
+            0x02 -> "Vehículo"
             0x03 -> "Doll / action figure"
             0x04 -> "Controller"
             0x05 -> "Game"

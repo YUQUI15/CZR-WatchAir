@@ -104,6 +104,7 @@ object SettingsExchange {
                 disclaimerRev = local.settings.disclaimerRev,
                 liveTourDone = local.settings.liveTourDone,
                 darkTheme = true,
+                lightTheme = local.settings.lightTheme,
                 scanControlsExpanded = false,
             ),
             filter = pack.filter,

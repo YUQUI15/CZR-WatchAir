@@ -77,7 +77,7 @@ fun RadioBookmarksScreen(
                 title = "Named radios (${radios.size})",
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Atrás")
                     }
                 },
             )
@@ -154,7 +154,7 @@ fun RadioBookmarksScreen(
                 ) { Text("Limpiar") }
             },
             dismissButton = {
-                TextButton(onClick = { clearAll = false }) { Text("Cancel") }
+                TextButton(onClick = { clearAll = false }) { Text("Cancelar") }
             },
         )
     }
@@ -187,10 +187,10 @@ fun RadioBookmarksScreen(
                         vm.updateNamedRadio(renameTarget.id, draft, notesDraft)
                         renameId = null
                     },
-                ) { Text("Save") }
+                ) { Text("Guardar") }
             },
             dismissButton = {
-                TextButton(onClick = { renameId = null }) { Text("Cancel") }
+                TextButton(onClick = { renameId = null }) { Text("Cancelar") }
             },
         )
     }

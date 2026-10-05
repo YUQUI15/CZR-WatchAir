@@ -55,6 +55,7 @@ import app.czrwatchair.ui.FieldwatchUi
 import app.czrwatchair.ui.FieldwatchViewModel
 import app.czrwatchair.ui.component.SectionCard
 import app.czrwatchair.ui.component.FieldwatchFilterChip
+import app.czrwatchair.ui.component.spectreActive
 import app.czrwatchair.ui.component.spectreSectionFill
 import app.czrwatchair.ui.component.spectreTileEdge
 import app.czrwatchair.ui.component.spectreTileFill
@@ -122,7 +123,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
                         vm.savePreset(presetName.trim())
                         presetName = ""
                     }
-                }) { Text("Save") }
+                }) { Text("Guardar") }
             }
             }
 
@@ -549,7 +550,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
                 ) { Text("Reset") }
             },
             dismissButton = {
-                TextButton(onClick = { confirmReset = false }) { Text("Cancel") }
+                TextButton(onClick = { confirmReset = false }) { Text("Cancelar") }
             },
         )
     }
@@ -570,10 +571,10 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
                 TextButton(onClick = {
                     vm.deletePreset(preset.id)
                     pendingDelete = null
-                }) { Text("Delete") }
+                }) { Text("Eliminar") }
             },
             dismissButton = {
-                TextButton(onClick = { pendingDelete = null }) { Text("Cancel") }
+                TextButton(onClick = { pendingDelete = null }) { Text("Cancelar") }
             },
         )
     }
@@ -679,7 +680,7 @@ private fun PresetChip(
         color = if (selected) spectreSectionFill() else spectreTileFill(),
         border = BorderStroke(
             1.dp,
-            if (selected) PhosphorActive.nightIf(LocalNightMode.current) else spectreTileEdge(),
+            if (selected) spectreActive() else spectreTileEdge(),
         ),
         modifier = modifier
             .heightIn(max = 32.dp)

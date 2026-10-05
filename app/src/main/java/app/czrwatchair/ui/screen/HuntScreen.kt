@@ -57,6 +57,8 @@ import app.czrwatchair.ui.component.rssiColor
 import app.czrwatchair.ui.theme.LocalNightMode
 import app.czrwatchair.ui.theme.nightIf
 import kotlin.math.min
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,6 +70,8 @@ fun HuntScreen(
     huntVibrate: Boolean = false,
 ) {
     val hunt by vm.hunt.collectAsStateWithLifecycle()
+    var showTri by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
+    if (showTri) TrilaterationSheet(vm) { showTri = false }
     LaunchedEffect(hunt.active, huntBeep, huntVibrate) {
         if (!hunt.active || (!huntBeep && !huntVibrate)) return@LaunchedEffect
         var lastTick = 0L
@@ -116,7 +120,7 @@ fun HuntScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Atrás")
                     }
                 },
             )
@@ -130,17 +134,24 @@ fun HuntScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 FieldwatchActionButton(
+                    onClick = { showTri = true },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = hunt.active,
+                ) {
+                    Text("Localizar por trilateración")
+                }
+                FieldwatchActionButton(
                     onClick = vm::resetHunt,
                     modifier = Modifier.fillMaxWidth(),
                     enabled = hunt.active,
                 ) {
-                    Text("Reset this hunt")
+                    Text("Reiniciar rastreo")
                 }
                 FieldwatchActionButton(
                     onClick = onBack,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text("Back to detail")
+                    Text("Volver al detalle")
                 }
                 Row(
                     Modifier.fillMaxWidth(),
@@ -151,7 +162,7 @@ fun HuntScreen(
                         Modifier.weight(1f),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Text("Beep", Modifier.weight(1f))
+                        Text("Pitido", Modifier.weight(1f))
                         FieldwatchSwitch(
                             huntBeep,
                             { on ->
@@ -164,7 +175,7 @@ fun HuntScreen(
                         Modifier.weight(1f),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Text("Vibrate", Modifier.weight(1f))
+                        Text("Vibrar", Modifier.weight(1f))
                         FieldwatchSwitch(
                             huntVibrate,
                             { on ->
@@ -226,7 +237,7 @@ fun HuntScreen(
                 color = accent,
             )
             Text(
-                rssi?.let { DeviceExplain.rssiExplain(it) } ?: "no live RSSI",
+                rssi?.let { DeviceExplain.rssiExplain(it) } ?: "sin RSSI en vivo",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

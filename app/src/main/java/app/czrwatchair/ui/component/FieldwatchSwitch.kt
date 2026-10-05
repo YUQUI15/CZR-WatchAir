@@ -24,7 +24,7 @@ fun FieldwatchSwitch(
 ) {
     val fill = spectreTileFill()
     val edge = spectreTileEdge()
-    val active = PhosphorActive.nightIf(LocalNightMode.current)
+    val active = spectreActive()
     Box(
         modifier = modifier
             .requiredSize(width = 40.dp, height = 24.dp)

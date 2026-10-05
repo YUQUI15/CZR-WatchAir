@@ -335,8 +335,8 @@ fun FleetEditor(
         topBar = {
             NestedTopBar(
                 title = if (isNew) "New signature" else "Edit signature",
-                navigationIcon = { TextButton(onClick = onCancel) { Text("Cancel") } },
-                actions = { TextButton(onClick = { onSave(fleet) }) { Text("Save") } },
+                navigationIcon = { TextButton(onClick = onCancel) { Text("Cancelar") } },
+                actions = { TextButton(onClick = { onSave(fleet) }) { Text("Guardar") } },
             )
         },
     ) { pad ->
@@ -506,10 +506,10 @@ fun FleetEditor(
                 TextButton(onClick = {
                     confirmDelete = false
                     onDelete()
-                }) { Text("Delete") }
+                }) { Text("Eliminar") }
             },
             dismissButton = {
-                TextButton(onClick = { confirmDelete = false }) { Text("Cancel") }
+                TextButton(onClick = { confirmDelete = false }) { Text("Cancelar") }
             },
         )
     }

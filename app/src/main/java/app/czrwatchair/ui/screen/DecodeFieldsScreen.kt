@@ -107,8 +107,8 @@ fun DecodeFieldsScreen(
         topBar = {
             NestedTopBar(
                 title = "Decode fields",
-                navigationIcon = { TextButton(onClick = onBack) { Text("Back") } },
-                actions = { TextButton(onClick = { onSave(currentDecode()) }) { Text("Save") } },
+                navigationIcon = { TextButton(onClick = onBack) { Text("Atrás") } },
+                actions = { TextButton(onClick = { onSave(currentDecode()) }) { Text("Guardar") } },
             )
         },
     ) { pad ->
@@ -228,7 +228,7 @@ fun DecodeFieldsScreen(
                 ) { Text("Remove") }
             },
             dismissButton = {
-                TextButton(onClick = { confirmRemove = false }) { Text("Cancel") }
+                TextButton(onClick = { confirmRemove = false }) { Text("Cancelar") }
             },
         )
     }

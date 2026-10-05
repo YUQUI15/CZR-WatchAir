@@ -32,6 +32,7 @@ import app.czrwatchair.domain.RssiSample
 import app.czrwatchair.domain.RssiTrend
 import app.czrwatchair.domain.Sighting
 import app.czrwatchair.ui.theme.LocalNightMode
+import app.czrwatchair.ui.theme.dayIf
 import app.czrwatchair.ui.theme.nightIf
 import kotlin.math.abs
 
@@ -180,10 +181,10 @@ fun PresenceTrack(
 }
 
 fun rssiColor(rssi: Int): Color = when {
-    rssi >= -55 -> Color(0xFF3DFF9A)
-    rssi >= -70 -> Color(0xFFFFB020)
-    rssi >= -85 -> Color(0xFFFF8A4C)
-    else -> Color(0xFFFF3D5A)
+    rssi >= -55 -> Color(0xFF3DFF9A).dayIf()
+    rssi >= -70 -> Color(0xFFFFB020).dayIf()
+    rssi >= -85 -> Color(0xFFFF8A4C).dayIf()
+    else -> Color(0xFFFF3D5A).dayIf()
 }
 
 fun RssiTrend.mark(): String = when (this) {
@@ -196,9 +197,9 @@ fun RssiTrend.mark(): String = when (this) {
 }
 
 fun RssiTrend.tint(): Color = when (this) {
-    RssiTrend.UP_FAST, RssiTrend.UP -> Color(0xFF3DFF9A)
-    RssiTrend.DOWN, RssiTrend.DOWN_FAST -> Color(0xFFFF3D5A)
-    RssiTrend.FLAT -> Color(0xFF8A93A0)
+    RssiTrend.UP_FAST, RssiTrend.UP -> Color(0xFF3DFF9A).dayIf()
+    RssiTrend.DOWN, RssiTrend.DOWN_FAST -> Color(0xFFFF3D5A).dayIf()
+    RssiTrend.FLAT -> Color(0xFF8A93A0).dayIf()
     RssiTrend.UNKNOWN -> Color.Transparent
 }
 
