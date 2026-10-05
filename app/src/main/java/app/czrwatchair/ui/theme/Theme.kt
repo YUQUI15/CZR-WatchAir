@@ -78,18 +78,6 @@ private val LightColors = lightColorScheme(
     onSurfaceVariant = Color.Black,
     outline = Color(0xFFC5CDD4),
     error = Color(0xFFFEAEBB),
-),
-    onPrimary = Color.White,
-    secondary = Color(0xFF9A6400),
-    tertiary = Color(0xFF0277BD),
-    background = Color(0xFFF4F6F8),
-    onBackground = Color(0xFF12171C),
-    surface = Color.White,
-    onSurface = Color(0xFF12171C),
-    surfaceVariant = Color(0xFFE6EBEF),
-    onSurfaceVariant = Color(0xFF3F4A55),
-    outline = Color(0xFFC5CDD4),
-    error = Color(0xFFB00020),
 )
 
 val Mono = TextStyle(
