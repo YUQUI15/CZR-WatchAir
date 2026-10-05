@@ -128,7 +128,7 @@ fun LiveChromeTour(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset { IntOffset(0, gotItY.roundToInt()) },
-        ) { Text("Got it") }
+        ) { Text("Entendido") }
     }
 }
 

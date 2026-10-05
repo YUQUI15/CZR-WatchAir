@@ -130,12 +130,12 @@ fun DecodeFieldsScreen(
                 FieldwatchFilterChip(
                     selected = source == DecodeSource.MANUFACTURER_DATA,
                     onClick = { source = DecodeSource.MANUFACTURER_DATA },
-                    label = { Text("Manufacturer") },
+                    label = { Text("Fabricante") },
                 )
                 FieldwatchFilterChip(
                     selected = source == DecodeSource.SERVICE_DATA,
                     onClick = { source = DecodeSource.SERVICE_DATA },
-                    label = { Text("Service data") },
+                    label = { Text("Datos de servicio") },
                 )
             }
             if (source == DecodeSource.MANUFACTURER_DATA) {
@@ -189,12 +189,12 @@ fun DecodeFieldsScreen(
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("Add field") }
+            ) { Text("Agregar campo") }
             if (initial != null || fields.isNotEmpty()) {
                 FieldwatchActionButton(
                     onClick = { confirmRemove = true },
                     modifier = Modifier.fillMaxWidth(),
-                ) { Text("Remove decode map") }
+                ) { Text("Eliminar mapa de decodificación") }
                 Text(
                     "Removes every field and the Live code mark. Save after adding fields still keeps the map.",
                     style = MaterialTheme.typography.bodySmall,
@@ -215,9 +215,9 @@ fun DecodeFieldsScreen(
     if (confirmRemove) {
         AlertDialog(
             onDismissRequest = { confirmRemove = false },
-            title = { Text("Remove decode map?") },
+            title = { Text("¿Eliminar mapa de decodificación?") },
             text = {
-                Text("Clears all fields on this signature. Live no longer shows the code mark. Raw advertisements stay. This cannot be undone except by adding fields again.")
+                Text("Borra todos los campos en esta firma. La vista en vivo ya no mostrará la marca de código. Los anuncios en crudo permanecerán. Esto no se puede deshacer excepto agregando campos nuevamente.")
             },
             confirmButton = {
                 TextButton(
@@ -225,7 +225,7 @@ fun DecodeFieldsScreen(
                         confirmRemove = false
                         onSave(null)
                     },
-                ) { Text("Remove") }
+                ) { Text("Eliminar") }
             },
             dismissButton = {
                 TextButton(onClick = { confirmRemove = false }) { Text("Cancelar") }
@@ -409,7 +409,7 @@ private fun FieldCard(
             }
             NamedValuesBlock(field, onChange)
             if (!more) {
-                TextButton(onClick = { more = true }) { Text("More") }
+                TextButton(onClick = { more = true }) { Text("Más") }
             } else {
                 CompactField(
                     field.id,
@@ -426,7 +426,7 @@ private fun FieldCard(
                         modifier = Modifier.fillMaxWidth(),
                     )
                 }
-                TextButton(onClick = { more = false }) { Text("Hide extra") }
+                TextButton(onClick = { more = false }) { Text("Ocultar extra") }
             }
         }
     }
@@ -438,7 +438,7 @@ private fun OnlyIfBlock(gate: DecodeWhen?, onChange: (DecodeWhen?) -> Unit) {
     if (gate == null) {
         TextButton(onClick = {
             onChange(DecodeWhen(offset = 0, length = 1, op = DecodeWhenOp.EQ, valueHex = ""))
-        }) { Text("Only if…") }
+        }) { Text("Solo si…") }
         return
     }
     Text("Only if", style = MaterialTheme.typography.titleSmall)
@@ -486,7 +486,7 @@ private fun OnlyIfBlock(gate: DecodeWhen?, onChange: (DecodeWhen?) -> Unit) {
             )
         }
     }
-    TextButton(onClick = { onChange(null) }) { Text("Remove") }
+    TextButton(onClick = { onChange(null) }) { Text("Eliminar") }
 }
 
 @Composable
@@ -517,7 +517,7 @@ private fun NamedValuesBlock(
         TextButton(onClick = {
             open = true
             rows = listOf("" to "")
-        }) { Text("Named values…") }
+        }) { Text("Valores con nombre…") }
         return
     }
     Text("Named values", style = MaterialTheme.typography.titleSmall)
@@ -580,7 +580,7 @@ private fun NamedValuesBlock(
                             }
                             publish(rows, emphasis)
                         },
-                        label = { Text("Strong") },
+                        label = { Text("Fuerte") },
                     )
                     CompactField(
                         field.enumNotes?.get(raw).orEmpty(),
@@ -597,14 +597,14 @@ private fun NamedValuesBlock(
         }
     }
     Row {
-        TextButton(onClick = { rows = rows + ("" to "") }) { Text("Add value") }
+        TextButton(onClick = { rows = rows + ("" to "") }) { Text("Agregar valor") }
         TextButton(
             onClick = {
                 open = false
                 rows = emptyList()
                 onChange(field.copy(enumLabels = null, liveEmphasis = emptyList(), enumNotes = null))
             },
-        ) { Text("Remove") }
+        ) { Text("Eliminar") }
     }
 }
 
@@ -630,20 +630,20 @@ private fun CompactField(
 private fun WhenOpMenu(op: DecodeWhenOp, modifier: Modifier, onChange: (DecodeWhenOp) -> Unit) {
     var open by remember { mutableStateOf(false) }
     val label = when (op) {
-        DecodeWhenOp.EQ -> "equals"
-        DecodeWhenOp.NEQ -> "not equals"
-        DecodeWhenOp.MASK -> "mask"
-        DecodeWhenOp.NMASK -> "none of bits"
+        DecodeWhenOp.EQ -> "es igual a"
+        DecodeWhenOp.NEQ -> "no es igual a"
+        DecodeWhenOp.MASK -> "máscara"
+        DecodeWhenOp.NMASK -> "ninguno de los bits"
         DecodeWhenOp.LEN -> "length"
     }
     ExposedDropdownMenuBox(open, { open = it }, modifier) {
         FieldwatchDropdownField("When", label, open)
         ExposedDropdownMenu(open, { open = false }) {
-            DropdownMenuItem(text = { Text("equals") }, onClick = { onChange(DecodeWhenOp.EQ); open = false })
-            DropdownMenuItem(text = { Text("not equals") }, onClick = { onChange(DecodeWhenOp.NEQ); open = false })
-            DropdownMenuItem(text = { Text("mask") }, onClick = { onChange(DecodeWhenOp.MASK); open = false })
-            DropdownMenuItem(text = { Text("none of bits") }, onClick = { onChange(DecodeWhenOp.NMASK); open = false })
-            DropdownMenuItem(text = { Text("payload length") }, onClick = { onChange(DecodeWhenOp.LEN); open = false })
+            DropdownMenuItem(text = { Text("es igual a") }, onClick = { onChange(DecodeWhenOp.EQ); open = false })
+            DropdownMenuItem(text = { Text("no es igual a") }, onClick = { onChange(DecodeWhenOp.NEQ); open = false })
+            DropdownMenuItem(text = { Text("máscara") }, onClick = { onChange(DecodeWhenOp.MASK); open = false })
+            DropdownMenuItem(text = { Text("ninguno de los bits") }, onClick = { onChange(DecodeWhenOp.NMASK); open = false })
+            DropdownMenuItem(text = { Text("longitud del payload") }, onClick = { onChange(DecodeWhenOp.LEN); open = false })
         }
     }
 }
@@ -683,8 +683,8 @@ private fun EndianMenu(endian: DecodeEndian, modifier: Modifier, onChange: (Deco
     ExposedDropdownMenuBox(open, { open = it }, modifier) {
         FieldwatchDropdownField("Endian", if (endian == DecodeEndian.BE) "BE" else "LE", open)
         ExposedDropdownMenu(open, { open = false }) {
-            DropdownMenuItem(text = { Text("little") }, onClick = { onChange(DecodeEndian.LE); open = false })
-            DropdownMenuItem(text = { Text("big") }, onClick = { onChange(DecodeEndian.BE); open = false })
+            DropdownMenuItem(text = { Text("pequeño (little endian)") }, onClick = { onChange(DecodeEndian.LE); open = false })
+            DropdownMenuItem(text = { Text("grande (big endian)") }, onClick = { onChange(DecodeEndian.BE); open = false })
         }
     }
 }

@@ -142,18 +142,18 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
                     selected = !filter.movingWithYou && filter.showWifi && filter.showBle,
                     onClick = { vm.updateFilter { it.copy(showWifi = true, showBle = true) } },
                     enabled = !filter.movingWithYou,
-                    label = { Text("Both") },
+                    label = { Text("Ambos") },
                 )
                 FieldwatchFilterChip(
                     selected = !filter.movingWithYou && filter.showWifi && !filter.showBle,
                     onClick = { vm.updateFilter { it.copy(showWifi = true, showBle = false) } },
                     enabled = !filter.movingWithYou,
-                    label = { Text("Wi-Fi only") },
+                    label = { Text("Solo Wi-Fi") },
                 )
                 FieldwatchFilterChip(
                     selected = filter.movingWithYou || (filter.showBle && !filter.showWifi),
                     onClick = { vm.updateFilter { it.copy(showWifi = false, showBle = true) } },
-                    label = { Text("BLE only") },
+                    label = { Text("Solo BLE") },
                 )
             }
             }
@@ -369,7 +369,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
                             it.copy(useClassFilter = on, excludeClasses = false)
                         }
                     },
-                    label = { Text("Show only") },
+                    label = { Text("Mostrar solo") },
                 )
                 FieldwatchFilterChip(
                     selected = filter.useClassFilter && filter.excludeClasses,
@@ -379,7 +379,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
                             it.copy(useClassFilter = on, excludeClasses = on)
                         }
                     },
-                    label = { Text("Hide these") },
+                    label = { Text("Ocultar estos") },
                 )
             }
             CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides Dp.Unspecified) {
@@ -526,7 +526,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
             }
 
             FieldwatchActionButton(onClick = { confirmReset = true }) {
-                Text("Reset filter")
+                Text("Restablecer filtro")
             }
             }
         }
@@ -534,7 +534,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
     if (confirmReset) {
         AlertDialog(
             onDismissRequest = { confirmReset = false },
-            title = { Text("Reset filter?") },
+            title = { Text("¿Restablecer filtro?") },
             text = {
                 Text(
                     "Clears every switch and pick on this tab (radios, classes, selected signatures, RSSI, name/OUI). " +
@@ -547,7 +547,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
                         confirmReset = false
                         vm.updateFilter { app.czrwatchair.domain.FilterState() }
                     },
-                ) { Text("Reset") }
+                ) { Text("Restablecer") }
             },
             dismissButton = {
                 TextButton(onClick = { confirmReset = false }) { Text("Cancelar") }
@@ -557,7 +557,7 @@ fun FiltersScreen(state: FieldwatchUi, vm: FieldwatchViewModel) {
     pendingDelete?.let { preset ->
         AlertDialog(
             onDismissRequest = { pendingDelete = null },
-            title = { Text("Delete preset?") },
+            title = { Text("¿Eliminar preset?") },
             text = {
                 Text(
                     if (preset.isBuiltIn()) {

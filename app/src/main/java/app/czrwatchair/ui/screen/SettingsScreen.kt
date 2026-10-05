@@ -161,7 +161,7 @@ fun SettingsScreen(
                 ScanIntensity.BALANCED -> "Balanced"
                 ScanIntensity.PERFORMANCE -> "High performance"
             }
-            Text("Scan intensity  ·  $label")
+            Text("Intensidad de escaneo  ·  $label")
             FieldwatchSlider(
                 value = settings.intensity.ordinal.toFloat(),
                 onValueChange = { v ->
@@ -236,7 +236,7 @@ fun SettingsScreen(
             if (needDevOptions) {
                 AlertDialog(
                     onDismissRequest = { needDevOptions = false },
-                    title = { Text("Developer options required") },
+                    title = { Text("Se requieren opciones de desarrollador") },
                     text = {
                         Text(
                             if (Build.VERSION.SDK_INT < 30) {
@@ -256,14 +256,14 @@ fun SettingsScreen(
                                         context.startActivity(Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS))
                                     }
                                 },
-                            ) { Text("Open developer options") }
+                            ) { Text("Abrir opciones de desarrollador") }
                         } else {
                             TextButton(onClick = { needDevOptions = false }) { Text("OK") }
                         }
                     },
                     dismissButton = {
                         if (Build.VERSION.SDK_INT >= 30) {
-                            TextButton(onClick = { needDevOptions = false }) { Text("Not now") }
+                            TextButton(onClick = { needDevOptions = false }) { Text("Ahora no") }
                         }
                     },
                 )
@@ -326,16 +326,16 @@ fun SettingsScreen(
                                     highlightBackground = gate == BatteryAndroidGate.BACKGROUND,
                                 )
                             },
-                        ) { Text("Open Android settings") }
+                        ) { Text("Abrir ajustes de Android") }
                     },
                     dismissButton = {
-                        TextButton(onClick = { batteryGate = null }) { Text("Not now") }
+                        TextButton(onClick = { batteryGate = null }) { Text("Ahora no") }
                     },
                 )
             }
             }
 
-            SectionCard("Watchlist") {
+            SectionCard("Lista de vigilancia") {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Watchlist alerts", Modifier.weight(1f))
                 FieldwatchSwitch(settings.alertsEnabled, { on -> vm.updateSettings { it.copy(alertsEnabled = on) } })
@@ -349,7 +349,7 @@ fun SettingsScreen(
             FieldwatchActionButton(
                 onClick = onRadioBookmarks,
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("Named radios ($radioWatchN)") }
+            ) { Text("Radios nombradas ($radioWatchN)") }
             Text(
                 "Custom names for one MAC. Alert is optional. Filters → Named radios only shows them on Live. Signature watches stay on Signatures.",
                 style = MaterialTheme.typography.bodySmall,
@@ -401,7 +401,7 @@ fun SettingsScreen(
                 onClick = vm::testWatchBeep,
                 modifier = Modifier.fillMaxWidth(),
                 enabled = settings.alertsEnabled && (settings.alertBeep || settings.alertVoice),
-            ) { Text("Test alert") }
+            ) { Text("Alerta de prueba") }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Jump to new watched detection", Modifier.weight(1f))
                 FieldwatchSwitch(
@@ -515,7 +515,7 @@ fun SettingsScreen(
             LaunchedEffect(settings.logRotateKb) {
                 if (!rotateDragging) rotateDrag = settings.logRotateKb
             }
-            Text("Rotate at $rotateDrag KB")
+            Text("Rotar a los $rotateDrag KB")
             FieldwatchSlider(
                 value = rotateDrag.toFloat(),
                 onValueChange = {
@@ -533,7 +533,7 @@ fun SettingsScreen(
             LaunchedEffect(settings.staleSec) {
                 if (!staleDragging) staleDrag = settings.staleSec
             }
-            Text("Stale after ${staleDrag}s")
+            Text("Caduco después de ${staleDrag}s")
             FieldwatchSlider(
                 value = staleDrag.toFloat(),
                 onValueChange = {
@@ -564,27 +564,27 @@ fun SettingsScreen(
             FieldwatchActionButton(
                 onClick = vm::startSignatureShare,
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("Export signatures") }
+            ) { Text("Exportar firmas") }
             FieldwatchActionButton(
                 onClick = { saveSignatures.launch(vm.suggestedSignaturesName()) },
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("Save signatures to SD card / storage…") }
+            ) { Text("Guardar firmas en tarjeta SD / almacenamiento…") }
             FieldwatchActionButton(
                 onClick = {
                     importSignatures.launch(arrayOf("application/json", "text/plain", "*/*"))
                 },
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("Import signatures…") }
+            ) { Text("Importar firmas…") }
             FieldwatchActionButton(
                 onClick = vm::updateStockCatalogFromGitHub,
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("Update stock catalog from GitHub") }
+            ) { Text("Actualizar catálogo de fábrica desde GitHub") }
 
             FieldwatchActionButton(
                 onClick = { confirmRestore = true },
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text("Restore default signatures & presets")
+                Text("Restaurar firmas y presets predeterminados")
             }
             }
 
@@ -600,23 +600,23 @@ fun SettingsScreen(
             FieldwatchActionButton(
                 onClick = vm::startSettingsShare,
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("Export settings") }
+            ) { Text("Exportar ajustes") }
             FieldwatchActionButton(
                 onClick = { saveSettings.launch(vm.suggestedSettingsName()) },
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("Save settings to SD card / storage…") }
+            ) { Text("Guardar ajustes en tarjeta SD / almacenamiento…") }
             FieldwatchActionButton(
                 onClick = {
                     importSettings.launch(arrayOf("application/json", "text/plain", "*/*"))
                 },
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("Import settings…") }
+            ) { Text("Importar ajustes…") }
             }
 
             FieldwatchActionButton(
                 onClick = onShowLiveTour,
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("Show Live tour") }
+            ) { Text("Mostrar tour En vivo") }
             Text(
                 "Chrome overlay on Live: Tune is Display (Radar, list, By class), Pause, Filters, Signatures, Reports, Settings. First-run after the license; this button shows it again.",
                 style = MaterialTheme.typography.bodySmall,
@@ -660,7 +660,7 @@ fun SettingsScreen(
     if (confirmRestore) {
         AlertDialog(
             onDismissRequest = { confirmRestore = false },
-            title = { Text("Restore defaults?") },
+            title = { Text("¿Restaurar predeterminados?") },
             text = {
                 Text(
                     "Rewrites the catalog (stock rows, class colors, Decode fields), stock bookmarks, " +
@@ -675,7 +675,7 @@ fun SettingsScreen(
                         confirmRestore = false
                         vm.restoreDefaults()
                     },
-                ) { Text("Restore") }
+                ) { Text("Restaurar") }
             },
             dismissButton = {
                 TextButton(onClick = { confirmRestore = false }) { Text("Cancelar") }
@@ -766,7 +766,7 @@ private fun TakFeedSettings(settings: AppSettings, vm: FieldwatchViewModel, stat
                 vm.updateSettings { it.copy(takHost = host, takPort = port) }
             },
             enabled = !settings.demoMode,
-            label = { Text("This phone") },
+            label = { Text("Este teléfono") },
         )
         FieldwatchFilterChip(
             selected = preset == TakUdpPreset.LAN_MULTICAST,
@@ -786,7 +786,7 @@ private fun TakFeedSettings(settings: AppSettings, vm: FieldwatchViewModel, stat
                 }
             },
             enabled = !settings.demoMode,
-            label = { Text("Custom") },
+            label = { Text("Personalizado") },
         )
     }
     Text(
@@ -834,25 +834,25 @@ private fun TakFeedSettings(settings: AppSettings, vm: FieldwatchViewModel, stat
             selected = settings.takAttention,
             onClick = { vm.updateSettings { it.copy(takAttention = !it.takAttention) } },
             enabled = !settings.demoMode,
-            label = { Text("Extra attention") },
+            label = { Text("Atención adicional") },
         )
         FieldwatchFilterChip(
             selected = settings.takPayloadFix,
             onClick = { vm.updateSettings { it.copy(takPayloadFix = !it.takPayloadFix) } },
             enabled = !settings.demoMode,
-            label = { Text("Payload location") },
+            label = { Text("Ubicación del payload") },
         )
         FieldwatchFilterChip(
             selected = settings.takWatchlist,
             onClick = { vm.updateSettings { it.copy(takWatchlist = !it.takWatchlist) } },
             enabled = !settings.demoMode,
-            label = { Text("Watchlist") },
+            label = { Text("Lista de vigilancia") },
         )
         FieldwatchFilterChip(
             selected = settings.takAllSignatures,
             onClick = { vm.updateSettings { it.copy(takAllSignatures = !it.takAllSignatures) } },
             enabled = !settings.demoMode,
-            label = { Text("All signatures") },
+            label = { Text("Todas las firmas") },
         )
     }
     Text(

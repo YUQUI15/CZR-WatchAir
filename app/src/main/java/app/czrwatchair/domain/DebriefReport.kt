@@ -418,7 +418,7 @@ object DebriefReport {
                 add(DebriefSection(next(), "Aircraft", aircraftBody))
             }
             observerNotesSection(inWin, customNames, observerNotes)?.let { body ->
-                add(DebriefSection(next(), "Observer notes", body))
+                add(DebriefSection(next(), "Notas del observador", body))
             }
             markedMineSection(inWin, customNames, mineKeys, assessed)?.let { body ->
                 add(DebriefSection(next(), "Marked mine", body))
@@ -511,7 +511,7 @@ object DebriefReport {
                 add(
                     DebriefSection(
                         next(),
-                        "Extra attention",
+                        "Atención adicional",
                         buildString {
                             appendLine("Pattern match, not identity, not a skimmer detector, not a safety finding.")
                             attentionHits.forEach { (d, sig, note) ->

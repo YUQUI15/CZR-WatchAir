@@ -221,9 +221,9 @@ fun DeviceDetailScreen(
                     if (nameIsSaved) {
                         Icon(Icons.Outlined.Check, null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.padding(4.dp))
-                        Text("Saved")
+                        Text("Guardado")
                     } else {
-                        Text("Save name")
+                        Text("Guardar nombre")
                     }
                 }
             }
@@ -642,7 +642,7 @@ fun DeviceDetailScreen(
             ) {
                 Icon(Icons.Outlined.GroupAdd, null)
                 Spacer(Modifier.padding(4.dp))
-                Text("Create signature from device")
+                Text("Crear firma desde dispositivo")
             }
             FieldwatchActionButton(
                 onClick = { vm.startDeviceDetailShare(device) },
@@ -650,7 +650,7 @@ fun DeviceDetailScreen(
             ) {
                 Icon(Icons.Outlined.Share, null)
                 Spacer(Modifier.padding(4.dp))
-                Text("Share as text")
+                Text("Compartir como texto")
             }
             FieldwatchActionButton(
                 onClick = { vm.startDeviceDetailAiExport(device) },
@@ -658,7 +658,7 @@ fun DeviceDetailScreen(
             ) {
                 Icon(Icons.Outlined.AutoAwesome, null)
                 Spacer(Modifier.padding(4.dp))
-                Text("AI Export")
+                Text("Exportar IA")
             }
             Text(
                 "Opens a paste-ready prompt for a chat: decode this radio, look up OUI/company/UUIDs, and say what it most likely is. Same experimental disclaimer as Settings → AI Export. One device only — not identity.",
@@ -771,7 +771,7 @@ private fun ObserverNotesCard(
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    "Observer notes",
+                    "Notas del observador",
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.SemiBold,
                     color = ink,
@@ -781,7 +781,7 @@ private fun ObserverNotesCard(
                     IconButton(onClick = onToggleEdit) {
                         Icon(
                             Icons.Outlined.Edit,
-                            if (editing) "Hide observer notes" else "Observer notes",
+                            if (editing) "Hide observer notes" else "Notas del observador",
                         )
                     }
                 }
@@ -800,7 +800,7 @@ private fun ObserverNotesCard(
                 FieldwatchOutlinedField(
                     value = draft,
                     onValueChange = onDraftChange,
-                    label = "Observer notes",
+                    label = "Notas del observador",
                     singleLine = false,
                     minLines = 3,
                     supportingText = "${draft.trim().length}/${RadioBookmarks.MAX_NOTES}. ${RadioBookmarks.observerNotesHint()}",
@@ -813,9 +813,9 @@ private fun ObserverNotesCard(
                     if (saved) {
                         Icon(Icons.Outlined.Check, null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.padding(4.dp))
-                        Text("Saved")
+                        Text("Guardado")
                     } else {
-                        Text("Save notes")
+                        Text("Guardar notas")
                     }
                 }
             }
@@ -842,7 +842,7 @@ private fun ExtraAttentionCard(notes: List<Pair<String, String>>) {
                     modifier = Modifier.padding(end = 8.dp),
                 )
                 Text(
-                    "Extra attention",
+                    "Atención adicional",
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.SemiBold,
                     color = warn,

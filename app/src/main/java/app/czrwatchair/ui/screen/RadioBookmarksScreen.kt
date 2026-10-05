@@ -131,7 +131,7 @@ fun RadioBookmarksScreen(
                         onClick = { clearAll = true },
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Text("Clear all ${radios.size} named radios")
+                        Text("Limpiar todas las ${radios.size} radios nombradas")
                     }
                 }
             }
@@ -141,9 +141,9 @@ fun RadioBookmarksScreen(
     if (clearAll) {
         AlertDialog(
             onDismissRequest = { clearAll = false },
-            title = { Text("Clear named radios?") },
+            title = { Text("¿Limpiar radios nombradas?") },
             text = {
-                Text("Remove ${radios.size} named radios. Signature watches stay.")
+                Text("Elimina ${radios.size} radios nombradas. Las vigilancias de firma permanecen.")
             },
             confirmButton = {
                 TextButton(
@@ -163,7 +163,7 @@ fun RadioBookmarksScreen(
         var notesDraft by remember(renameTarget.id) { mutableStateOf(renameTarget.observerNotes) }
         AlertDialog(
             onDismissRequest = { renameId = null },
-            title = { Text("Named radio") },
+            title = { Text("Radio nombrada") },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     FieldwatchOutlinedField(
@@ -174,7 +174,7 @@ fun RadioBookmarksScreen(
                     FieldwatchOutlinedField(
                         value = notesDraft,
                         onValueChange = { notesDraft = it.take(RadioBookmarks.MAX_NOTES) },
-                        label = "Observer notes",
+                        label = "Notas del observador",
                         singleLine = false,
                         minLines = 3,
                         supportingText = "${notesDraft.trim().length}/${RadioBookmarks.MAX_NOTES}",
@@ -233,7 +233,7 @@ private fun BookmarkCard(
                         Icon(Icons.Outlined.Edit, "Edit", modifier = Modifier.size(18.dp))
                     }
                     IconButton(onClick = onRemove, modifier = Modifier.size(36.dp)) {
-                        Icon(Icons.Outlined.Delete, "Remove", modifier = Modifier.size(18.dp))
+                        Icon(Icons.Outlined.Delete, "Eliminar", modifier = Modifier.size(18.dp))
                     }
                 }
             }

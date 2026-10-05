@@ -16,8 +16,8 @@ enum class LogExportKind(val label: String) {
 
 enum class LogExportRadios(val label: String) {
     BOTH("Both radios"),
-    WIFI("Wi-Fi only"),
-    BLE("BLE only"),
+    WIFI("Solo Wi-Fi"),
+    BLE("Solo BLE"),
     ;
 
     fun matches(kind: RadioKind): Boolean = when (this) {

@@ -49,7 +49,7 @@ object DeviceDetailText {
         out.append("What this looks like: ").append(guess.headline).append('\n')
         out.append(guess.because).append('\n')
         if (attentionNotes.isNotEmpty()) {
-            section("Extra attention")
+            section("Atención adicional")
             attentionNotes.forEach { (name, note) ->
                 out.append("EXTRA ATTENTION ($name): ").append(note.trim()).append('\n')
             }

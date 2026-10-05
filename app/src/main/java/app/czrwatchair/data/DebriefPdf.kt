@@ -153,7 +153,7 @@ object DebriefPdf {
             out += spacer(10f)
         }
         for (section in doc.sections) {
-            if (section.title == "Extra attention" && doc.extraAttention.isNotEmpty()) {
+            if (section.title == "Atención adicional" && doc.extraAttention.isNotEmpty()) {
                 out += sectionHead(section.number, section.title, alert = true)
                 out += spacer(4f)
                 doc.extraAttention.forEach { hit ->
@@ -686,7 +686,7 @@ object DebriefPdf {
             out += LegendSwatch("Advertised", MARK_AMBER)
             if (craft.any { it.secondary }) out += LegendSwatch("Second advertised", MARK_AMBER_DASH)
         }
-        if (fig.dots.any { it.extraAttention }) out += LegendSwatch("Extra attention", MARK_RED)
+        if (fig.dots.any { it.extraAttention }) out += LegendSwatch("Atención adicional", MARK_RED)
         if (fig.dots.any { it.named }) out += LegendSwatch("MAC alert", MARK_BLUE)
         if (fig.dots.any { !it.extraAttention && !it.named }) out += LegendSwatch("Signature alert", MARK_ALERT)
         if (fig.pilots.isNotEmpty()) out += LegendSwatch("Pilot", MARK_PILOT)
@@ -951,7 +951,7 @@ object DebriefPdf {
         val radios = pile.members.joinToString("  ·  ") { m ->
             val d = m.dot
             val kind = if (d.kind.name == "WIFI") "WIFI" else "BLE"
-            val tag = if (d.extraAttention) "Extra attention" else null
+            val tag = if (d.extraAttention) "Atención adicional" else null
             val fleets = d.fleetNames.filter { it.isNotBlank() }.joinToString(", ")
             val obs = d.observerNotes.trim().takeIf { it.isNotEmpty() }?.let { "Observer: $it" }
             val who = listOfNotNull(kind, d.label.ifBlank { d.mac }, fleets.ifBlank { null }, tag, obs)

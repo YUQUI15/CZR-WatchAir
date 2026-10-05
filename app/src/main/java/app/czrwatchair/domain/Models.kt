@@ -193,8 +193,8 @@ enum class SignatureListSort {
     ;
 
     fun label(): String = when (this) {
-        NAME -> "Name A–Z"
-        CLASS -> "Class A–Z"
+        NAME -> "Nombre A–Z"
+        CLASS -> "Clase A–Z"
     }
 }
 
@@ -335,7 +335,7 @@ enum class DecodeEndian {
 enum class DecodeWhenOp {
     @SerialName("eq") EQ,
     @SerialName("neq") NEQ,
-    @SerialName("mask") MASK,
+    @SerialName("máscara") MASK,
     /** Inverse of [MASK]: every 1-bit in Hex must be clear in the payload slice. */
     @SerialName("nmask") NMASK,
     /** Payload byte length equals [DecodeWhen.length]. offset/valueHex ignored. */

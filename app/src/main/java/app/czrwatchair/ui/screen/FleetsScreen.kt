@@ -173,12 +173,12 @@ fun FleetsScreen(
                     FieldwatchFilterChip(
                         selected = sort == SignatureListSort.NAME,
                         onClick = { vm.setSignatureListSort(SignatureListSort.NAME) },
-                        label = { Text("Name A–Z") },
+                        label = { Text("Nombre A–Z") },
                     )
                     FieldwatchFilterChip(
                         selected = sort == SignatureListSort.CLASS,
                         onClick = { vm.setSignatureListSort(SignatureListSort.CLASS) },
-                        label = { Text("Class A–Z") },
+                        label = { Text("Clase A–Z") },
                     )
                 }
             }
@@ -361,7 +361,7 @@ fun FleetEditor(
             FieldwatchOutlinedField(
                 fleet.attentionNote,
                 { fleet = fleet.copy(attentionNote = it) },
-                "Extra attention",
+                "Atención adicional",
                 supportingText = "Optional. If this is not empty, matching radios get a “!” on Live, this amber card on detail, and a line in Debrief. Separate from Notes above.",
                 singleLine = false,
                 minLines = 3,
@@ -447,7 +447,7 @@ fun FleetEditor(
                     fleet = fleet.copy(rules = fleet.rules + MatchRule(RuleKind.OUI, text = ""))
                 },
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("Add rule") }
+            ) { Text("Agregar regla") }
             }
 
             if (fleet.canHaveBleDecode()) {
@@ -484,7 +484,7 @@ fun FleetEditor(
                 ) {
                     Icon(Icons.Outlined.Delete, null)
                     Spacer(Modifier.padding(4.dp))
-                    Text("Delete signature")
+                    Text("Eliminar firma")
                 }
             }
         }
@@ -492,7 +492,7 @@ fun FleetEditor(
     if (confirmDelete && onDelete != null) {
         AlertDialog(
             onDismissRequest = { confirmDelete = false },
-            title = { Text("Delete this signature?") },
+            title = { Text("¿Eliminar esta firma?") },
             text = {
                 Text(
                     if (initial.builtIn) {
@@ -545,7 +545,7 @@ private fun ColorPicker(selected: Int, onSelect: (Int) -> Unit) {
                         if (on) {
                             Icon(
                                 Icons.Outlined.Check,
-                                contentDescription = "Selected color",
+                                contentDescription = "Color seleccionado",
                                 tint = if (fill.luminance() > 0.45f) {
                                     Color(0xFF12171C)
                                 } else {
@@ -661,7 +661,7 @@ private fun ruleKindLabel(kind: RuleKind): String = when (kind) {
     RuleKind.NAME_CONTAINS -> "Name contains"
     RuleKind.NAME_GLOB -> "Name glob"
     RuleKind.SERVICE_UUID -> "Service UUID"
-    RuleKind.SERVICE_DATA -> "Service data"
+    RuleKind.SERVICE_DATA -> "Datos de servicio"
     RuleKind.MANUFACTURER_ID -> "Manufacturer ID"
     RuleKind.MANUFACTURER_DATA -> "Manufacturer data"
     RuleKind.RADIO_KIND -> "Radio kind"

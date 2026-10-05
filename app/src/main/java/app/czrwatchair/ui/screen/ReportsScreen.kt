@@ -128,7 +128,7 @@ fun ReportsScreen(
                         onClick = vm::endSit,
                         enabled = !exporting,
                         modifier = Modifier.fillMaxWidth(),
-                    ) { Text("End sit") }
+                    ) { Text("Terminar sesión") }
                 } else {
                     FieldwatchActionButton(
                         onClick = {
@@ -137,7 +137,7 @@ fun ReportsScreen(
                         },
                         enabled = !exporting,
                         modifier = Modifier.fillMaxWidth(),
-                    ) { Text("Start sit") }
+                    ) { Text("Iniciar sesión") }
                     Text(
                         if (state.sit.closed.isEmpty()) {
                             "No sit running. Start sit here. Path and Debrief stay last 15 minutes until you do."
@@ -200,7 +200,7 @@ fun ReportsScreen(
                             },
                             enabled = !exporting && picked != null,
                             modifier = Modifier.weight(1f),
-                        ) { Text("Rename") }
+                        ) { Text("Renombrar") }
                         FieldwatchActionButton(
                             onClick = { if (picked != null) deleteSitId = picked.id },
                             enabled = !exporting && picked != null,
@@ -211,7 +211,7 @@ fun ReportsScreen(
                         onClick = { confirmDeleteAll = true },
                         enabled = !exporting,
                         modifier = Modifier.fillMaxWidth(),
-                    ) { Text("Delete all sits") }
+                    ) { Text("Eliminar todas las sesiones") }
                 }
             }
 
@@ -392,12 +392,12 @@ fun ReportsScreen(
                     onClick = vm::startFieldDebrief,
                     enabled = !exporting,
                     modifier = Modifier.weight(1f),
-                ) { Text("Debrief (text)") }
+                ) { Text("Informe (texto)") }
                 FieldwatchActionButton(
                     onClick = vm::startFieldDebriefPdf,
                     enabled = !exporting,
                     modifier = Modifier.weight(1f),
-                ) { Text("Debrief (PDF)") }
+                ) { Text("Informe (PDF)") }
             }
             Text(
                 sitReportCaption(state),
@@ -446,7 +446,7 @@ fun ReportsScreen(
                 onClick = vm::startAiExport,
                 enabled = !exporting,
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("AI Export") }
+            ) { Text("Exportar IA") }
             Text(
                 "Paste-ready addendum: rates, RSSI bands, Extra attention and tracking IDs. Does not reprint Debrief inventories. One-radio AI Export is on detail.",
                 style = MaterialTheme.typography.bodySmall,
@@ -507,12 +507,12 @@ fun ReportsScreen(
                         onClick = vm::startSitCompare,
                         enabled = !exporting && state.sit.compareId != null,
                         modifier = Modifier.weight(1f),
-                    ) { Text("Compare (text)") }
+                    ) { Text("Comparar (texto)") }
                     FieldwatchActionButton(
                         onClick = vm::startSitComparePdf,
                         enabled = !exporting && state.sit.compareId != null,
                         modifier = Modifier.weight(1f),
-                    ) { Text("Compare (PDF)") }
+                    ) { Text("Comparar (PDF)") }
                 }
                 Text(
                     "Same report, two formats. Presence only — only in this sit, only in the second, in both. Kind + MAC. Extra attention and Named radios are marked. Not a radio fix.",
@@ -523,7 +523,7 @@ fun ReportsScreen(
                     onClick = vm::startSitCompareAiExport,
                     enabled = !exporting && state.sit.compareId != null,
                     modifier = Modifier.fillMaxWidth(),
-                ) { Text("AI Export") }
+                ) { Text("Exportar IA") }
                 Text(
                     "Paste-ready addendum: overlap, exclusive Extra attention / Named radios, what another sit would shrink. Does not reprint the compare lists. Sit report AI Export stays this window only.",
                     style = MaterialTheme.typography.bodySmall,
@@ -536,7 +536,7 @@ fun ReportsScreen(
                 onClick = onSignatureCandidates,
                 enabled = !exporting,
                 modifier = Modifier.fillMaxWidth(),
-            ) { Text("Signature candidates") }
+            ) { Text("Candidatos a firma") }
             Text(
                 "Unmatched radios in the log that share a unique ID — not every unknown. You review; nothing is added until you Save.",
                 style = MaterialTheme.typography.bodySmall,
@@ -567,20 +567,20 @@ fun ReportsScreen(
                 enabled = !exporting,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text("Reset / clear log")
+                Text("Restablecer / limpiar registro")
             }
             if (confirmClear) {
                 AlertDialog(
                     onDismissRequest = { confirmClear = false },
-                    title = { Text("Clear the log?") },
+                    title = { Text("¿Limpiar el registro?") },
                     text = {
-                        Text("This deletes all rotated CSV/JSON files on the phone. It cannot be undone. Live scanning will start a new empty log.")
+                        Text("Esto elimina todos los archivos CSV/JSON rotados en el teléfono. No se puede deshacer. El escaneo en vivo iniciará un nuevo registro vacío.")
                     },
                     confirmButton = {
                         TextButton(onClick = {
                             confirmClear = false
                             vm.clearLogs()
-                        }) { Text("Clear log") }
+                        }) { Text("Limpiar registro") }
                     },
                     dismissButton = {
                         TextButton(onClick = { confirmClear = false }) { Text("Cancelar") }
@@ -593,7 +593,7 @@ fun ReportsScreen(
     if (startSit) {
         AlertDialog(
             onDismissRequest = { startSit = false },
-            title = { Text("Start sit") },
+            title = { Text("Iniciar sesión") },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     FieldwatchOutlinedField(
@@ -630,7 +630,7 @@ fun ReportsScreen(
     if (renaming != null) {
         AlertDialog(
             onDismissRequest = { renameSitId = null },
-            title = { Text("Rename sit") },
+            title = { Text("Renombrar sesión") },
             text = {
                 FieldwatchOutlinedField(
                     value = renameDraft,
@@ -653,8 +653,8 @@ fun ReportsScreen(
     if (deleting != null) {
         AlertDialog(
             onDismissRequest = { deleteSitId = null },
-            title = { Text("Delete this sit?") },
-            text = { Text("Removes the saved sit from this phone. The log is unchanged.") },
+            title = { Text("¿Eliminar esta sesión?") },
+            text = { Text("Elimina la sesión guardada de este teléfono. El registro no se modifica.") },
             confirmButton = {
                 TextButton(onClick = {
                     deleteSitId = null
@@ -669,13 +669,13 @@ fun ReportsScreen(
     if (confirmDeleteAll) {
         AlertDialog(
             onDismissRequest = { confirmDeleteAll = false },
-            title = { Text("Delete all sits?") },
-            text = { Text("Removes saved sits from this phone. An open sit is not deleted. The log is unchanged.") },
+            title = { Text("¿Eliminar todas las sesiones?") },
+            text = { Text("Elimina las sesiones guardadas de este teléfono. Una sesión abierta no se elimina. El registro no se modifica.") },
             confirmButton = {
                 TextButton(onClick = {
                     confirmDeleteAll = false
                     vm.deleteAllSits()
-                }) { Text("Delete all") }
+                }) { Text("Eliminar todo") }
             },
             dismissButton = {
                 TextButton(onClick = { confirmDeleteAll = false }) { Text("Cancelar") }
@@ -919,7 +919,7 @@ private fun ExportFormatBlock(
         onClick = onSave,
         enabled = !exporting,
         modifier = Modifier.fillMaxWidth(),
-    ) { Text("Save to SD card / storage…") }
+    ) { Text("Guardar en tarjeta SD / almacenamiento…") }
     Text(
         hint,
         style = MaterialTheme.typography.bodySmall,

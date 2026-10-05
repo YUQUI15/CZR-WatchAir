@@ -225,7 +225,7 @@ private fun DisclaimerGate(onAccept: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-        ) { Text("Continue") }
+        ) { Text("Continuar") }
     }
 }
 
@@ -243,7 +243,7 @@ private fun PermissionGate(onRequest: () -> Unit) {
             modifier = Modifier.padding(top = 12.dp, bottom = 20.dp),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        Button(onClick = onRequest) { Text("Grant permissions") }
+        Button(onClick = onRequest) { Text("Otorgar permisos") }
     }
 }
 
@@ -281,7 +281,7 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                         "sit compare" in m && "pdf" in m -> "Sit compare PDF"
                         "sit compare" in m && "ai" in m -> "Sit compare AI Export"
                         "sit compare" in m -> "Sit compare"
-                        "ai export" in m || "ai export" in m -> "AI Export"
+                        "ai export" in m || "ai export" in m -> "Exportar IA"
                         "pdf" in m -> "Debrief PDF"
                         "debrief" in m -> "Debrief"
                         else -> "Exportar"
@@ -328,9 +328,9 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
     if (export.saved) {
         AlertDialog(
             onDismissRequest = vm::consumeExportNotice,
-            title = { Text("Log saved") },
+            title = { Text("Registro guardado") },
             text = {
-                Text("The file was written to the folder you picked. In the system picker, use the menu to choose the SD card if you want it off internal storage.")
+                Text("El archivo se guardó en la carpeta seleccionada. En el selector del sistema, usa el menú para elegir la tarjeta SD si deseas sacarlo del almacenamiento interno.")
             },
             confirmButton = {
                 TextButton(onClick = vm::consumeExportNotice) { Text("OK") }
@@ -340,8 +340,8 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
     if (export.cleared) {
         AlertDialog(
             onDismissRequest = vm::consumeExportNotice,
-            title = { Text("Log cleared") },
-            text = { Text("Rotated files were deleted. New detections will start a fresh log.") },
+            title = { Text("Registro limpiado") },
+            text = { Text("Los archivos rotados fueron eliminados. Las nuevas detecciones iniciarán un registro nuevo.") },
             confirmButton = {
                 TextButton(onClick = vm::consumeExportNotice) { Text("OK") }
             },
@@ -691,7 +691,7 @@ private fun FieldwatchShell(state: FieldwatchUi, vm: FieldwatchViewModel) {
                     Scaffold(
                         topBar = {
                             TopAppBar(
-                                title = { Text("Detail") },
+                                title = { Text("Detalle") },
                                 navigationIcon = {
                                     IconButton(onClick = onBack) {
                                         Icon(Icons.AutoMirrored.Filled.ArrowBack, "Atrás")
@@ -839,12 +839,12 @@ private fun ViewPicker(
     var openSubtitle by remember { mutableStateOf(false) }
     val sortLabel = when (listSort) {
         ListSort.STRENGTH -> if (sort == StrengthSort.AVERAGE) "Strongest · avg ${windowSec}s" else "Strongest"
-        ListSort.NEWEST -> "Newest heard"
-        ListSort.NEWEST_ALERT -> "Newest alert"
-        ListSort.FIRST_SEEN -> "Newest arrival"
-        ListSort.ARRIVAL -> "New at bottom"
-        ListSort.NAME -> "Name A–Z"
-        ListSort.SIGNATURES -> "Signatures first"
+        ListSort.NEWEST -> "Visto más reciente"
+        ListSort.NEWEST_ALERT -> "Alerta más reciente"
+        ListSort.FIRST_SEEN -> "Llegada más reciente"
+        ListSort.ARRIVAL -> "Nuevos al final"
+        ListSort.NAME -> "Nombre A–Z"
+        ListSort.SIGNATURES -> "Firmas primero"
     }
     val decayLabel = if (decaySec <= 0) "Off" else "Hold ${decaySec}s"
     val scroll = rememberScrollState()
@@ -889,35 +889,35 @@ private fun ViewPicker(
                 FieldwatchDropdownField("Sort", sortLabel, openSort)
                 ExposedDropdownMenu(openSort, { openSort = false }) {
                     DropdownMenuItem(
-                        text = { Text("Strongest signal") },
+                        text = { Text("Señal más fuerte") },
                         onClick = { onChangeSort(StrengthSort.INSTANT, null); openSort = false },
                     )
                     DropdownMenuItem(
-                        text = { Text("Strongest (avg 30s)") },
+                        text = { Text("Más fuerte (promedio 30s)") },
                         onClick = { onChangeSort(StrengthSort.AVERAGE, 30); openSort = false },
                     )
                     DropdownMenuItem(
-                        text = { Text("Newest heard") },
+                        text = { Text("Visto más reciente") },
                         onClick = { onChangeListSort(ListSort.NEWEST); openSort = false },
                     )
                     DropdownMenuItem(
-                        text = { Text("Newest alert") },
+                        text = { Text("Alerta más reciente") },
                         onClick = { onChangeListSort(ListSort.NEWEST_ALERT); openSort = false },
                     )
                     DropdownMenuItem(
-                        text = { Text("Newest arrival") },
+                        text = { Text("Llegada más reciente") },
                         onClick = { onChangeListSort(ListSort.FIRST_SEEN); openSort = false },
                     )
                     DropdownMenuItem(
-                        text = { Text("New at bottom") },
+                        text = { Text("Nuevos al final") },
                         onClick = { onChangeListSort(ListSort.ARRIVAL); openSort = false },
                     )
                     DropdownMenuItem(
-                        text = { Text("Name A–Z") },
+                        text = { Text("Nombre A–Z") },
                         onClick = { onChangeListSort(ListSort.NAME); openSort = false },
                     )
                     DropdownMenuItem(
-                        text = { Text("Signatures first") },
+                        text = { Text("Firmas primero") },
                         onClick = { onChangeListSort(ListSort.SIGNATURES); openSort = false },
                     )
                 }
@@ -926,12 +926,12 @@ private fun ViewPicker(
                 FieldwatchDropdownField("Brief hold", decayLabel, openDecay)
                 ExposedDropdownMenu(openDecay, { openDecay = false }) {
                     DropdownMenuItem(
-                        text = { Text("Off — Stale after only") },
+                        text = { Text("Desactivado — Caduco después de solo") },
                         onClick = { onChangeDecay(0); openDecay = false },
                     )
                     listOf(10, 30, 60).forEach { sec ->
                         DropdownMenuItem(
-                            text = { Text("Hold ${sec}s after last packet") },
+                            text = { Text("Mantener ${sec}s después del último paquete") },
                             onClick = { onChangeDecay(sec); openDecay = false },
                         )
                     }
@@ -984,7 +984,7 @@ private fun ViewPicker(
             ) {
                 Icon(
                     Icons.Outlined.ExpandMore,
-                    contentDescription = "More display options below",
+                    contentDescription = "Más opciones de visualización abajo",
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(20.dp),
                 )
@@ -1029,12 +1029,12 @@ private fun LiveSessionBar(
                         onClick = onMarkSeen,
                         modifier = Modifier.weight(1f),
                         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
-                    ) { Text("Mark seen") }
+                    ) { Text("Marcar como visto") }
                     FieldwatchActionButton(
                         onClick = onResetSeen,
                         modifier = Modifier.weight(1f),
                         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
-                    ) { Text("Reset seen") }
+                    ) { Text("Restablecer visto") }
                 }
             }
             if (movingWithYou) {
@@ -1042,7 +1042,7 @@ private fun LiveSessionBar(
                     onClick = onStartOverFollow,
                     modifier = Modifier.fillMaxWidth(),
                     contentPadding = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
-                ) { Text("Start over") }
+                ) { Text("Empezar de nuevo") }
             }
         }
     }

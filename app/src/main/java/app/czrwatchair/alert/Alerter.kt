@@ -492,7 +492,7 @@ class Alerter(private val context: Context) {
         runCatching { manager.deleteNotificationChannel("fieldwatch_watch_v2") }
         if (manager.getNotificationChannel(CHANNEL) != null) return
         manager.createNotificationChannel(
-            NotificationChannel(CHANNEL, "Watchlist", NotificationManager.IMPORTANCE_HIGH).apply {
+            NotificationChannel(CHANNEL, "Lista de vigilancia", NotificationManager.IMPORTANCE_HIGH).apply {
                 description = "Appearing signatures and devices on your watchlist. Beep is played separately."
                 enableVibration(true)
                 enableLights(true)

@@ -498,7 +498,7 @@ object CotEvent {
             }
             extra?.let { (name, note) ->
                 append('\n')
-                append("Extra attention")
+                append("Atención adicional")
                 if (!callsign.contains(name, ignoreCase = true) &&
                     !sigLine.contains(name, ignoreCase = true)
                 ) {

@@ -1993,7 +1993,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     active = false,
                     progress = 1f,
                     share = intent,
-                    shareTitle = "AI Export",
+                    shareTitle = "Exportar IA",
                 )
             }.onFailure { err ->
                 _export.value = ExportUi(error = err.message ?: "Could not build AI export")
@@ -2051,7 +2051,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
                     active = false,
                     progress = 1f,
                     share = intent,
-                    shareTitle = "AI Export",
+                    shareTitle = "Exportar IA",
                 )
             }.onFailure { err ->
                 _export.value = ExportUi(error = err.message ?: "Could not build AI export")
@@ -2356,7 +2356,7 @@ class FieldwatchViewModel(application: Application) : AndroidViewModel(applicati
             runCatching { app.logs.clear() }
                 .onSuccess { count ->
                     app.devices.bumpLogs(count)
-                    _export.value = ExportUi(cleared = true, message = "Log cleared")
+                    _export.value = ExportUi(cleared = true, message = "Registro limpiado")
                 }
                 .onFailure { err ->
                     _export.value = ExportUi(error = err.message ?: "Could not clear log")

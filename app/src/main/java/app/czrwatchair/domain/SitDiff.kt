@@ -197,7 +197,7 @@ object SitDiff {
             sections += DebriefSection(next(), "Aircraft", aircraftBody)
         }
         observerNotesSection(thisSit, second)?.let { body ->
-            sections += DebriefSection(next(), "Observer notes", body)
+            sections += DebriefSection(next(), "Notas del observador", body)
         }
         markedMineSection(thisSit, second)?.let { body ->
             sections += DebriefSection(next(), "Marked mine", body)
@@ -205,7 +205,7 @@ object SitDiff {
         if (extraHits.isNotEmpty()) {
             sections += DebriefSection(
                 next(),
-                "Extra attention",
+                "Atención adicional",
                 extraHits.joinToString("\n") { "${it.radioLabel}\n${it.note}" },
                 alert = true,
             )
@@ -378,7 +378,7 @@ object SitDiff {
             val row = byKey[key] ?: return@mapNotNull null
             if (!row.extraAttention) return@mapNotNull null
             ExtraAttentionHit(
-                signature = row.fleetNames.firstOrNull() ?: "Extra attention",
+                signature = row.fleetNames.firstOrNull() ?: "Atención adicional",
                 radioLabel = line(row),
                 note = where,
             )

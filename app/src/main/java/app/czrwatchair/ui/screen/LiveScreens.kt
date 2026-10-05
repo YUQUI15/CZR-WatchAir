@@ -173,10 +173,10 @@ fun LivePane(
                 title = { Text(floodNotice.title()) },
                 text = { Text(floodNotice.body()) },
                 confirmButton = {
-                    TextButton(onClick = { vm.dismissPairingFlood() }) { Text("Continue") }
+                    TextButton(onClick = { vm.dismissPairingFlood() }) { Text("Continuar") }
                 },
                 dismissButton = {
-                    TextButton(onClick = { vm.hidePairingFlood() }) { Text("Hide these") }
+                    TextButton(onClick = { vm.hidePairingFlood() }) { Text("Ocultar estos") }
                 },
             )
         }
@@ -257,7 +257,7 @@ fun LivePane(
         if (renameSit && openSit != null) {
             AlertDialog(
                 onDismissRequest = { renameSit = false },
-                title = { Text("Rename sit") },
+                title = { Text("Renombrar sesión") },
                 text = {
                     FieldwatchOutlinedField(
                         value = renameDraft,
@@ -410,13 +410,13 @@ private fun ClassOutlineView(
                 FieldwatchFilterChip(
                     selected = !hideEmpty,
                     onClick = { vm.updateSettings { it.copy(outlineHideEmpty = false) } },
-                    label = { Text("Show all") },
+                    label = { Text("Mostrar todo") },
                     modifier = Modifier.weight(1f),
                 )
                 FieldwatchFilterChip(
                     selected = hideEmpty,
                     onClick = { vm.updateSettings { it.copy(outlineHideEmpty = true) } },
-                    label = { Text("Collapse empty") },
+                    label = { Text("Colapsar vacíos") },
                     modifier = Modifier.weight(1f),
                 )
             }
@@ -1364,7 +1364,7 @@ private fun FleetNameChips(
             ) {
                 Icon(
                     Icons.AutoMirrored.Outlined.Notes,
-                    contentDescription = "Observer notes",
+                    contentDescription = "Notas del observador",
                     modifier = Modifier
                         .padding(horizontal = 5.dp, vertical = 1.dp)
                         .size(11.dp),
@@ -1380,7 +1380,7 @@ private fun FleetNameChips(
             ) {
                 Icon(
                     Icons.Outlined.Notifications,
-                    contentDescription = "Alerted this session",
+                    contentDescription = "Alertado en esta sesión",
                     modifier = Modifier
                         .padding(horizontal = 5.dp, vertical = 1.dp)
                         .size(11.dp),
